@@ -23,5 +23,5 @@ class IExpr:
     """A minimal AST node for algebraic expressions."""
 
     op: str
-    a: Atom | "IExpr"
-    b: Atom | "IExpr"
+    a: Atom | IExpr
+    b: Atom | IExpr
