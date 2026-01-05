@@ -9,7 +9,9 @@
   - Proofs: ⚠ Incomplete (using sorry)
 -/
 
-import Mathlib.Tactic
+-- Note: Mathlib imports commented out for now as they're not strictly needed
+-- for axiom declarations. Uncomment when implementing proofs that require tactics.
+-- import Mathlib.Tactic.Basic
 
 namespace AlgebraI
 
