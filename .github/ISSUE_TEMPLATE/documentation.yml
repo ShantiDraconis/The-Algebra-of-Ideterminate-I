@@ -1,0 +1,120 @@
+name: Documentation Task
+description: Request or contribute documentation improvements
+title: "[DOCS]: "
+labels: ["documentation"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Documentation Task
+        Use this template for documentation requests, improvements, or contributions.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Type of Documentation
+      description: What type of documentation work is needed?
+      options:
+        - New documentation
+        - Update existing documentation
+        - Fix documentation error
+        - Add examples
+        - Improve clarity
+        - Translation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: doc-area
+    attributes:
+      label: Documentation Area
+      description: Which area does this concern?
+      options:
+        - README
+        - Theory/Mathematics
+        - API/Code documentation
+        - Tutorials
+        - Examples
+        - Discussions guide
+        - Contributing guidelines
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: Issue or Gap
+      description: Describe what's missing, unclear, or incorrect
+      placeholder: |
+        Example: The README doesn't explain how to start contributing...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+      description: Describe what should be added or changed
+      placeholder: |
+        Suggest adding:
+        1. A "Getting Started" section
+        2. Step-by-step contribution guide
+        3. Examples of good first issues
+    validations:
+      required: true
+
+  - type: textarea
+    id: content
+    attributes:
+      label: Proposed Content (optional)
+      description: If you have draft content, share it here
+      placeholder: |
+        ## Getting Started
+        
+        To contribute to this project:
+        1. ...
+        2. ...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Target Audience
+      description: Who is the primary audience for this documentation?
+      options:
+        - Beginners/Newcomers
+        - Mathematics researchers
+        - Developers/Implementers
+        - Buyers/Users
+        - Contributors
+        - Everyone
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: Related Documentation
+      description: Link to related documentation or examples
+      placeholder: |
+        - Similar projects' documentation
+        - Related sections in current docs
+        - External resources
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Documentation Standards
+      description: Ensure your contribution meets these standards (if contributing)
+      options:
+        - label: Clear and concise writing
+        - label: Proper formatting (markdown)
+        - label: Examples included where appropriate
+        - label: Technical accuracy verified
+        - label: Links and references checked
