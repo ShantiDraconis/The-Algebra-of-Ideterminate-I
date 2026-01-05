@@ -88,6 +88,26 @@ Interactive command-line interface for live testing.
 
 ## Usage
 
+### Logging
+
+This library follows Python logging best practices:
+
+- **By default**: Uses `NullHandler` - produces no output (suitable for library use)
+- **For interactive use**: Call `_ensure_logging_configured()` or use the REPL
+- **Custom configuration**: Applications should configure logging as needed
+
+```python
+import logging
+from ialgebra import IElement, oplus, SemanticsMode
+
+# Configure logging to see semantic decisions
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+
+# Now semantic decisions will be logged
+result = oplus(IElement.I, 5, SemanticsMode.CONTEXTUAL)
+# Output: INFO: Semantic decision [contextual]: oplus(IElement.I, 5) = I | Reason: ...
+```
+
 ### Basic Operations
 
 ```python
@@ -96,7 +116,7 @@ sys.path.insert(0, 'src/python')
 
 from ialgebra import IElement, oplus, ominus, otimes, odiv, SemanticsMode
 
-# Basic operations
+# Basic operations (no logging output by default)
 result = oplus(IElement.I, IElement.ZERO)  # I + 0 = I
 result = ominus(IElement.I, IElement.I)     # I - I = 0
 result = otimes(IElement.I, IElement.I)     # I * I = I
@@ -107,7 +127,7 @@ result = oplus(5, 3)   # 8
 result = otimes(2, 4)  # 8
 
 # With different semantic modes
-result = oplus(IElement.I, 5, SemanticsMode.CONTEXTUAL)  # I (with logging)
+result = oplus(IElement.I, 5, SemanticsMode.CONTEXTUAL)  # I
 ```
 
 ### Validation

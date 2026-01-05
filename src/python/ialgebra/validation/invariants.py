@@ -140,26 +140,29 @@ class RestrictedCancellationValidator(InvariantValidator):
             return True
         return True
     
-    def validate_no_general_cancellation(
+    def _validate_no_general_cancellation(
         self,
         expr: str,
         a: Union[IElement, int, float],
         b: Union[IElement, int, float]
     ) -> bool:
         """
-        Validate that general cancellation (beyond I - I) is not assumed.
+        Internal placeholder for validating general cancellation patterns.
         
-        For example, I + x - I should not automatically simplify to x
-        unless explicitly validated in the context.
+        This is intended for future implementation to analyze expression trees
+        and ensure cancellation only occurs in restricted cases (I - I, I / I).
         
-        Note: This is a placeholder for more complex validation logic.
-        In a full implementation, this would analyze expression trees to ensure
-        cancellation only occurs in restricted cases (I - I, I / I).
-        Currently returns True as the operations module already enforces
-        restricted cancellation at the operation level.
+        Currently marked as private (_) as it's not yet fully implemented.
+        The operations module already enforces restricted cancellation at the
+        operation level, so this additional validation is not critical.
         
-        Future implementation would return False for expressions attempting
-        general cancellation patterns like (I + x) - I when x is unknown.
+        Args:
+            expr: String representation of the expression
+            a: First operand
+            b: Second operand
+            
+        Returns:
+            True (placeholder always returns True)
         """
         # Placeholder for complex expression tree analysis
         # Operations module already enforces restricted cancellation

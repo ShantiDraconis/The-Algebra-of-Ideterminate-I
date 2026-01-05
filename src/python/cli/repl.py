@@ -19,7 +19,7 @@ python_dir = os.path.dirname(script_dir)
 sys.path.insert(0, python_dir)
 
 from ialgebra.types import IElement, IExpr, SemanticsMode
-from ialgebra.operations import oplus, ominus, otimes, odiv
+from ialgebra.operations import oplus, ominus, otimes, odiv, _ensure_logging_configured
 from ialgebra.validation.invariants import InvariantChecker, ValidationError
 
 
@@ -34,12 +34,8 @@ class IAlgebraREPL:
         self.history = []
         self.checker = InvariantChecker(self.mode)
         
-        # Set up logging only if not already configured
-        if not logging.getLogger().hasHandlers():
-            logging.basicConfig(
-                level=logging.INFO,
-                format='%(levelname)s: %(message)s'
-            )
+        # Ensure logging is configured for interactive use
+        _ensure_logging_configured()
     
     def print_welcome(self):
         """Print welcome message"""

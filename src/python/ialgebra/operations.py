@@ -10,16 +10,28 @@ from typing import Union, Tuple
 from .types import IElement, IExpr, SemanticsMode
 
 # Configure logging for semantic decisions
+# Using NullHandler by default follows Python logging best practices
+# Applications using this library should configure logging as needed
 logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 
-# Add a default handler if none exists to ensure messages are visible
-if not logger.handlers:
-    handler = logging.StreamHandler()
-    handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(levelname)s: %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.setLevel(logging.INFO)
+
+def _ensure_logging_configured():
+    """
+    Ensure logging is configured for interactive use.
+    
+    This function is called by the REPL to set up logging for users
+    who want to see semantic decisions. Library users should configure
+    logging themselves in their applications.
+    """
+    root_logger = logging.getLogger()
+    if not root_logger.hasHandlers():
+        handler = logging.StreamHandler()
+        handler.setLevel(logging.INFO)
+        formatter = logging.Formatter('%(levelname)s: %(message)s')
+        handler.setFormatter(formatter)
+        root_logger.addHandler(handler)
+        root_logger.setLevel(logging.INFO)
 
 
 class SemanticLogger:
