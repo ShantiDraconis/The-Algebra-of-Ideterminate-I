@@ -1,3 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I/discussions
+    about: Ask questions and discuss ideas with the community
 blank_issues_enabled: true
 contact_links:
   - name: GitHub Discussions

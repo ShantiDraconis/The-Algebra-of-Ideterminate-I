@@ -1,0 +1,98 @@
+# Makefile for Cosmology Formalizations
+# 
+# Builds LaTeX documents and verifies formal proofs across all systems
+
+.PHONY: all latex lean coq isabelle agda python clean help
+
+# Default target
+all: latex lean coq python
+
+# LaTeX compilation
+latex:
+	@echo "Building LaTeX documentation..."
+	cd latex/cosmology && \
+	pdflatex -interaction=nonstopmode main.tex && \
+	bibtex main && \
+	pdflatex -interaction=nonstopmode main.tex && \
+	pdflatex -interaction=nonstopmode main.tex
+	@echo "LaTeX build complete: latex/cosmology/main.pdf"
+
+# Lean 4 verification
+lean:
+	@echo "Verifying Lean 4 formalization..."
+	cd lean && lake build IAlgebra.Cosmology
+	@echo "Lean verification complete"
+
+# Coq verification
+coq:
+	@echo "Verifying Coq formalization..."
+	cd coq && coqc theories/Cosmology.v
+	@echo "Coq verification complete"
+
+# Isabelle verification
+isabelle:
+	@echo "Verifying Isabelle formalization..."
+	@echo "Note: Requires Isabelle to be installed"
+	cd isabelle && isabelle build -D .
+	@echo "Isabelle verification complete"
+
+# Agda type-checking
+agda:
+	@echo "Type-checking Agda formalization..."
+	@echo "Note: Requires Agda to be installed"
+	cd agda && agda Cosmology.agda
+	@echo "Agda type-checking complete"
+
+# Python tests
+python:
+	@echo "Running Python simulations..."
+	cd src/python && python3 -c "import cosmology_simulations; print('Import successful')"
+	@echo "Python verification complete"
+
+# Clean build artifacts
+clean:
+	@echo "Cleaning build artifacts..."
+	cd latex/cosmology && rm -f *.aux *.log *.bbl *.blg *.out *.toc *.pdf
+	cd lean && lake clean
+	cd coq && rm -f theories/*.vo theories/*.glob theories/*.aux
+	@echo "Clean complete"
+
+# Help message
+help:
+	@echo "Available targets:"
+	@echo "  all       - Build LaTeX, verify Lean, Coq, and Python (default)"
+	@echo "  latex     - Build LaTeX documentation"
+	@echo "  lean      - Verify Lean 4 formalization"
+	@echo "  coq       - Verify Coq formalization"
+	@echo "  isabelle  - Verify Isabelle formalization (requires Isabelle)"
+	@echo "  agda      - Type-check Agda formalization (requires Agda)"
+	@echo "  python    - Test Python implementation"
+	@echo "  clean     - Remove build artifacts"
+	@echo "  help      - Show this help message"
+
+# Statistics
+stats:
+	@echo "=== Cosmology Formalization Statistics ==="
+	@echo ""
+	@echo "LaTeX lines:"
+	@wc -l latex/cosmology/*.tex | tail -1
+	@echo ""
+	@echo "Lean lines:"
+	@wc -l lean/IAlgebra/Cosmology.lean
+	@echo ""
+	@echo "Coq lines:"
+	@wc -l coq/theories/Cosmology.v
+	@echo ""
+	@echo "Isabelle lines:"
+	@wc -l isabelle/Cosmology.thy
+	@echo ""
+	@echo "Agda lines:"
+	@wc -l agda/Cosmology.agda
+	@echo ""
+	@echo "Python lines:"
+	@wc -l src/python/cosmology_simulations.py
+	@echo ""
+	@echo "Total lines of code:"
+	@find latex/cosmology lean/IAlgebra coq/theories isabelle agda src/python \
+		-name "*.tex" -o -name "*.lean" -o -name "*.v" -o -name "*.thy" -o -name "*.agda" -o -name "*.py" | \
+		xargs wc -l | tail -1

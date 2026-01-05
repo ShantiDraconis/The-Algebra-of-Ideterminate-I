@@ -1,0 +1,4 @@
+session IAlgebra = HOL +
+  options [document = pdf, document_output = "output"]
+  theories
+    IAlgebra
