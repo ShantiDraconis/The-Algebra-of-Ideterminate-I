@@ -1,0 +1,7 @@
+# Rewrite rules for the simplifier (explicit; no hidden magic)
+
+rules:
+  - id: R1
+    pattern: "x ⊕ 0"
+    replacement: "x"
+    note: "Additive identity (example)"

@@ -1,0 +1,11 @@
+name: Numerical Validation Task
+description: Add experiments, sweeps, or property tests
+title: "[Numerics]: "
+labels: ["numerics"]
+body:
+  - type: textarea
+    attributes:
+      label: Experiment spec
+      description: Inputs, expected outputs, and validation criteria.
+    validations:
+      required: true

@@ -1,0 +1,10 @@
+name: Buyer support
+description: Help for readers/buyers using the repository
+title: "[Buyer]: "
+labels: ["buyer-support"]
+body:
+  - type: textarea
+    attributes:
+      label: Question / problem
+    validations:
+      required: true

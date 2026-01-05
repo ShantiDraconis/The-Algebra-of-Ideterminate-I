@@ -1,0 +1,11 @@
+name: Proof/Formalization Task
+description: Add or extend Lean/Coq formalization
+title: "[Proof]: "
+labels: ["proof"]
+body:
+  - type: textarea
+    attributes:
+      label: Target statement
+      description: Write the theorem/lemma statement and where it belongs.
+    validations:
+      required: true

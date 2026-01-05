@@ -1,0 +1,8 @@
+# Axiom catalog (machine-readable)
+# Fill with the 15 postulates + any extensions.
+
+axioms:
+  - id: A1
+    name: "Indeterminate Constant I"
+    statement: "I := 0/0 is treated as a primitive indeterminate constant in this framework."
+    status: "core"
