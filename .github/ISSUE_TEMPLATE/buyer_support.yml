@@ -9,7 +9,7 @@ body:
     attributes:
       value: |
         ## Buyer Support
-        Use this template for support requests, questions, and assistance with using The Algebra of Indeterminate I.
+        Use this template for support requests, questions, and assistance with using The Algebra of Ideterminate I.
 
   - type: dropdown
     id: support-type
