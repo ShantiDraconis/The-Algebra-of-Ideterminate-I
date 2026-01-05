@@ -4,6 +4,35 @@ __pycache__/
 *$py.class
 *.so
 .Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Lean
+lakefile.olean
+.lake/
+build/
+
+# Coq
+*.vo
+*.vok
+*.vos
+*.glob
+*.aux
+.coqdeps.d
+.lia.cache
+
+# Isabelle
+output/
+*.thy~
+.isabelle/
+
+# Agda
+*.agdai
+MAlonzo/
+
+# Editor files
 build/
 develop-eggs/
 dist/
@@ -16,6 +45,8 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -55,6 +86,13 @@ formal/coq/*.vos
 formal/coq/*.glob
 formal/coq/.*.aux
 
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
 # IDE
 .vscode/
 .idea/
@@ -73,3 +111,11 @@ data/results/*
 # Node.js (for playground)
 node_modules/
 src/js/playground/dist/
+# Temporary files
+/tmp/
+*.tmp
+*.bak
+
+# OS
+.DS_Store
+Thumbs.db

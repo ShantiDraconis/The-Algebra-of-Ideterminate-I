@@ -15,3 +15,23 @@ keywords:
   - Lean
   - Coq
   - numerical validation
+message: "If you use this software, please cite it as below."
+type: software
+title: "The Algebra of Indeterminate I"
+abstract: "A computational algebra system for exploring the properties and operations of the indeterminate unit I, extending traditional algebraic structures with novel calculus and rewriting systems."
+authors:
+  - family-names: "Draconis"
+    given-names: "Shanti"
+repository-code: "https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I"
+url: "https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I"
+license: "TBD"
+version: "0.1.0"
+date-released: "2026-01-05"
+keywords:
+  - algebra
+  - indeterminate
+  - symbolic-computation
+  - rewrite-systems
+  - formal-methods
+  - lean4
+  - python
