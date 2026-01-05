@@ -1,0 +1,322 @@
+# Rewrite Rules for The Algebra of Indeterminate I
+#
+# This file contains controlled rewrite rules for simplification
+# and normalization of expressions in the system.
+
+version: "1.0.0"
+description: "Rewrite rules for controlled simplification in the Algebra of Indeterminate I"
+
+# Basic Arithmetic Simplification Rules
+arithmetic_rules:
+  - id: AR1
+    name: "Addition with zero (left)"
+    pattern: "0 + x"
+    rewrite: "x"
+    condition: "always"
+    bidirectional: true
+    
+  - id: AR2
+    name: "Addition with zero (right)"
+    pattern: "x + 0"
+    rewrite: "x"
+    condition: "always"
+    bidirectional: true
+    
+  - id: AR3
+    name: "Multiplication by zero (left)"
+    pattern: "0 · x"
+    rewrite: "0"
+    condition: "always"
+    bidirectional: false
+    
+  - id: AR4
+    name: "Multiplication by zero (right)"
+    pattern: "x · 0"
+    rewrite: "0"
+    condition: "always"
+    bidirectional: false
+    
+  - id: AR5
+    name: "Multiplication by one (left)"
+    pattern: "1 · x"
+    rewrite: "x"
+    condition: "always"
+    bidirectional: true
+    
+  - id: AR6
+    name: "Multiplication by one (right)"
+    pattern: "x · 1"
+    rewrite: "x"
+    condition: "always"
+    bidirectional: true
+    
+  - id: AR7
+    name: "Additive inverse"
+    pattern: "x + (-x)"
+    rewrite: "0"
+    condition: "always"
+    bidirectional: true
+    
+  - id: AR8
+    name: "Double negation"
+    pattern: "-(-x)"
+    rewrite: "x"
+    condition: "always"
+    bidirectional: true
+
+# Indeterminate I-specific Rules
+i_rules:
+  - id: IR1
+    name: "I idempotency (multiplication)"
+    pattern: "I · I"
+    rewrite: "I"
+    condition: "always"
+    bidirectional: true
+    note: "I² = I (axiom P11)"
+    
+  - id: IR2
+    name: "I idempotency (addition)"
+    pattern: "I + I"
+    rewrite: "I"
+    condition: "always"
+    bidirectional: true
+    note: "I + I = I (axiom P12)"
+    
+  - id: IR3
+    name: "I powers collapse"
+    pattern: "I^n"
+    rewrite: "I"
+    condition: "n ≥ 1"
+    bidirectional: false
+    note: "All positive powers of I equal I (axiom I5)"
+    
+  - id: IR4
+    name: "I times zero"
+    pattern: "I · 0"
+    rewrite: "0"
+    condition: "always"
+    bidirectional: false
+    note: "Zero absorption applies to I"
+    
+  - id: IR5
+    name: "Zero times I"
+    pattern: "0 · I"
+    rewrite: "0"
+    condition: "always"
+    bidirectional: false
+    note: "Zero absorption applies to I"
+    
+  - id: IR6
+    name: "I times one"
+    pattern: "I · 1"
+    rewrite: "I"
+    condition: "always"
+    bidirectional: true
+    note: "Multiplicative identity applies to I"
+    
+  - id: IR7
+    name: "One times I"
+    pattern: "1 · I"
+    rewrite: "I"
+    condition: "always"
+    bidirectional: true
+    note: "Multiplicative identity applies to I"
+    
+  - id: IR8
+    name: "I plus zero"
+    pattern: "I + 0"
+    rewrite: "I"
+    condition: "always"
+    bidirectional: true
+    note: "Additive identity applies to I"
+    
+  - id: IR9
+    name: "Zero plus I"
+    pattern: "0 + I"
+    rewrite: "I"
+    condition: "always"
+    bidirectional: true
+    note: "Additive identity applies to I"
+    
+  - id: IR10
+    name: "I negative idempotency"
+    pattern: "I + (-I)"
+    rewrite: "0"
+    condition: "always"
+    bidirectional: true
+    note: "I has an additive inverse despite its special properties"
+
+# Distributive Law Rules
+distributive_rules:
+  - id: DR1
+    name: "Left distributivity"
+    pattern: "x · (y + z)"
+    rewrite: "(x · y) + (x · z)"
+    condition: "always"
+    bidirectional: true
+    note: "Fundamental distributive property"
+    
+  - id: DR2
+    name: "Right distributivity"
+    pattern: "(y + z) · x"
+    rewrite: "(y · x) + (z · x)"
+    condition: "always"
+    bidirectional: true
+    note: "Derived from left distributivity and commutativity"
+    
+  - id: DR3
+    name: "Factor out common term (left)"
+    pattern: "(x · y) + (x · z)"
+    rewrite: "x · (y + z)"
+    condition: "always"
+    bidirectional: true
+    note: "Reverse of distributivity for factoring"
+    
+  - id: DR4
+    name: "Factor out common term (right)"
+    pattern: "(y · x) + (z · x)"
+    rewrite: "(y + z) · x"
+    condition: "always"
+    bidirectional: true
+    note: "Reverse of distributivity for factoring"
+
+# Associativity and Commutativity Rules
+structural_rules:
+  - id: SR1
+    name: "Addition associativity (left-to-right)"
+    pattern: "(x + y) + z"
+    rewrite: "x + (y + z)"
+    condition: "always"
+    bidirectional: true
+    note: "Used for expression normalization"
+    
+  - id: SR2
+    name: "Multiplication associativity (left-to-right)"
+    pattern: "(x · y) · z"
+    rewrite: "x · (y · z)"
+    condition: "always"
+    bidirectional: true
+    note: "Used for expression normalization"
+    
+  - id: SR3
+    name: "Addition commutativity"
+    pattern: "x + y"
+    rewrite: "y + x"
+    condition: "canonical_order(y, x)"
+    bidirectional: true
+    note: "Used for canonical form - applies only when y < x in canonical ordering"
+    
+  - id: SR4
+    name: "Multiplication commutativity (non-applicable)"
+    pattern: "x · y"
+    rewrite: "y · x"
+    condition: "false"
+    bidirectional: false
+    note: "Multiplication is NOT commutative in general; do not apply"
+
+# Special Case Rules for Mixed Operations
+mixed_rules:
+  - id: MR1
+    name: "I distributed over sum with I"
+    pattern: "I · (I + x)"
+    rewrite: "I · I + I · x"
+    intermediate: "I + I · x"
+    final: "I + I · x"
+    condition: "x ≠ 0"
+    bidirectional: false
+    note: "Distribution applies but simplifies due to I² = I"
+    
+  - id: MR2
+    name: "Sum with I times I"
+    pattern: "(I + x) · I"
+    rewrite: "I · I + x · I"
+    intermediate: "I + x · I"
+    final: "I + x · I"
+    condition: "x ≠ 0"
+    bidirectional: false
+    note: "Distribution applies but simplifies due to I² = I"
+    
+  - id: MR3
+    name: "I minus I"
+    pattern: "I - I"
+    rewrite: "I + (-I)"
+    intermediate: "0"
+    final: "0"
+    condition: "always"
+    bidirectional: false
+    note: "Despite I + I = I, we have I - I = 0 by additive inverse"
+
+# Normalization Rules (for canonical form)
+normalization_rules:
+  - id: NR1
+    name: "Canonical addition order"
+    description: "Terms in addition should be ordered: constants < I < variables < complex expressions"
+    pattern: "Sum[terms]"
+    rewrite: "Sort terms by canonical order"
+    condition: "always"
+    
+  - id: NR2
+    name: "Canonical multiplication order"
+    description: "Factors in multiplication should be ordered: constants < I < variables < complex expressions"
+    pattern: "Product[factors]"
+    rewrite: "Sort factors by canonical order"
+    condition: "always"
+    
+  - id: NR3
+    name: "Combine like terms"
+    pattern: "n·x + m·x"
+    rewrite: "(n + m)·x"
+    condition: "n, m are constants"
+    bidirectional: true
+    
+  - id: NR4
+    name: "Expand parentheses depth-first"
+    description: "When simplifying, expand innermost parentheses first"
+    pattern: "Complex nested expression"
+    rewrite: "Apply rules from innermost to outermost"
+    condition: "always"
+
+# Prohibited Rules (rules that DO NOT apply)
+prohibited_rules:
+  - id: PR1
+    name: "NO multiplicative inverse for I"
+    pattern: "I · x = 1"
+    rewrite: "UNDEFINED"
+    note: "I has no multiplicative inverse (axiom P14)"
+    
+  - id: PR2
+    name: "NO cancellation of I in division"
+    pattern: "(I · x) / I"
+    rewrite: "UNDEFINED"
+    note: "Division by I is undefined (axiom I4)"
+    
+  - id: PR3
+    name: "NO multiplication commutativity (general case)"
+    pattern: "x · y"
+    rewrite: "y · x"
+    note: "Multiplication is NOT commutative in general"
+    condition: "false"
+    
+  - id: PR4
+    name: "NO field axioms"
+    pattern: "Various field axioms"
+    rewrite: "NOT APPLICABLE"
+    note: "System is not a field; see counterexamples"
+
+# Meta-rules for rule application
+meta_rules:
+  - id: META1
+    name: "Rule application order"
+    description: "Apply rules in this priority: arithmetic > I-rules > distributive > structural > normalization"
+    
+  - id: META2
+    name: "Termination guarantee"
+    description: "Rule application must terminate; avoid infinite loops by applying each rule at most once per subexpression"
+    
+  - id: META3
+    name: "Canonical form"
+    description: "Final expression should be in canonical form: expanded, combined like terms, terms ordered"
+    
+  - id: META4
+    name: "Consistency check"
+    description: "After simplification, verify result is consistent with axioms"
