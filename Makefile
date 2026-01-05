@@ -19,7 +19,7 @@ lean:
 	@cd formal/lean && lake build
 
 coq:
-	@cd formal/coq && make || true
+	@cd formal/coq && $(MAKE) || echo "WARNING: Coq build failed but is being ignored."
 
 fmt:
 	@./scripts/format_all.sh
@@ -29,4 +29,4 @@ lint:
 
 clean:
 	@rm -rf latex/build || true
-	@find . -name "__pycache__" -type d -prune -exec rm -rf {} \; || true
+	@find . -name "__pycache__" -type d -prune -exec rm -rf {} \;

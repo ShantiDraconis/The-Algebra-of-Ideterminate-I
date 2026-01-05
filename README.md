@@ -42,9 +42,9 @@ See `docs/repo_map.md`.
 
 If you came from the book:
 
-- Start here: `docs/buyer_pack.md`
-- How to verify release authenticity: `hub/buyers/how_to_verify_release.md`
-- Where to ask questions: `hub/DISCUSSIONS_GUIDE.md`
+- Start here: `docs/buyer_pack.md` (coming soon in Phase 4)
+- How to verify release authenticity: `hub/buyers/how_to_verify_release.md` (coming soon in Phase 8)
+- Where to ask questions: `hub/DISCUSSIONS_GUIDE.md` (coming soon in Phase 8)
 
 ## Core Modules
 
