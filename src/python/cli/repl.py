@@ -34,11 +34,12 @@ class IAlgebraREPL:
         self.history = []
         self.checker = InvariantChecker(self.mode)
         
-        # Set up logging
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(levelname)s: %(message)s'
-        )
+        # Set up logging only if not already configured
+        if not logging.getLogger().hasHandlers():
+            logging.basicConfig(
+                level=logging.INFO,
+                format='%(levelname)s: %(message)s'
+            )
     
     def print_welcome(self):
         """Print welcome message"""

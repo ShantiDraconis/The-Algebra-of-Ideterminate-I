@@ -9,7 +9,7 @@ This module provides validators for algebraic invariants including:
 
 from typing import Union, Tuple, Callable
 from ..types import IElement, IExpr, SemanticsMode
-from ..operations import oplus, ominus, otimes
+from ..operations import oplus, ominus, otimes, odiv
 
 
 class ValidationError(Exception):
@@ -131,8 +131,6 @@ class RestrictedCancellationValidator(InvariantValidator):
         Returns:
             True if cancellation rule is satisfied
         """
-        from ..operations import odiv
-        
         if a == IElement.I and b == IElement.I:
             result = odiv(a, b, self.mode)
             if result != 1:
