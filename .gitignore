@@ -79,6 +79,9 @@ parts/
 sdist/
 var/
 wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
@@ -134,6 +137,24 @@ venv.bak/
 *.swo
 *~
 
+# Lean
+_target/
+lakefile.olean
+.lake/
+
+# Coq
+*.vo
+*.glob
+*.aux
+.*.aux
+*.v.d
+
+# Isabelle
+.isabelle/
+output/
+
+# Agda
+*.agdai
 # OS files
 .DS_Store
 
