@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+
+# Lean
+lake-packages/
+.lake/
+build/
+
+# Coq
+*.vo
+*.vok
+*.vos
+*.glob
+*.aux
+
+# Isabelle
+*.log
+output/
+browser_info/
+
+# Agda
+*.agdai
+MAlonzo/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
