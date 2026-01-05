@@ -1,9 +1,72 @@
+# Build artifacts and dependencies
+*.pyc
+__pycache__/
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Lean build artifacts
+build/
+lake-packages/
+.lake/
+*.olean
+
+# Coq build artifacts
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Lean
+lakefile.olean
+.lake/
+build/
+
+# Coq
+*.vo
+*.vok
+*.vos
+*.glob
+*.aux
+.*.aux
+
+# Isabelle build artifacts
+*.thy~
+output/
+browser_info/
+
+# Agda build artifacts
+*.agdai
+MAlonzo/
+
+# Python
+venv/
+.venv/
+env/
+*.egg-info/
+dist/
+
+# IDE and editor files
+.coqdeps.d
+.lia.cache
+
+# Isabelle
+output/
+*.thy~
+.isabelle/
+
+# Agda
+*.agdai
+MAlonzo/
+
+# Editor files
 build/
 develop-eggs/
 dist/
@@ -21,6 +84,17 @@ wheels/
 *.egg
 
 # Virtual environments
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.venv
 venv/
 ENV/
 env/
@@ -36,12 +110,54 @@ env/
 *.fdb_latexmk
 *.fls
 *.pdf
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+latex/build/
+
+# Lean
+formal/lean/.lake/
+formal/lean/lake-packages/
+formal/lean/build/
+
+# Coq
+formal/coq/*.vo
+formal/coq/*.vok
+formal/coq/*.vos
+formal/coq/*.glob
+formal/coq/.*.aux
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Lean
+_target/
+lakefile.olean
+.lake/
 
 # Coq
 *.vo
 *.glob
 *.v.d
 .coq-native/
+*.aux
+.*.aux
+*.v.d
 
 # Isabelle
 .isabelle/
@@ -62,6 +178,25 @@ build/
 *.swp
 *.swo
 *~
+# Agda
+*.agdai
+# OS files
+.DS_Store
+
+# Data artifacts
+data/results/*
+!data/results/README.md
+
+# Environment
+.env
+
+# Node.js (for playground)
+node_modules/
+src/js/playground/dist/
+# Temporary files
+/tmp/
+*.tmp
+*.bak
 
 # OS
 .DS_Store

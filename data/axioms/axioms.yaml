@@ -1,0 +1,198 @@
+# Formal Catalog of Axioms for The Algebra of Indeterminate I
+# 
+# This file contains the normalized list of 15 fundamental postulates
+# plus extensions from ZF (Zermelo-Fraenkel), AC (Axiom of Choice), 
+# and the Indeterminate I framework.
+
+version: "1.0.0"
+description: "Axioms for the Algebra of Indeterminate I"
+
+# Core Postulates (15 fundamental axioms)
+core_postulates:
+  - id: P1
+    name: "Closure under Addition"
+    statement: "∀a,b ∈ S: a + b ∈ S"
+    category: "algebraic_structure"
+    description: "The system is closed under the addition operation"
+    
+  - id: P2
+    name: "Associativity of Addition"
+    statement: "∀a,b,c ∈ S: (a + b) + c = a + (b + c)"
+    category: "algebraic_structure"
+    description: "Addition is associative"
+    
+  - id: P3
+    name: "Commutativity of Addition"
+    statement: "∀a,b ∈ S: a + b = b + a"
+    category: "algebraic_structure"
+    description: "Addition is commutative"
+    
+  - id: P4
+    name: "Additive Identity"
+    statement: "∃0 ∈ S: ∀a ∈ S: a + 0 = 0 + a = a"
+    category: "algebraic_structure"
+    description: "There exists an additive identity element"
+    
+  - id: P5
+    name: "Additive Inverse"
+    statement: "∀a ∈ S: ∃(-a) ∈ S: a + (-a) = (-a) + a = 0"
+    category: "algebraic_structure"
+    description: "Every element has an additive inverse"
+    
+  - id: P6
+    name: "Closure under Multiplication"
+    statement: "∀a,b ∈ S: a · b ∈ S"
+    category: "algebraic_structure"
+    description: "The system is closed under multiplication"
+    
+  - id: P7
+    name: "Associativity of Multiplication"
+    statement: "∀a,b,c ∈ S: (a · b) · c = a · (b · c)"
+    category: "algebraic_structure"
+    description: "Multiplication is associative"
+    
+  - id: P8
+    name: "Multiplicative Identity"
+    statement: "∃1 ∈ S: ∀a ∈ S: a · 1 = 1 · a = a"
+    category: "algebraic_structure"
+    description: "There exists a multiplicative identity element"
+    
+  - id: P9
+    name: "Distributivity"
+    statement: "∀a,b,c ∈ S: a · (b + c) = (a · b) + (a · c)"
+    category: "algebraic_structure"
+    description: "Multiplication distributes over addition"
+    
+  - id: P10
+    name: "Indeterminate Element"
+    statement: "∃I ∈ S: I ≠ 0 ∧ I ≠ 1"
+    category: "indeterminate"
+    description: "There exists an indeterminate element I distinct from 0 and 1"
+    
+  - id: P11
+    name: "I-squared Property"
+    statement: "I² = I"
+    category: "indeterminate"
+    description: "The indeterminate I is idempotent under multiplication"
+    
+  - id: P12
+    name: "I-addition Property"
+    statement: "I + I = I"
+    category: "indeterminate"
+    description: "The indeterminate I is idempotent under addition"
+    
+  - id: P13
+    name: "Zero Absorption"
+    statement: "∀a ∈ S: a · 0 = 0 · a = 0"
+    category: "algebraic_structure"
+    description: "Zero absorbs all elements under multiplication"
+    
+  - id: P14
+    name: "Non-invertibility of I"
+    statement: "¬∃I⁻¹ ∈ S: I · I⁻¹ = 1"
+    category: "indeterminate"
+    description: "The indeterminate I has no multiplicative inverse"
+    
+  - id: P15
+    name: "I-zero Distinction"
+    statement: "I · 0 = 0 ∧ I ≠ 0"
+    category: "indeterminate"
+    description: "I behaves like zero in some contexts but is distinct from zero"
+
+# Extensions from Zermelo-Fraenkel Set Theory
+zf_extensions:
+  - id: ZF1
+    name: "Extensionality"
+    statement: "∀A,B: (∀x: x ∈ A ⟺ x ∈ B) ⟹ A = B"
+    category: "set_theory"
+    description: "Two sets are equal if they have the same elements"
+    
+  - id: ZF2
+    name: "Pairing"
+    statement: "∀a,b: ∃C: ∀x: x ∈ C ⟺ (x = a ∨ x = b)"
+    category: "set_theory"
+    description: "For any two sets, there exists a set containing exactly those two sets"
+    
+  - id: ZF3
+    name: "Union"
+    statement: "∀F: ∃A: ∀x: x ∈ A ⟺ ∃B: (x ∈ B ∧ B ∈ F)"
+    category: "set_theory"
+    description: "The union of a collection of sets is a set"
+    
+  - id: ZF4
+    name: "Power Set"
+    statement: "∀A: ∃P: ∀B: B ∈ P ⟺ B ⊆ A"
+    category: "set_theory"
+    description: "The power set of any set exists"
+    
+  - id: ZF5
+    name: "Infinity"
+    statement: "∃A: ∅ ∈ A ∧ (∀x ∈ A: x ∪ {x} ∈ A)"
+    category: "set_theory"
+    description: "There exists an infinite set"
+
+# Axiom of Choice extensions
+ac_extensions:
+  - id: AC1
+    name: "Axiom of Choice"
+    statement: "∀X: (∅ ∉ X ∧ pairwise_disjoint(X)) ⟹ ∃f: f is choice function on X"
+    category: "choice"
+    description: "Given a collection of non-empty sets, there exists a choice function"
+    
+  - id: AC2
+    name: "Well-ordering Theorem"
+    statement: "∀A: ∃R: R is well-ordering on A"
+    category: "choice"
+    description: "Every set can be well-ordered"
+
+# Indeterminate-specific extensions
+indeterminate_extensions:
+  - id: I1
+    name: "I-element Uniqueness"
+    statement: "∀x ∈ S: (x² = x ∧ x + x = x ∧ x ≠ 0 ∧ x ≠ 1) ⟹ x = I"
+    category: "indeterminate"
+    description: "The indeterminate element is unique given its properties"
+    
+  - id: I2
+    name: "I-mixed Operations"
+    statement: "∀a ∈ S \\ {0,I}: I + a ≠ I ∧ I · a ∈ {0, I}"
+    category: "indeterminate"
+    description: "I's behavior with non-special elements"
+    
+  - id: I3
+    name: "I-ordering Incompleteness"
+    statement: "¬∃ total order < on S: ∀a,b ∈ S: (a < b ∨ a = b ∨ b < a)"
+    category: "indeterminate"
+    description: "No total ordering can be consistently defined on S"
+    
+  - id: I4
+    name: "I-division Undefined"
+    statement: "∀a ∈ S: a/I is undefined"
+    category: "indeterminate"
+    description: "Division by I is not defined in the system"
+    
+  - id: I5
+    name: "I-polynomial Behavior"
+    statement: "∀n ∈ ℕ: Iⁿ = I"
+    category: "indeterminate"
+    description: "All positive powers of I equal I"
+
+# Meta-axioms about the system
+meta_axioms:
+  - id: M1
+    name: "Consistency"
+    statement: "¬(∃P: P ∧ ¬P)"
+    category: "meta"
+    description: "The axiom system is consistent (no contradictions)"
+    
+  - id: M2
+    name: "Independence"
+    statement: "Each core postulate is independent of the others"
+    category: "meta"
+    description: "No postulate can be derived from the others"
+    
+  - id: M3
+    name: "Minimality"
+    statement: "The 15 postulates form a minimal axiom set"
+    category: "meta"
+    description: "No proper subset of the postulates suffices"

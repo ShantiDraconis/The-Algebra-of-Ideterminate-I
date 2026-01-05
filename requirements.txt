@@ -1,0 +1,17 @@
+# Python dependencies for The Algebra of Indeterminate I
+# Install with: pip install -r requirements.txt
+
+# Jupyter notebooks
+jupyter>=1.0.0
+notebook>=6.4.0
+
+# Data manipulation
+pandas>=1.3.0
+numpy>=1.21.0
+
+# YAML parsing
+pyyaml>=5.4.0
+
+# Optional: Enhanced notebook features
+ipywidgets>=7.6.0
+matplotlib>=3.4.0

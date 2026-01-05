@@ -1,0 +1,145 @@
+\section{Flowchart of the Code's Behavior}
+
+\subsection{Overview}
+
+This section provides a visual representation of the computational flow for estimating the modified ground-state energy under the Generalized Uncertainty Principle (GUP) framework. The flowchart details the algorithmic process and mathematical operations involved.
+
+\subsection{GUP Framework}
+
+\begin{definition}[Generalized Uncertainty Principle]
+The GUP modifies the standard Heisenberg uncertainty relation:
+\[
+\Delta x \Delta p \geq \frac{\hbar}{2}\left(1 + \beta(\Delta p)^2 + \alpha(\Delta p)^4\right),
+\]
+where $\alpha$ and $\beta$ are quantum-gravity correction parameters.
+\end{definition}
+
+\subsection{Computational Algorithm}
+
+\begin{theorem}[Minimal Momentum Uncertainty]
+The minimal momentum uncertainty $y = (\Delta p)^2$ satisfies the optimization condition:
+\[
+\frac{d}{dy}\left[\frac{y}{2m} + \frac{\hbar^2(1 + \beta y + \alpha y^2)^2}{8my}\right] = 0.
+\]
+\end{theorem}
+
+\begin{proof}
+The effective energy is:
+\[
+E = \frac{(\Delta p)^2}{2m} + V(\Delta x),
+\]
+where $V(\Delta x) = \frac{k(\Delta x)^2}{2}$ for a harmonic oscillator. From the GUP:
+\[
+\Delta x \geq \frac{\hbar(1 + \beta(\Delta p)^2 + \alpha(\Delta p)^4)}{2\Delta p}.
+\]
+Minimizing with respect to $\Delta p$ gives the stated condition.
+\end{proof}
+
+\subsection{Algorithm Flowchart}
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.5cm,
+  box/.style={rectangle, draw, text width=8cm, align=center, minimum height=1cm},
+  decision/.style={diamond, draw, text width=3cm, align=center, aspect=2},
+  arrow/.style={->, >=stealth, thick}
+]
+
+% Nodes
+\node[box] (start) {Start: Initialize parameters $\alpha$, $\beta$, $\hbar$, $m$};
+\node[box, below of=start] (step1) {Compute minimal momentum uncertainty $y = (\Delta p)^2_{\min}$ by solving optimization equation};
+\node[box, below of=step1] (step2) {Derive momentum uncertainty: $\Delta p = \sqrt{y}$};
+\node[box, below of=step2] (step3) {Use GUP to compute position uncertainty: $\Delta x = \frac{\hbar(1 + \beta y + \alpha y^2)}{2\sqrt{y}}$};
+\node[box, below of=step3] (step4) {Estimate effective ground-state energy: $E = \frac{y}{2m} + \frac{k(\Delta x)^2}{2}$};
+\node[box, below of=step4] (step5) {Store results: $y$, $\Delta p$, $\Delta x$, $E$};
+\node[decision, below of=step5] (decision1) {More parameter values?};
+\node[box, below of=decision1, node distance=2cm] (step6) {Plot $E$ vs $\alpha$ and analyze behavior};
+\node[box, below of=step6] (end) {End: Output results and visualizations};
+
+% Arrows
+\draw[arrow] (start) -- (step1);
+\draw[arrow] (step1) -- (step2);
+\draw[arrow] (step2) -- (step3);
+\draw[arrow] (step3) -- (step4);
+\draw[arrow] (step4) -- (step5);
+\draw[arrow] (step5) -- (decision1);
+\draw[arrow] (decision1) -- node[right] {Yes} (step1.east) -- ++(2,0) |- (step1);
+\draw[arrow] (decision1) -- node[right] {No} (step6);
+\draw[arrow] (step6) -- (end);
+
+\end{tikzpicture}
+\end{center}
+
+\subsection{Mathematical Formalization}
+
+\begin{lemma}[Convergence of Optimization]
+The optimization problem for minimal uncertainty converges to a unique solution $y^*$ under the conditions:
+\begin{enumerate}
+\item $\alpha \geq 0$, $\beta \in \mathbb{R}$
+\item The energy functional is bounded below
+\item The GUP correction terms are sufficiently small
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The energy functional:
+\[
+E(y) = \frac{y}{2m} + \frac{k\hbar^2(1 + \beta y + \alpha y^2)^2}{8my}
+\]
+is strictly convex for small $\alpha$ and $\beta$, as its second derivative:
+\[
+E''(y) = \frac{1}{m} + \frac{k\hbar^2}{4m}\frac{d^2}{dy^2}\left[\frac{(1 + \beta y + \alpha y^2)^2}{y}\right] > 0
+\]
+for appropriate parameter ranges. By convexity, a unique minimum exists.
+\end{proof}
+
+\subsection{Numerical Implementation Details}
+
+\begin{algorithm}[H]
+\caption{GUP Ground-State Energy Calculation}
+\begin{algorithmic}[1]
+\REQUIRE Parameters $\alpha$, $\beta$, mass $m$, spring constant $k$
+\ENSURE Ground-state energy $E$, uncertainties $\Delta p$, $\Delta x$
+\STATE Initialize $y_0 = \hbar\sqrt{k/m}$ (classical estimate)
+\STATE Solve optimization equation numerically for $y^*$ using Newton-Raphson:
+\[
+y_{n+1} = y_n - \frac{E'(y_n)}{E''(y_n)}
+\]
+\STATE Compute $\Delta p = \sqrt{y^*}$
+\STATE Compute $\Delta x = \frac{\hbar(1 + \beta y^* + \alpha (y^*)^2)}{2\sqrt{y^*}}$
+\STATE Compute $E = \frac{y^*}{2m} + \frac{k(\Delta x)^2}{2}$
+\RETURN $E$, $\Delta p$, $\Delta x$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Results Discussion}
+
+\begin{proposition}[Energy Scaling with GUP Parameters]
+For $\alpha = 0$, we recover a simpler GUP scenario where $\beta$ alone modifies the ground-state energy. As $\alpha > 0$ increases, the minimum energy grows faster, reflecting stronger quantum-gravity corrections.
+\end{proposition}
+
+\begin{remark}
+In more refined approaches, one would solve a proper GUP-modified Schrödinger equation:
+\[
+\hat{H}_{\text{GUP}} \psi = E \psi,
+\]
+where the momentum operator includes GUP corrections:
+\[
+\hat{p}_{\text{GUP}} = \hat{p}(1 + \beta \hat{p}^2 + \alpha \hat{p}^4).
+\]
+However, these plots illustrate the qualitative trend.
+\end{remark}
+
+\subsection{Computational Complexity}
+
+\begin{theorem}[Algorithm Complexity]
+The GUP energy calculation algorithm has time complexity:
+\[
+\mathcal{O}(N_{\alpha} \cdot N_{\text{iter}} \cdot \log(1/\epsilon)),
+\]
+where $N_{\alpha}$ is the number of $\alpha$ values, $N_{\text{iter}}$ is the number of Newton-Raphson iterations, and $\epsilon$ is the desired accuracy.
+\end{theorem}
+
+\begin{proof}
+For each $\alpha$ value, the Newton-Raphson method converges quadratically, requiring $\mathcal{O}(\log(1/\epsilon))$ iterations. Each iteration involves evaluating $E'(y)$ and $E''(y)$, which are $\mathcal{O}(1)$ operations. With $N_{\text{iter}}$ fixed iterations for robustness, the total complexity follows.
+\end{proof}
