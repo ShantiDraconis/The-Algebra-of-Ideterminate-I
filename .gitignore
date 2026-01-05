@@ -1,3 +1,18 @@
+# Build artifacts and dependencies
+*.pyc
+__pycache__/
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Lean build artifacts
+build/
+lake-packages/
+.lake/
+*.olean
+
+# Coq build artifacts
 # Python
 __pycache__/
 *.py[cod]
@@ -20,6 +35,25 @@ build/
 *.vos
 *.glob
 *.aux
+.*.aux
+
+# Isabelle build artifacts
+*.thy~
+output/
+browser_info/
+
+# Agda build artifacts
+*.agdai
+MAlonzo/
+
+# Python
+venv/
+.venv/
+env/
+*.egg-info/
+dist/
+
+# IDE and editor files
 .coqdeps.d
 .lia.cache
 
@@ -99,6 +133,8 @@ venv.bak/
 *.swp
 *.swo
 *~
+
+# OS files
 .DS_Store
 
 # Data artifacts

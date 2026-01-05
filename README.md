@@ -556,6 +556,7 @@ This repository contains the official reference materials and documentation for 
 - **Book Reference PDF**: [`book/source/the_algebra_of_the_indeterminate.pdf`](book/source/the_algebra_of_the_indeterminate.pdf)
 - **Chapter-to-Folder Mapping**: [`book/extracted/section_map.json`](book/extracted/section_map.json)
 - **Structural Overview**: [`docs/theory/overview.md`](docs/theory/overview.md)
+- **Formal Verifications**: [`formalizations/`](formalizations/) - Lean, Coq, Isabelle, Agda, Python
 
 ## Repository Structure
 
@@ -571,6 +572,13 @@ book/
 docs/
 └── theory/                    # Documentation for each chapter
     └── overview.md           # Structural overview
+
+formalizations/                # Formal verifications and implementations
+├── lean/                     # Lean 4 formalization
+├── coq/                      # Coq formalization
+├── isabelle/                 # Isabelle/HOL formalization
+├── agda/                     # Agda formalization
+└── python/                   # Python computational model
 
 latex/
 └── sections/                  # LaTeX sources for each section
@@ -590,6 +598,34 @@ The book covers eight major areas:
 8. **Computation** - Computational Aspects and Implementations
 
 For detailed structural information, see [`docs/theory/overview.md`](docs/theory/overview.md).
+
+## Formal Verifications
+
+The repository includes formal verifications of the theoretical foundations (Sections 7-13) in multiple proof assistants and programming languages:
+
+- **[Lean 4](formalizations/lean/)** - Complete formalization with ZFC, cardinals, ultrapowers, algebra, and consistency proofs
+- **[Coq](formalizations/coq/)** - ZFC, cardinals, ultrapowers, and algebraic structures
+- **[Isabelle/HOL](formalizations/isabelle/)** - ZFC and cardinal arithmetic with automated proofs
+- **[Agda](formalizations/agda/)** - Dependently-typed formalization of ZFC and cardinals
+- **[Python](formalizations/python/)** - Computational model with executable examples
+
+See the [formalizations README](formalizations/README.md) for detailed information and usage instructions.
+
+### Quick Start
+
+```bash
+# Try the Python computational model
+cd formalizations/python
+python cardinal_arithmetic.py
+
+# Build the Lean formalization
+cd formalizations/lean
+lake build
+
+# View other formalizations
+cd formalizations
+cat README.md
+```
 
 ## Navigation
 
