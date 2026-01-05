@@ -1,10 +1,10 @@
 # Discussions Guide
 
-Welcome to the hub for interaction and expansion of The Algebra of Indeterminate I community!
+Welcome to the hub for interaction and expansion of The Algebra of Ideterminate I community!
 
 ## Overview
 
-This guide helps you navigate GitHub Discussions for Q&A, Research, and Replication activities related to The Algebra of Indeterminate I project.
+This guide helps you navigate GitHub Discussions for Q&A, Research, and Replication activities related to The Algebra of Ideterminate I project.
 
 ## Discussion Categories
 
@@ -57,7 +57,7 @@ Use this category for:
 - Acknowledge different perspectives
 
 ### Stay On Topic
-- Keep discussions relevant to The Algebra of Indeterminate I
+- Keep discussions relevant to The Algebra of Ideterminate I
 - Use appropriate categories
 - Link related discussions when relevant
 

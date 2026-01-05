@@ -56,8 +56,10 @@ jobs:
 
       - name: Generate expanded PDF documentation
         run: |
+          # Extract repository name for documentation title
+          REPO_NAME=$(basename "${{ github.repository }}" | sed 's/-/ /g')
           # Create a comprehensive PDF from all markdown files
-          echo "# The Algebra of Indeterminate I - Complete Documentation" > release_assets/FULL_DOCS.md
+          echo "# $REPO_NAME - Complete Documentation" > release_assets/FULL_DOCS.md
           echo "" >> release_assets/FULL_DOCS.md
           echo "Version: ${{ github.ref_name }}" >> release_assets/FULL_DOCS.md
           echo "Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> release_assets/FULL_DOCS.md
@@ -99,11 +101,17 @@ jobs:
           
           # Convert to PDF using pandoc if available, otherwise keep as markdown
           if command -v pandoc &> /dev/null; then
-            pandoc release_assets/FULL_DOCS.md -o release_assets/algebra-indeterminate-i-docs-${{ github.ref_name }}.pdf \
+            echo "Converting documentation to PDF using pandoc..."
+            if pandoc release_assets/FULL_DOCS.md -o release_assets/algebra-indeterminate-i-docs-${{ github.ref_name }}.pdf \
               --pdf-engine=xelatex \
               -V geometry:margin=1in \
               --toc \
-              --toc-depth=2 || cp release_assets/FULL_DOCS.md release_assets/algebra-indeterminate-i-docs-${{ github.ref_name }}.md
+              --toc-depth=2; then
+              echo "PDF generation successful"
+            else
+              echo "ERROR: PDF generation failed, falling back to markdown format"
+              cp release_assets/FULL_DOCS.md release_assets/algebra-indeterminate-i-docs-${{ github.ref_name }}.md
+            fi
           else
             echo "Pandoc not available, keeping as markdown"
             cp release_assets/FULL_DOCS.md release_assets/algebra-indeterminate-i-docs-${{ github.ref_name }}.md
