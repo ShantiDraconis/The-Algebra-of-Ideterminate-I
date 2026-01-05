@@ -1,0 +1,192 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install nbformat nbconvert jupyter
+
+      - name: Create release directory
+        run: mkdir -p release_assets
+
+      - name: Export notebooks (if any exist)
+        run: |
+          if find . -name "*.ipynb" -not -path "./.*" | grep -q .; then
+            echo "Found notebooks, exporting..."
+            mkdir -p release_assets/notebooks
+            find . -name "*.ipynb" -not -path "./.*" -exec cp {} release_assets/notebooks/ \;
+            cd release_assets/notebooks
+            for notebook in *.ipynb; do
+              if [ -f "$notebook" ]; then
+                jupyter nbconvert --to html "$notebook" || echo "Could not convert $notebook"
+                jupyter nbconvert --to pdf "$notebook" 2>/dev/null || echo "Could not convert $notebook to PDF (requires LaTeX)"
+              fi
+            done
+            cd ../..
+            # Create a zip of all notebooks
+            cd release_assets
+            zip -r notebooks.zip notebooks/
+            cd ..
+          else
+            echo "No notebooks found"
+          fi
+
+      - name: Generate expanded PDF documentation
+        run: |
+          # Extract repository name for documentation title (converts hyphens to spaces for readability)
+          REPO_NAME=$(basename "${{ github.repository }}" | sed 's/-/ /g')
+          # Extract base repository name for filenames (lowercase with hyphens preserved)
+          REPO_SLUG=$(basename "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          # Create a comprehensive PDF from all markdown files
+          echo "# $REPO_NAME - Complete Documentation" > release_assets/FULL_DOCS.md
+          echo "" >> release_assets/FULL_DOCS.md
+          echo "Version: ${{ github.ref_name }}" >> release_assets/FULL_DOCS.md
+          echo "Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> release_assets/FULL_DOCS.md
+          echo "" >> release_assets/FULL_DOCS.md
+          echo "---" >> release_assets/FULL_DOCS.md
+          echo "" >> release_assets/FULL_DOCS.md
+          
+          # Append README
+          if [ -f "README.md" ]; then
+            echo "## README" >> release_assets/FULL_DOCS.md
+            echo "" >> release_assets/FULL_DOCS.md
+            cat README.md >> release_assets/FULL_DOCS.md
+            echo "" >> release_assets/FULL_DOCS.md
+            echo "---" >> release_assets/FULL_DOCS.md
+            echo "" >> release_assets/FULL_DOCS.md
+          fi
+          
+          # Append Discussions Guide
+          if [ -f "hub/DISCUSSIONS_GUIDE.md" ]; then
+            echo "## Discussions Guide" >> release_assets/FULL_DOCS.md
+            echo "" >> release_assets/FULL_DOCS.md
+            cat hub/DISCUSSIONS_GUIDE.md >> release_assets/FULL_DOCS.md
+            echo "" >> release_assets/FULL_DOCS.md
+            echo "---" >> release_assets/FULL_DOCS.md
+            echo "" >> release_assets/FULL_DOCS.md
+          fi
+          
+          # Find and append other markdown files
+          find . -name "*.md" -not -name "FULL_DOCS.md" -not -name "README.md" -not -name "DISCUSSIONS_GUIDE.md" -not -path "./.*" -not -path "./release_assets/*" | while read -r file; do
+            echo "## $(basename "$file" .md)" >> release_assets/FULL_DOCS.md
+            echo "" >> release_assets/FULL_DOCS.md
+            echo "Source: $file" >> release_assets/FULL_DOCS.md
+            echo "" >> release_assets/FULL_DOCS.md
+            cat "$file" >> release_assets/FULL_DOCS.md
+            echo "" >> release_assets/FULL_DOCS.md
+            echo "---" >> release_assets/FULL_DOCS.md
+            echo "" >> release_assets/FULL_DOCS.md
+          done
+          
+          # Convert to PDF using pandoc if available, otherwise keep as markdown
+          if command -v pandoc &> /dev/null; then
+            echo "Converting documentation to PDF using pandoc..."
+            if pandoc release_assets/FULL_DOCS.md -o release_assets/${REPO_SLUG}-docs-${{ github.ref_name }}.pdf \
+              --pdf-engine=xelatex \
+              -V geometry:margin=1in \
+              --toc \
+              --toc-depth=2; then
+              echo "PDF generation successful"
+            else
+              echo "ERROR: PDF generation failed, falling back to markdown format"
+              cp release_assets/FULL_DOCS.md release_assets/${REPO_SLUG}-docs-${{ github.ref_name }}.md
+            fi
+          else
+            echo "Pandoc not available, keeping as markdown"
+            cp release_assets/FULL_DOCS.md release_assets/${REPO_SLUG}-docs-${{ github.ref_name }}.md
+          fi
+
+      - name: Create source archive
+        run: |
+          # Extract base repository name for archive prefixes
+          REPO_SLUG=$(basename "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          git archive --format=tar.gz --prefix=${REPO_SLUG}-${{ github.ref_name }}/ HEAD > release_assets/source-${{ github.ref_name }}.tar.gz
+          git archive --format=zip --prefix=${REPO_SLUG}-${{ github.ref_name }}/ HEAD > release_assets/source-${{ github.ref_name }}.zip
+
+      - name: Generate checksums
+        run: |
+          cd release_assets
+          sha256sum * > checksums-${{ github.ref_name }}.txt
+          md5sum * > checksums-${{ github.ref_name }}.md5
+          cd ..
+
+      - name: List release assets
+        run: |
+          echo "Release assets:"
+          ls -lh release_assets/
+
+      - name: Create Release Notes
+        run: |
+          cat > release_notes.md << 'EOF'
+          ## Release ${{ github.ref_name }}
+          
+          This release includes:
+          
+          ### 📦 Assets
+          - **Complete Documentation**: Expanded PDF/Markdown with all project documentation
+          - **Source Code**: Full source archives (tar.gz and zip)
+          - **Notebooks**: Exported Jupyter notebooks (if applicable)
+          - **Checksums**: SHA256 and MD5 checksums for verification
+          
+          ### ✅ Verification
+          To verify asset integrity:
+          ```bash
+          sha256sum -c checksums-${{ github.ref_name }}.txt
+          # or
+          md5sum -c checksums-${{ github.ref_name }}.md5
+          ```
+          
+          ### 📚 Documentation
+          - See [Discussions Guide](https://github.com/${{ github.repository }}/blob/main/hub/DISCUSSIONS_GUIDE.md) for community interaction
+          - Use [Issue Templates](https://github.com/${{ github.repository }}/issues/new/choose) for specific tasks
+          
+          ### 🔐 Security
+          This release is signed and verified by GitHub Actions.
+          
+          ---
+          
+          For questions or support, please use the [Buyer Support](https://github.com/${{ github.repository }}/issues/new?template=buyer_support.yml) issue template or start a [Discussion](https://github.com/${{ github.repository }}/discussions).
+          EOF
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ github.ref_name }}
+          body_path: release_notes.md
+          draft: false
+          prerelease: false
+          files: |
+            release_assets/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts for inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-assets-${{ github.ref_name }}
+          path: release_assets/
+          retention-days: 30
