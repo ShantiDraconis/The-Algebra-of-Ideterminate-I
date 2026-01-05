@@ -12,6 +12,15 @@ from .types import IElement, IExpr, SemanticsMode
 # Configure logging for semantic decisions
 logger = logging.getLogger(__name__)
 
+# Add a default handler if none exists to ensure messages are visible
+if not logger.handlers:
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(levelname)s: %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+
 
 class SemanticLogger:
     """Logger for semantic decisions in non-strict modes"""

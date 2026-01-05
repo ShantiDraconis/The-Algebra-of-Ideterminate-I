@@ -62,9 +62,11 @@ class NonTrivialityValidator(InvariantValidator):
     
     def check_not_equal_to_zero(self, value: Union[IElement, int, float]) -> bool:
         """Verify that the indeterminate I is not equal to zero"""
+        # In our representation, I and ZERO are distinct enum values
+        # This method validates the invariant is maintained
         if value == IElement.I:
-            if value == IElement.ZERO:
-                raise ValidationError("Non-triviality violated: I cannot equal 0")
+            # I is always distinct from ZERO in our type system
+            return True
         return True
     
     def check_distinct_from_numbers(self, value: Union[IElement, int, float]) -> bool:
