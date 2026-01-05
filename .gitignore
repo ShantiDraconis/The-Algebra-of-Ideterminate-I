@@ -82,6 +82,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Virtual environments
 pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
@@ -102,6 +104,12 @@ env/
 *.log
 *.out
 *.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.pdf
 *.synctex.gz
 *.fdb_latexmk
 *.fls
@@ -145,6 +153,8 @@ lakefile.olean
 # Coq
 *.vo
 *.glob
+*.v.d
+.coq-native/
 *.aux
 .*.aux
 *.v.d
@@ -153,6 +163,21 @@ lakefile.olean
 .isabelle/
 output/
 
+# Lean
+build/
+.lake/
+
+# Visualization outputs
+*.png
+*.jpg
+*.svg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 # Agda
 *.agdai
 # OS files
