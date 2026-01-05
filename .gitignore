@@ -4,6 +4,35 @@ __pycache__/
 *$py.class
 *.so
 .Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Lean
+lakefile.olean
+.lake/
+build/
+
+# Coq
+*.vo
+*.vok
+*.vos
+*.glob
+*.aux
+.coqdeps.d
+.lia.cache
+
+# Isabelle
+output/
+*.thy~
+.isabelle/
+
+# Agda
+*.agdai
+MAlonzo/
+
+# Editor files
 build/
 develop-eggs/
 dist/
@@ -36,6 +65,12 @@ venv.bak/
 *.swp
 *.swo
 *~
+.DS_Store
+
+# Temporary files
+/tmp/
+*.tmp
+*.bak
 
 # OS
 .DS_Store
