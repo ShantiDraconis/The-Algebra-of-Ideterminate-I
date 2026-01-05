@@ -210,6 +210,72 @@ If you use this work, please cite:
   author = {[Author Name]},
   year = {2024},
   publisher = {GitHub},
+A computational algebra system for exploring the properties and operations of the indeterminate unit **I**, extending traditional algebraic structures with novel calculus and rewriting systems.
+
+## Overview
+
+This project implements a formal system for working with the indeterminate **I**, providing:
+
+- Type system for algebraic expressions involving I
+- Operations and transformations
+- Rewrite rules and normalization
+- The Wheel of Fractions framework
+- I-Calculus examples and applications
+
+## Project Structure
+
+```
+.
+├── ialgebra/          # Python implementation
+├── lean/              # Lean 4 formal proofs
+├── docs/              # Documentation and papers
+├── data/              # Axioms and rules in YAML format
+├── examples/          # Example computations
+└── tests/             # Test suite
+```
+
+## Installation
+
+### Python Package
+
+```bash
+pip install -e .
+```
+
+### Lean 4
+
+```bash
+lake build
+```
+
+## Usage
+
+```python
+from ialgebra import Indeterminate, Expression
+
+# Create expressions with I
+expr = Expression("x + I")
+# ... perform operations
+```
+
+## Development
+
+Build and test:
+
+```bash
+make build
+make test
+```
+
+## Citation
+
+If you use this work in your research, please cite:
+
+```bibtex
+@software{algebra_indeterminate_i,
+  title = {The Algebra of Indeterminate I},
+  author = {...},
+  year = {2026},
   url = {https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I}
 }
 ```
@@ -222,7 +288,7 @@ If you use this work, please cite:
 
 - **Issues**: https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I/issues
 - **Discussions**: https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I/discussions
-- **Email**: [contact information]
+- **Email**: [Shanti.Draconis@icloud.com]
 
 ## Acknowledgments
 
@@ -237,6 +303,15 @@ We thank the Lean and Coq communities for their proof assistant tools, and the J
 ---
 
 **"Mais cálculos do que o livro"** — More calculations than the book.
+See `CITATION.cff` for more details.
+
+## License
+
+[To be determined]
+
+## Contributing
+
+Contributions are welcome! Please see the open issues for areas that need work.
 # The Algebra of the Indeterminate I
 
 This repository contains the official reference materials and documentation for **"The Algebra of the Indeterminate I"** book.
