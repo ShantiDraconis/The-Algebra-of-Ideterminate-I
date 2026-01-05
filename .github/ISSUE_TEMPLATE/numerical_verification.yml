@@ -1,0 +1,138 @@
+name: Numerical Verification Task
+description: Submit or request numerical verification and computation tasks
+title: "[NUMERICAL]: "
+labels: ["numerical-verification", "computation"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Numerical Verification Task
+        Use this template for numerical proofs, computational verification, and replication studies.
+
+  - type: dropdown
+    id: task-type
+    attributes:
+      label: Type of Task
+      description: What type of numerical work is this?
+      options:
+        - Numerical proof
+        - Verification of theoretical result
+        - Replication study
+        - Performance benchmark
+        - Algorithm implementation
+    validations:
+      required: true
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: What are you trying to verify or compute?
+      placeholder: |
+        Example: Verify that the proposed algebra satisfies property X for values up to 10^6
+    validations:
+      required: true
+
+  - type: textarea
+    id: methodology
+    attributes:
+      label: Methodology
+      description: Describe the computational approach
+      placeholder: |
+        - Algorithm to be used
+        - Programming language/tools
+        - Test cases
+        - Expected results
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Computational Environment
+      description: Describe the computational setup
+      placeholder: |
+        - Hardware specifications
+        - Software/libraries (Python 3.x, NumPy, SymPy, etc.)
+        - Version information
+    validations:
+      required: false
+
+  - type: textarea
+    id: results
+    attributes:
+      label: Results (if available)
+      description: Share your computational results
+      placeholder: |
+        ## Summary
+        - Tests passed: X/Y
+        - Execution time: Z seconds
+        
+        ## Data
+        (Include data, plots, or link to notebooks)
+    validations:
+      required: false
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Code/Implementation
+      description: Share code snippets or link to implementation
+      placeholder: |
+        ```python
+        # Your code here
+        ```
+        
+        Or link to notebook/repository
+    validations:
+      required: false
+
+  - type: dropdown
+    id: accuracy
+    attributes:
+      label: Numerical Accuracy
+      description: What precision is required?
+      options:
+        - Standard floating point
+        - High precision (arbitrary)
+        - Symbolic computation
+        - Mixed precision
+    validations:
+      required: false
+
+  - type: textarea
+    id: discrepancies
+    attributes:
+      label: Discrepancies or Issues
+      description: Report any unexpected results or problems
+      placeholder: |
+        - Describe any deviations from expected results
+        - Note any numerical instabilities
+        - List open questions
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Link to related work, papers, or discussions
+      placeholder: |
+        - Original theorem/result being verified
+        - Related discussions
+        - Reference implementations
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Verification Checklist
+      description: Mark completed items
+      options:
+        - label: Code has been tested
+        - label: Results have been validated
+        - label: Documentation is included
+        - label: Reproducibility instructions provided

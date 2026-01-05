@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I/discussions
+    about: For Q&A, research discussions, and replication studies. See hub/DISCUSSIONS_GUIDE.md for details.
+  - name: Discussions Guide
+    url: https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I/blob/main/hub/DISCUSSIONS_GUIDE.md
+    about: Complete guide for using GitHub Discussions effectively in this project.
