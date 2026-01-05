@@ -6,7 +6,13 @@ This script demonstrates the core functionality of the I-Algebra implementation.
 """
 
 import sys
-sys.path.insert(0, '/home/runner/work/The-Algebra-of-Ideterminate-I/The-Algebra-of-Ideterminate-I/src/python')
+import os
+
+# Add parent directory to path for imports
+# This allows the script to work from any location
+script_dir = os.path.dirname(os.path.abspath(__file__))
+src_python_dir = os.path.join(os.path.dirname(script_dir), 'src', 'python')
+sys.path.insert(0, src_python_dir)
 
 from ialgebra import IElement, IExpr, SemanticsMode, oplus, ominus, otimes, odiv
 from ialgebra.validation import InvariantChecker

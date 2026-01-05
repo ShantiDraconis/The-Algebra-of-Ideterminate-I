@@ -8,10 +8,15 @@ Users can input expressions, test operations, and explore the algebra interactiv
 
 import sys
 import logging
+import os
 from typing import Dict, Any
 
 # Add parent directory to path for imports
-sys.path.insert(0, '/home/runner/work/The-Algebra-of-Ideterminate-I/The-Algebra-of-Ideterminate-I/src/python')
+# This allows the script to work from any location
+# Script is in src/python/cli/, we need to add src/python/ to path
+script_dir = os.path.dirname(os.path.abspath(__file__))
+python_dir = os.path.dirname(script_dir)
+sys.path.insert(0, python_dir)
 
 from ialgebra.types import IElement, IExpr, SemanticsMode
 from ialgebra.operations import oplus, ominus, otimes, odiv

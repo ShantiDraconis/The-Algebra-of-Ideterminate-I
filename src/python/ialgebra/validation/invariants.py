@@ -42,6 +42,10 @@ class NonTrivialityValidator(InvariantValidator):
         """
         Check if a value maintains non-triviality.
         
+        Note: In our type system, I and ZERO are distinct enum values, so this
+        invariant is structurally enforced. This method serves as a documentation
+        and verification point for the invariant.
+        
         Args:
             value: Value to check
             
@@ -51,17 +55,17 @@ class NonTrivialityValidator(InvariantValidator):
         Raises:
             ValidationError: If non-triviality is violated
         """
-        # I should not be treated as zero
-        if value == IElement.I:
-            # This is valid - I is distinct
-            return True
-        
-        # If someone tries to equate I with zero or a number, that's invalid
-        # This validator is more for documentation of the principle
+        # In our type system, I and ZERO are distinct enum values
+        # This invariant is structurally enforced by the IElement enum
         return True
     
     def check_not_equal_to_zero(self, value: Union[IElement, int, float]) -> bool:
-        """Verify that the indeterminate I is not equal to zero"""
+        """
+        Verify that the indeterminate I is not equal to zero.
+        
+        Note: This invariant is structurally enforced by our type system where
+        I and ZERO are distinct enum values. This method documents the invariant.
+        """
         # In our representation, I and ZERO are distinct enum values
         # This method validates the invariant is maintained
         if value == IElement.I:
@@ -70,7 +74,12 @@ class NonTrivialityValidator(InvariantValidator):
         return True
     
     def check_distinct_from_numbers(self, value: Union[IElement, int, float]) -> bool:
-        """Verify that I is distinct from all numeric values"""
+        """
+        Verify that I is distinct from all numeric values.
+        
+        Note: This invariant is structurally enforced by our type system where
+        IElement is a separate type from numeric values. This method documents it.
+        """
         if value == IElement.I:
             # I is always distinct in our representation
             return True
@@ -144,10 +153,15 @@ class RestrictedCancellationValidator(InvariantValidator):
         b: Union[IElement, int, float]
     ) -> bool:
         """
-        Validate that general cancellation (beyond I ⊕ I) is not assumed.
+        Validate that general cancellation (beyond I - I) is not assumed.
         
         For example, I + x - I should not automatically simplify to x
         unless explicitly validated in the context.
+        
+        Note: This is a placeholder for more complex validation logic.
+        In a full implementation, this would analyze expression trees to ensure
+        cancellation only occurs in restricted cases. Currently returns True
+        as the operations module already enforces restricted cancellation.
         """
         # This is a placeholder for more complex validation logic
         # In a full implementation, this would analyze expression trees
