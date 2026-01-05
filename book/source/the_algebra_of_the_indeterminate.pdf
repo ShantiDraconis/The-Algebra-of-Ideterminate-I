@@ -1,0 +1,107 @@
+%PDF-1.4
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+
+2 0 obj
+<<
+/Type /Pages
+/Kids [3 0 R]
+/Count 1
+>>
+endobj
+
+3 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/Resources <<
+/Font <<
+/F1 <<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica-Bold
+>>
+/F2 <<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+>>
+>>
+>>
+/MediaBox [0 0 612 792]
+/Contents 4 0 R
+>>
+endobj
+
+4 0 obj
+<<
+/Length 1850
+>>
+stream
+BT
+/F1 20 Tf
+50 750 Td
+(THE ALGEBRA OF THE INDETERMINATE I) Tj
+0 -30 Td
+/F1 14 Tf
+(Reference Document Placeholder) Tj
+0 -40 Td
+/F2 11 Tf
+(This PDF should contain the complete published version of) Tj
+0 -15 Td
+("The Algebra of the Indeterminate I" book.) Tj
+0 -25 Td
+(The actual book content should be placed here by the book owner/publisher.) Tj
+0 -25 Td
+(This placeholder exists to establish the repository structure and) Tj
+0 -15 Td
+(ensure proper references between the book and the repository materials.) Tj
+0 -25 Td
+(For the actual book content, please contact the author/publisher.) Tj
+0 -30 Td
+(Structure Reference:) Tj
+0 -15 Td
+(  - See book/extracted/section_map.json for chapter mappings) Tj
+0 -15 Td
+(  - See docs/theory/overview.md for structural overview) Tj
+0 -30 Td
+(Book Structure:) Tj
+0 -15 Td
+(  1. ZF/AC + I \(ZF Set Theory with Axiom of Choice and the Indeterminate\)) Tj
+0 -15 Td
+(  2. Ultrapowers and Non-Standard Analysis) Tj
+0 -15 Td
+(  3. Wheel Theory and Division by Zero) Tj
+0 -15 Td
+(  4. Axiomatic Foundation of I) Tj
+0 -15 Td
+(  5. Field Axioms: Failures and Corrections) Tj
+0 -15 Td
+(  6. I-Calculus: Differential and Integral Operations) Tj
+0 -15 Td
+(  7. Physical Applications) Tj
+0 -15 Td
+(  8. Computational Aspects and Implementations) Tj
+ET
+endstream
+endobj
+
+xref
+0 5
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000364 00000 n 
+trailer
+<<
+/Size 5
+/Root 1 0 R
+>>
+startxref
+2266
+%%EOF
