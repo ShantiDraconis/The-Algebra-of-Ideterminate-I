@@ -23,6 +23,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+          cache: 'pip'
 
       - name: Install dependencies
         run: |
@@ -56,8 +57,10 @@ jobs:
 
       - name: Generate expanded PDF documentation
         run: |
-          # Extract repository name for documentation title
+          # Extract repository name for documentation title (converts hyphens to spaces for readability)
           REPO_NAME=$(basename "${{ github.repository }}" | sed 's/-/ /g')
+          # Extract base repository name for filenames (lowercase with hyphens preserved)
+          REPO_SLUG=$(basename "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           # Create a comprehensive PDF from all markdown files
           echo "# $REPO_NAME - Complete Documentation" > release_assets/FULL_DOCS.md
           echo "" >> release_assets/FULL_DOCS.md
@@ -102,7 +105,7 @@ jobs:
           # Convert to PDF using pandoc if available, otherwise keep as markdown
           if command -v pandoc &> /dev/null; then
             echo "Converting documentation to PDF using pandoc..."
-            if pandoc release_assets/FULL_DOCS.md -o release_assets/algebra-indeterminate-i-docs-${{ github.ref_name }}.pdf \
+            if pandoc release_assets/FULL_DOCS.md -o release_assets/${REPO_SLUG}-docs-${{ github.ref_name }}.pdf \
               --pdf-engine=xelatex \
               -V geometry:margin=1in \
               --toc \
@@ -110,17 +113,19 @@ jobs:
               echo "PDF generation successful"
             else
               echo "ERROR: PDF generation failed, falling back to markdown format"
-              cp release_assets/FULL_DOCS.md release_assets/algebra-indeterminate-i-docs-${{ github.ref_name }}.md
+              cp release_assets/FULL_DOCS.md release_assets/${REPO_SLUG}-docs-${{ github.ref_name }}.md
             fi
           else
             echo "Pandoc not available, keeping as markdown"
-            cp release_assets/FULL_DOCS.md release_assets/algebra-indeterminate-i-docs-${{ github.ref_name }}.md
+            cp release_assets/FULL_DOCS.md release_assets/${REPO_SLUG}-docs-${{ github.ref_name }}.md
           fi
 
       - name: Create source archive
         run: |
-          git archive --format=tar.gz --prefix=algebra-indeterminate-i-${{ github.ref_name }}/ HEAD > release_assets/source-${{ github.ref_name }}.tar.gz
-          git archive --format=zip --prefix=algebra-indeterminate-i-${{ github.ref_name }}/ HEAD > release_assets/source-${{ github.ref_name }}.zip
+          # Extract base repository name for archive prefixes
+          REPO_SLUG=$(basename "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          git archive --format=tar.gz --prefix=${REPO_SLUG}-${{ github.ref_name }}/ HEAD > release_assets/source-${{ github.ref_name }}.tar.gz
+          git archive --format=zip --prefix=${REPO_SLUG}-${{ github.ref_name }}/ HEAD > release_assets/source-${{ github.ref_name }}.zip
 
       - name: Generate checksums
         run: |
