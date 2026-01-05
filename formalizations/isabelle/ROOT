@@ -1,0 +1,6 @@
+session ITheory = "HOL-Complex" +
+  options [document = pdf, document_output = "output"]
+  theories
+    ITheory
+  document_files
+    "root.tex"

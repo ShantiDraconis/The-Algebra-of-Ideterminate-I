@@ -1,0 +1,394 @@
+\section{Wavefunction Description}
+\label{sec:wavefunction}
+
+This section develops the quantum mechanical description of I-particles through wavefunction formalism.
+
+\subsection{Quantum Mechanical Wavefunction}
+\label{subsec:quantum_wavefunction}
+
+In quantum mechanical treatments, a single I particle in a gravitational or potential well can be described by a wavefunction:
+
+\begin{equation}
+\label{eq:i_wavefunction}
+\Psi_I(\mathbf{r}, t) = A e^{i(\mathbf{k} \cdot \mathbf{r} - \omega t)}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $A$ is the amplitude (normalized by boundary or normalization conditions)
+    \item $\mathbf{k}$ is the wavevector, proportional to the momentum of the particle: $\mathbf{p} = \hbar\mathbf{k}$
+    \item $\omega$ is the angular frequency, related to the particle's energy by $E = \hbar\omega$
+\end{itemize}
+
+This form implies that I exhibits wave-particle duality, typical of quantum entities.
+
+\subsubsection{Normalization Condition}
+
+The wavefunction must satisfy:
+
+\begin{equation}
+\label{eq:normalization}
+\int_{\text{all space}} |\Psi_I(\mathbf{r}, t)|^2 \, d^3r = 1
+\end{equation}
+
+For the plane wave \eqref{eq:i_wavefunction}, we use box normalization with volume $V$:
+
+\begin{equation}
+\label{eq:box_normalization}
+A = \frac{1}{\sqrt{V}}
+\end{equation}
+
+\subsubsection{Dispersion Relations}
+
+For free I-particles:
+
+\begin{align}
+\label{eq:dispersion_relativistic}
+\omega &= c\sqrt{k^2 + (m_I c/\hbar)^2} \quad \text{(relativistic)} \\
+\label{eq:dispersion_nonrelativistic}
+\omega &= \frac{\hbar k^2}{2m_I} \quad \text{(non-relativistic, } k \ll m_I c/\hbar\text{)}
+\end{align}
+
+\subsection{Schrödinger Equation}
+
+The time evolution of the I-wavefunction is governed by the Schrödinger equation:
+
+\begin{equation}
+\label{eq:schrodinger}
+i\hbar\frac{\partial\Psi_I}{\partial t} = \hat{H}_I \Psi_I
+\end{equation}
+
+where $\hat{H}_I$ is the Hamiltonian operator.
+
+\subsubsection{Free Particle Hamiltonian}
+
+For a free I-particle:
+
+\begin{equation}
+\label{eq:free_hamiltonian}
+\hat{H}_I = -\frac{\hbar^2}{2m_I}\nabla^2 + m_I c^2
+\end{equation}
+
+\subsubsection{Particle in a Potential}
+
+In the presence of a potential $V(\mathbf{r})$:
+
+\begin{equation}
+\label{eq:hamiltonian_potential}
+\hat{H}_I = -\frac{\hbar^2}{2m_I}\nabla^2 + V(\mathbf{r})
+\end{equation}
+
+Time-independent solutions satisfy:
+
+\begin{equation}
+\label{eq:time_independent_schrodinger}
+\hat{H}_I \psi_n(\mathbf{r}) = E_n \psi_n(\mathbf{r})
+\end{equation}
+
+\subsection{Wavefunction in Gravitational Wells}
+
+In a gravitational or potential well, $\omega$ and $\mathbf{k}$ may vary with position if the potential is non-uniform.
+
+\subsubsection{WKB Approximation}
+
+For slowly varying potentials, the WKB (Wentzel-Kramers-Brillouin) approximation:
+
+\begin{equation}
+\label{eq:wkb_wavefunction}
+\Psi_I(\mathbf{r}) \approx \frac{A}{\sqrt{k(\mathbf{r})}} \exp\left(i\int_{\mathbf{r}_0}^{\mathbf{r}} \mathbf{k}(\mathbf{r}') \cdot d\mathbf{r}'\right)
+\end{equation}
+
+where the local wavevector:
+
+\begin{equation}
+\label{eq:local_wavevector}
+k(\mathbf{r}) = \frac{1}{\hbar}\sqrt{2m_I[E - V(\mathbf{r})]}
+\end{equation}
+
+\subsubsection{Gravitational Potential Well}
+
+For I-particles in the gravitational potential of a massive object:
+
+\begin{equation}
+\label{eq:gravitational_well}
+V(r) = -\frac{Gm_I M}{r}
+\end{equation}
+
+The radial wavefunction satisfies:
+
+\begin{equation}
+\label{eq:radial_schrodinger}
+-\frac{\hbar^2}{2m_I}\frac{d^2u}{dr^2} + \left[V(r) + \frac{\hbar^2\ell(\ell+1)}{2m_I r^2}\right]u = E u
+\end{equation}
+
+where $u(r) = r R(r)$ and $\ell$ is the angular momentum quantum number.
+
+\subsubsection{Bound State Solutions}
+
+For bound states ($E < 0$), the energy levels are quantized:
+
+\begin{equation}
+\label{eq:bound_state_energy}
+E_n = -\frac{G^2m_I^3M^2}{2\hbar^2 n^2} \quad (n = 1, 2, 3, \ldots)
+\end{equation}
+
+This is analogous to the hydrogen atom with:
+
+\begin{equation}
+\label{eq:gravitational_bohr_radius}
+a_G = \frac{\hbar^2}{Gm_I^2 M}
+\end{equation}
+
+\subsection{Many-Body Wavefunction}
+
+For a system of $N$ I-particles:
+
+\begin{equation}
+\label{eq:many_body_wavefunction}
+\Psi_I(\mathbf{r}_1, \mathbf{r}_2, \ldots, \mathbf{r}_N, t)
+\end{equation}
+
+\subsubsection{Symmetrization}
+
+If I-particles are bosons (integer spin):
+
+\begin{equation}
+\label{eq:symmetric_wavefunction}
+\Psi_I(\ldots, \mathbf{r}_i, \ldots, \mathbf{r}_j, \ldots) = +\Psi_I(\ldots, \mathbf{r}_j, \ldots, \mathbf{r}_i, \ldots)
+\end{equation}
+
+If I-particles are fermions (half-integer spin):
+
+\begin{equation}
+\label{eq:antisymmetric_wavefunction}
+\Psi_I(\ldots, \mathbf{r}_i, \ldots, \mathbf{r}_j, \ldots) = -\Psi_I(\ldots, \mathbf{r}_j, \ldots, \mathbf{r}_i, \ldots)
+\end{equation}
+
+\subsubsection{Second Quantization}
+
+The field operator expansion:
+
+\begin{equation}
+\label{eq:field_operator}
+\hat{\Psi}_I(\mathbf{r}, t) = \sum_\mathbf{k} \frac{1}{\sqrt{V}} e^{i\mathbf{k}\cdot\mathbf{r}} \hat{a}_\mathbf{k}(t)
+\end{equation}
+
+For bosons:
+\begin{equation}
+\label{eq:boson_commutation}
+[\hat{a}_\mathbf{k}, \hat{a}_{\mathbf{k}'}^\dagger] = \delta_{\mathbf{k}\mathbf{k}'}
+\end{equation}
+
+For fermions:
+\begin{equation}
+\label{eq:fermion_anticommutation}
+\{\hat{a}_\mathbf{k}, \hat{a}_{\mathbf{k}'}^\dagger\} = \delta_{\mathbf{k}\mathbf{k}'}
+\end{equation}
+
+\subsection{Probability Current and Conservation}
+
+The probability density:
+
+\begin{equation}
+\label{eq:probability_density}
+\rho(\mathbf{r}, t) = |\Psi_I(\mathbf{r}, t)|^2 = \Psi_I^* \Psi_I
+\end{equation}
+
+The probability current density:
+
+\begin{equation}
+\label{eq:probability_current}
+\mathbf{j}(\mathbf{r}, t) = \frac{\hbar}{2m_I i}(\Psi_I^*\nabla\Psi_I - \Psi_I\nabla\Psi_I^*)
+\end{equation}
+
+Continuity equation:
+
+\begin{equation}
+\label{eq:continuity}
+\frac{\partial\rho}{\partial t} + \nabla \cdot \mathbf{j} = 0
+\end{equation}
+
+\subsubsection{Current for Plane Waves}
+
+For $\Psi_I = A e^{i(\mathbf{k}\cdot\mathbf{r} - \omega t)}$:
+
+\begin{equation}
+\label{eq:plane_wave_current}
+\mathbf{j} = |A|^2 \frac{\hbar\mathbf{k}}{m_I} = \rho \mathbf{v}
+\end{equation}
+
+where $\mathbf{v} = \hbar\mathbf{k}/m_I$ is the particle velocity.
+
+\subsection{Coherent States}
+
+Coherent states of I-fields:
+
+\begin{equation}
+\label{eq:coherent_state}
+|\alpha\rangle_I = e^{-|\alpha|^2/2} \sum_{n=0}^\infty \frac{\alpha^n}{\sqrt{n!}} |n\rangle
+\end{equation}
+
+are eigenstates of the annihilation operator:
+
+\begin{equation}
+\label{eq:coherent_eigenvalue}
+\hat{a}|\alpha\rangle = \alpha|\alpha\rangle
+\end{equation}
+
+\subsubsection{Coherent State Wavefunction}
+
+In position space:
+
+\begin{equation}
+\label{eq:coherent_position}
+\Psi_\alpha(\mathbf{r}) = \langle\mathbf{r}|\alpha\rangle = \left(\frac{m_I\omega}{\pi\hbar}\right)^{3/4} \exp\left(-\frac{m_I\omega}{2\hbar}(\mathbf{r}-\mathbf{r}_0)^2 + i\mathbf{p}_0\cdot\mathbf{r}/\hbar\right)
+\end{equation}
+
+\subsection{Entangled States}
+
+Two-particle entangled states:
+
+\begin{equation}
+\label{eq:entangled_state}
+|\Psi\rangle_{12} = \frac{1}{\sqrt{2}}(|0\rangle_1|1\rangle_2 + e^{i\phi}|1\rangle_1|0\rangle_2)
+\end{equation}
+
+The reduced density matrix:
+
+\begin{equation}
+\label{eq:reduced_density}
+\rho_1 = \text{Tr}_2[|\Psi\rangle_{12}\langle\Psi|] = \frac{1}{2}(|0\rangle\langle 0| + |1\rangle\langle 1|)
+\end{equation}
+
+Entanglement entropy:
+
+\begin{equation}
+\label{eq:entanglement_entropy}
+S_{\text{ent}} = -\text{Tr}(\rho_1 \ln \rho_1) = \ln 2
+\end{equation}
+
+\subsection{Time Evolution and Propagators}
+
+\subsubsection{Free Particle Propagator}
+
+The propagator for free I-particles:
+
+\begin{equation}
+\label{eq:free_propagator}
+K(\mathbf{r}, t; \mathbf{r}_0, 0) = \left(\frac{m_I}{2\pi i\hbar t}\right)^{3/2} \exp\left(\frac{im_I(\mathbf{r}-\mathbf{r}_0)^2}{2\hbar t}\right)
+\end{equation}
+
+satisfies:
+
+\begin{equation}
+\label{eq:propagator_equation}
+i\hbar\frac{\partial K}{\partial t} = -\frac{\hbar^2}{2m_I}\nabla^2 K
+\end{equation}
+
+\subsubsection{Path Integral Formulation}
+
+The wavefunction can be expressed as:
+
+\begin{equation}
+\label{eq:path_integral}
+\Psi_I(\mathbf{r}, t) = \int d^3r_0 \, K(\mathbf{r}, t; \mathbf{r}_0, 0) \Psi_I(\mathbf{r}_0, 0)
+\end{equation}
+
+where:
+
+\begin{equation}
+\label{eq:feynman_path_integral}
+K(\mathbf{r}_f, t_f; \mathbf{r}_i, t_i) = \int_{\mathbf{r}_i}^{\mathbf{r}_f} \mathcal{D}[\mathbf{r}(t)] \, e^{iS[\mathbf{r}(t)]/\hbar}
+\end{equation}
+
+and $S[\mathbf{r}(t)]$ is the classical action.
+
+\subsection{Wavefunction Collapse and Measurement}
+
+Upon measurement of position:
+
+\begin{equation}
+\label{eq:position_measurement}
+\Psi_I(\mathbf{r}, t) \xrightarrow{\text{measurement}} \delta(\mathbf{r} - \mathbf{r}_{\text{measured}})
+\end{equation}
+
+The probability of measuring position in volume $d^3r$:
+
+\begin{equation}
+\label{eq:measurement_probability}
+dP = |\Psi_I(\mathbf{r}, t)|^2 d^3r
+\end{equation}
+
+\subsubsection{I-Decoherence Model}
+
+In I-theory, measurement is described by I-decoherence:
+
+\begin{equation}
+\label{eq:i_decoherence_wavefunction}
+\Psi_I(\mathbf{r}, t) = \sum_n c_n(t) \psi_n(\mathbf{r}) \xrightarrow{t\to\infty} \psi_m(\mathbf{r}) \oplus I\sum_{n\neq m} c_n\psi_n(\mathbf{r})
+\end{equation}
+
+The decoherence functional:
+
+\begin{equation}
+\label{eq:decoherence_functional}
+\mathcal{D}[t] = \exp\left(-\int_0^t \Gamma_I(t') dt'\right)
+\end{equation}
+
+where $\Gamma_I$ is the I-decoherence rate.
+
+\subsection{Wavefunction in Curved Spacetime}
+
+In general relativistic contexts:
+
+\begin{equation}
+\label{eq:curved_spacetime_wavefunction}
+\left(g^{\mu\nu}\nabla_\mu\nabla_\nu + \frac{m_I^2c^2}{\hbar^2}\right)\Psi_I = 0
+\end{equation}
+
+where $\nabla_\mu$ is the covariant derivative.
+
+\subsubsection{Schwarzschild Spacetime}
+
+Near a black hole with metric:
+
+\begin{equation}
+\label{eq:schwarzschild_metric}
+ds^2 = -\left(1-\frac{2GM}{c^2r}\right)c^2dt^2 + \left(1-\frac{2GM}{c^2r}\right)^{-1}dr^2 + r^2d\Omega^2
+\end{equation}
+
+The effective potential for radial I-waves:
+
+\begin{equation}
+\label{eq:effective_potential_schwarzschild}
+V_{\text{eff}}(r) = \left(1-\frac{2GM}{c^2r}\right)\left(\frac{\ell(\ell+1)\hbar^2}{2m_Ir^2} + \frac{m_Ic^2}{2}\right)
+\end{equation}
+
+\subsection{Applications}
+
+\subsubsection{I-Particle Interference}
+
+Double-slit experiment with I-particles:
+
+\begin{equation}
+\label{eq:double_slit}
+\Psi_I = \Psi_1 + \Psi_2 = A(e^{i\mathbf{k}\cdot\mathbf{r}_1} + e^{i\mathbf{k}\cdot\mathbf{r}_2})
+\end{equation}
+
+Intensity pattern:
+
+\begin{equation}
+\label{eq:interference_pattern}
+I(\mathbf{r}) = |\Psi_I|^2 = 2|A|^2[1 + \cos(\mathbf{k}\cdot\Delta\mathbf{r})]
+\end{equation}
+
+\subsubsection{Quantum Tunneling}
+
+Tunneling probability through a barrier:
+
+\begin{equation}
+\label{eq:tunneling_probability}
+T \approx \exp\left(-\frac{2}{\hbar}\int_{x_1}^{x_2}\sqrt{2m_I(V(x)-E)}\,dx\right)
+\end{equation}
+
+where $x_1$ and $x_2$ are the classical turning points.
