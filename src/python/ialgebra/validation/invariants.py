@@ -67,10 +67,7 @@ class NonTrivialityValidator(InvariantValidator):
         I and ZERO are distinct enum values. This method documents the invariant.
         """
         # In our representation, I and ZERO are distinct enum values
-        # This method validates the invariant is maintained
-        if value == IElement.I:
-            # I is always distinct from ZERO in our type system
-            return True
+        # This invariant is structurally guaranteed by the type system
         return True
     
     def check_distinct_from_numbers(self, value: Union[IElement, int, float]) -> bool:
@@ -80,9 +77,8 @@ class NonTrivialityValidator(InvariantValidator):
         Note: This invariant is structurally enforced by our type system where
         IElement is a separate type from numeric values. This method documents it.
         """
-        if value == IElement.I:
-            # I is always distinct in our representation
-            return True
+        # I is always distinct from numeric values in our representation
+        # This invariant is structurally guaranteed by the type system
         return True
 
 
@@ -160,11 +156,15 @@ class RestrictedCancellationValidator(InvariantValidator):
         
         Note: This is a placeholder for more complex validation logic.
         In a full implementation, this would analyze expression trees to ensure
-        cancellation only occurs in restricted cases. Currently returns True
-        as the operations module already enforces restricted cancellation.
+        cancellation only occurs in restricted cases (I - I, I / I).
+        Currently returns True as the operations module already enforces
+        restricted cancellation at the operation level.
+        
+        Future implementation would return False for expressions attempting
+        general cancellation patterns like (I + x) - I when x is unknown.
         """
-        # This is a placeholder for more complex validation logic
-        # In a full implementation, this would analyze expression trees
+        # Placeholder for complex expression tree analysis
+        # Operations module already enforces restricted cancellation
         return True
 
 

@@ -85,14 +85,10 @@ def oplus(a: Union[IElement, IExpr, int, float],
     
     # I + I
     if a == IElement.I and b == IElement.I:
-        if mode == SemanticsMode.STRICT:
-            result = IElement.I
-            SemanticLogger.log_decision("oplus", (a, b), result, mode,
-                                      "I + I = I (idempotent in strict mode)")
-        else:
-            result = IElement.I
-            SemanticLogger.log_decision("oplus", (a, b), result, mode,
-                                      "I + I = I (simplified representation)")
+        result = IElement.I
+        reason = ("I + I = I (idempotent in strict mode)" if mode == SemanticsMode.STRICT
+                  else "I + I = I (simplified representation)")
+        SemanticLogger.log_decision("oplus", (a, b), result, mode, reason)
         return result
     
     # I + number or number + I
@@ -228,26 +224,19 @@ def otimes(a: Union[IElement, IExpr, int, float],
     
     # I * I
     if a == IElement.I and b == IElement.I:
-        if mode == SemanticsMode.STRICT:
-            result = IElement.I
-            SemanticLogger.log_decision("otimes", (a, b), result, mode,
-                                      "I * I = I (idempotent in strict mode)")
-        else:
-            result = IElement.I
-            SemanticLogger.log_decision("otimes", (a, b), result, mode,
-                                      "I * I = I (simplified)")
+        result = IElement.I
+        reason = ("I * I = I (idempotent in strict mode)" if mode == SemanticsMode.STRICT
+                  else "I * I = I (simplified)")
+        SemanticLogger.log_decision("otimes", (a, b), result, mode, reason)
         return result
     
     # I * number or number * I
     if a == IElement.I or b == IElement.I:
-        if mode == SemanticsMode.STRICT:
-            SemanticLogger.log_decision("otimes", (a, b), IElement.I, mode,
-                                      "I * number = I (scalar multiplication absorbed)")
-            return IElement.I
-        else:
-            SemanticLogger.log_decision("otimes", (a, b), IElement.I, mode,
-                                      "I * number = I (non-strict scalar absorption)")
-            return IElement.I
+        result = IElement.I
+        reason = ("I * number = I (scalar multiplication absorbed)" if mode == SemanticsMode.STRICT
+                  else "I * number = I (non-strict scalar absorption)")
+        SemanticLogger.log_decision("otimes", (a, b), result, mode, reason)
+        return result
     
     # Numeric multiplication
     if isinstance(a, (int, float)) and isinstance(b, (int, float)):
@@ -301,14 +290,10 @@ def odiv(a: Union[IElement, IExpr, int, float],
     
     # I / I
     if a == IElement.I and b == IElement.I:
-        if mode == SemanticsMode.STRICT:
-            result = 1
-            SemanticLogger.log_decision("odiv", (a, b), result, mode,
-                                      "I / I = 1 (restricted cancellation)")
-        else:
-            result = 1
-            SemanticLogger.log_decision("odiv", (a, b), result, mode,
-                                      "I / I = 1 (cancellation)")
+        result = 1
+        reason = ("I / I = 1 (restricted cancellation)" if mode == SemanticsMode.STRICT
+                  else "I / I = 1 (cancellation)")
+        SemanticLogger.log_decision("odiv", (a, b), result, mode, reason)
         return result
     
     # I / number
