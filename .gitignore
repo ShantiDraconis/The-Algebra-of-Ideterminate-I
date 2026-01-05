@@ -1,3 +1,18 @@
+# Build artifacts and dependencies
+*.pyc
+__pycache__/
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Lean build artifacts
+build/
+lake-packages/
+.lake/
+*.olean
+
+# Coq build artifacts
 # Python
 __pycache__/
 *.py[cod]
@@ -9,12 +24,97 @@ venv/
 *.egg-info/
 dist/
 build/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Lean
+lakefile.olean
+.lake/
+build/
+
+# Coq
+*.vo
+*.vok
+*.vos
+*.glob
+*.aux
+.*.aux
+
+# Isabelle build artifacts
+*.thy~
+output/
+browser_info/
+
+# Agda build artifacts
+*.agdai
+MAlonzo/
+
+# Python
+venv/
+.venv/
+env/
+*.egg-info/
+dist/
+
+# IDE and editor files
+.coqdeps.d
+.lia.cache
+
+# Isabelle
+output/
+*.thy~
+.isabelle/
+
+# Agda
+*.agdai
+MAlonzo/
+
+# Editor files
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.venv
+venv/
+ENV/
+env/
 
 # LaTeX
 *.aux
 *.log
 *.out
 *.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.pdf
 *.synctex.gz
 *.fdb_latexmk
 *.fls
@@ -41,6 +141,28 @@ browser_info/
 # Agda
 *.agdai
 MAlonzo/
+*.bcf
+*.run.xml
+latex/build/
+
+# Lean
+formal/lean/.lake/
+formal/lean/lake-packages/
+formal/lean/build/
+
+# Coq
+formal/coq/*.vo
+formal/coq/*.vok
+formal/coq/*.vos
+formal/coq/*.glob
+formal/coq/.*.aux
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
 
 # IDE
 .vscode/
@@ -48,6 +170,59 @@ MAlonzo/
 *.swp
 *.swo
 *~
+
+# Lean
+_target/
+lakefile.olean
+.lake/
+
+# Coq
+*.vo
+*.glob
+*.v.d
+.coq-native/
+*.aux
+.*.aux
+*.v.d
+
+# Isabelle
+.isabelle/
+output/
+
+# Lean
+build/
+.lake/
+
+# Visualization outputs
+*.png
+*.jpg
+*.svg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+# Agda
+*.agdai
+# OS files
+.DS_Store
+
+# Data artifacts
+data/results/*
+!data/results/README.md
+
+# Environment
+.env
+
+# Node.js (for playground)
+node_modules/
+src/js/playground/dist/
+# Temporary files
+/tmp/
+*.tmp
+*.bak
 
 # OS
 .DS_Store
