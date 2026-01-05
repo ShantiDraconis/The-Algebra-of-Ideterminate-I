@@ -1,0 +1,249 @@
+\section{The Redshift of Distant Galaxies}
+\label{sec:redshift}
+
+This section examines the cosmological redshift phenomenon and its implications for understanding the expanding universe within the I-theory framework.
+
+\subsection{Cosmological Redshift}
+\label{subsec:cosmological_redshift}
+
+The redshift of light from distant galaxies is quantified by:
+
+\begin{equation}
+\label{eq:redshift_definition}
+z = \frac{\lambda_{\text{observed}} - \lambda_{\text{emitted}}}{\lambda_{\text{emitted}}} = \frac{\Delta\lambda}{\lambda_{\text{emitted}}}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $\lambda_{\text{observed}}$ is the wavelength of light received on Earth
+    \item $\lambda_{\text{emitted}}$ is the original wavelength emitted by the galaxy
+    \item $z$ is the dimensionless redshift parameter
+\end{itemize}
+
+\subsection{Physical Origin of Redshift}
+
+The redshift arises due to the expansion of the universe, stretching the wavelengths of light as they travel across cosmic distances.
+
+\subsubsection{Scale Factor Relation}
+
+The redshift is directly related to the cosmic scale factor:
+
+\begin{equation}
+\label{eq:scale_factor_redshift}
+1 + z = \frac{a(t_{\text{obs}})}{a(t_{\text{emit}})} = \frac{a_0}{a(t_e)}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $a(t)$ is the scale factor of the universe at time $t$
+    \item $a_0 = a(t_{\text{obs}})$ is the present-day scale factor (conventionally set to 1)
+    \item $t_e$ is the emission time
+\end{itemize}
+
+\subsubsection{Hubble's Law}
+
+For nearby galaxies ($z \ll 1$), redshift is approximately proportional to distance:
+
+\begin{equation}
+\label{eq:hubble_law}
+cz \approx H_0 d
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $c$ is the speed of light
+    \item $H_0$ is the Hubble constant ($H_0 \approx 67.4$ km s$^{-1}$ Mpc$^{-1}$)
+    \item $d$ is the proper distance to the galaxy
+\end{itemize}
+
+\subsection{High Redshift Regime}
+
+At high redshifts ($z > 6$), we observe light from the era when the universe was only a few hundred million years old.
+
+\subsubsection{Lookback Time}
+
+The lookback time as a function of redshift:
+
+\begin{equation}
+\label{eq:lookback_time}
+t_L(z) = t_0 - t(z) = \int_0^z \frac{dz'}{(1+z')H(z')}
+\end{equation}
+
+where $t_0$ is the age of the universe and:
+
+\begin{equation}
+\label{eq:hubble_parameter}
+H(z) = H_0 \sqrt{\Omega_m(1+z)^3 + \Omega_r(1+z)^4 + \Omega_\Lambda}
+\end{equation}
+
+with:
+\begin{itemize}
+    \item $\Omega_m$ = matter density parameter $\approx 0.315$
+    \item $\Omega_r$ = radiation density parameter $\approx 9.2 \times 10^{-5}$
+    \item $\Omega_\Lambda$ = dark energy density parameter $\approx 0.685$
+\end{itemize}
+
+\subsubsection{Comoving Distance}
+
+The comoving distance to an object at redshift $z$:
+
+\begin{equation}
+\label{eq:comoving_distance}
+d_c(z) = \frac{c}{H_0} \int_0^z \frac{dz'}{\sqrt{\Omega_m(1+z')^3 + \Omega_r(1+z')^4 + \Omega_\Lambda}}
+\end{equation}
+
+\subsection{I-Theory Modifications}
+
+In I-theory, the expansion rate is modified by I-field contributions:
+
+\begin{equation}
+\label{eq:i_modified_hubble}
+H_I(z) = H(z) \sqrt{1 + \frac{\Omega_I}{I}(1+z)^{3(1+w_I)}}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $\Omega_I$ is the I-field density parameter
+    \item $w_I$ is the I-field equation of state parameter
+\end{itemize}
+
+\subsubsection{Modified Redshift Relation}
+
+The I-modified redshift-distance relation:
+
+\begin{equation}
+\label{eq:i_redshift_distance}
+d_L(z) = (1+z) d_c(z) \left(1 + \alpha_I \frac{z^2}{1+z}\right)
+\end{equation}
+
+where $\alpha_I$ is the I-correction factor and $d_L$ is the luminosity distance.
+
+\subsection{Observational Signatures}
+
+\subsubsection{Type Ia Supernovae}
+
+The distance modulus for Type Ia supernovae:
+
+\begin{equation}
+\label{eq:distance_modulus}
+\mu(z) = 5\log_{10}\left[\frac{d_L(z)}{\text{Mpc}}\right] + 25
+\end{equation}
+
+I-theory predicts deviations from $\Lambda$CDM:
+
+\begin{equation}
+\label{eq:i_deviation}
+\Delta\mu_I(z) = \mu_I(z) - \mu_{\Lambda\text{CDM}}(z) \approx 5\alpha_I \frac{z^2}{(1+z)\ln 10}
+\end{equation}
+
+\subsubsection{Baryon Acoustic Oscillations}
+
+The BAO scale at redshift $z$:
+
+\begin{equation}
+\label{eq:bao_scale}
+r_s(z_d) = \int_{z_d}^\infty \frac{c_s(z)}{H(z)} dz
+\end{equation}
+
+where $c_s$ is the sound speed and $z_d$ is the drag epoch redshift.
+
+I-modifications alter the angular diameter distance:
+
+\begin{equation}
+\label{eq:angular_diameter}
+d_A^I(z) = \frac{d_c^I(z)}{1+z} = d_A^{\Lambda\text{CDM}}(z) \left(1 - \beta_I \frac{z}{1+z}\right)
+\end{equation}
+
+\subsection{Extreme Redshift Observations}
+
+\subsubsection{High-z Galaxies}
+
+For $z > 10$ galaxies:
+
+\begin{equation}
+\label{eq:high_z_age}
+t_{\text{universe}}(z) = \frac{1}{H_0} \int_z^\infty \frac{dz'}{(1+z')\sqrt{\Omega_m(1+z')^3 + \Omega_\Lambda}}
+\end{equation}
+
+At $z = 10$: $t_{\text{universe}} \approx 480$ Myr.
+
+\subsubsection{Lyman-Alpha Forest}
+
+The Ly$\alpha$ forest probes the intergalactic medium:
+
+\begin{equation}
+\label{eq:lya_optical_depth}
+\tau_{\text{eff}}(z) = \int_0^{z_{\text{QSO}}} \sigma_{\alpha} n_{HI}(z') \frac{c\,dz'}{H(z')}
+\end{equation}
+
+I-theory predicts modifications:
+
+\begin{equation}
+\label{eq:i_optical_depth}
+\tau_I(z) = \tau_{\text{eff}}(z) \exp\left(\gamma_I \frac{z}{1+z}\right)
+\end{equation}
+
+\subsection{Cosmic Microwave Background}
+
+The last scattering surface occurs at $z \approx 1090$:
+
+\begin{equation}
+\label{eq:cmb_redshift}
+T_{\text{CMB}}(z) = T_0 (1+z) = 2.725\, \text{K} \times (1+z)
+\end{equation}
+
+At last scattering: $T_{\text{CMB}}(z_{ls}) \approx 2970$ K.
+
+\subsubsection{Temperature Anisotropies}
+
+The CMB angular power spectrum:
+
+\begin{equation}
+\label{eq:cmb_power_spectrum}
+C_\ell = \frac{2}{\pi} \int dk\, k^2 \mathcal{P}(k) |\Theta_\ell(k)|^2
+\end{equation}
+
+where $\Theta_\ell(k)$ is the radiation transfer function.
+
+I-corrections modify the acoustic peaks:
+
+\begin{equation}
+\label{eq:i_acoustic_peaks}
+\ell_n^I = \ell_n^{\text{std}} \left(1 + \epsilon_I \frac{n^2}{\ell_n}\right)
+\end{equation}
+
+\subsection{Redshift Evolution of Physical Quantities}
+
+\subsubsection{Temperature Evolution}
+
+For photons:
+\begin{equation}
+\label{eq:photon_temperature}
+T_\gamma(z) = T_0(1+z)
+\end{equation}
+
+For matter (adiabatic expansion):
+\begin{equation}
+\label{eq:matter_temperature}
+T_m(z) \propto (1+z)^2
+\end{equation}
+
+\subsubsection{Density Evolution}
+
+Matter density:
+\begin{equation}
+\label{eq:matter_density}
+\rho_m(z) = \rho_{m,0}(1+z)^3
+\end{equation}
+
+Radiation density:
+\begin{equation}
+\label{eq:radiation_density}
+\rho_r(z) = \rho_{r,0}(1+z)^4
+\end{equation}
+
+I-field density:
+\begin{equation}
+\label{eq:i_field_density}
+\rho_I(z) = \rho_{I,0}(1+z)^{3(1+w_I)} \otimes I
+\end{equation}
