@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: "The Algebra of the Indeterminate — Formalization Hub"
+message: "If you use this repository, please cite it."
+type: software
+authors:
+  - family-names: "Fagliari"
+    given-names: "Tiago"
+    orcid: "https://orcid.org/0009-0006-6874-3910"
+repository-code: "https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I"
+license: "MIT"
+keywords:
+  - indeterminate algebra
+  - 0/0
+  - formal methods
+  - Lean
+  - Coq
+  - numerical validation

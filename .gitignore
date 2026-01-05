@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.venv
+venv/
+ENV/
+env/
+
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+latex/build/
+
+# Lean
+formal/lean/.lake/
+formal/lean/lake-packages/
+formal/lean/build/
+
+# Coq
+formal/coq/*.vo
+formal/coq/*.vok
+formal/coq/*.vos
+formal/coq/*.glob
+formal/coq/.*.aux
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Data artifacts
+data/results/*
+!data/results/README.md
+
+# Environment
+.env
+
+# Node.js (for playground)
+node_modules/
+src/js/playground/dist/
