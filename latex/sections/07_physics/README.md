@@ -227,8 +227,8 @@ Or included in a larger document using `\input{}`.
 ### Package Configuration
 ```latex
 \usepackage[margin=1in]{geometry}  % Margins
-\usepackage{physics}  # Physics notation
-\usepackage{siunitx}  # SI units
+\usepackage{physics}  % Physics notation
+\usepackage{siunitx}  % SI units
 ```
 
 ## Quality Assurance
