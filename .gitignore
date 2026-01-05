@@ -1,0 +1,48 @@
+# Build artifacts and dependencies
+*.pyc
+__pycache__/
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Lean build artifacts
+build/
+lake-packages/
+.lake/
+*.olean
+
+# Coq build artifacts
+*.vo
+*.vok
+*.vos
+*.glob
+*.aux
+.*.aux
+
+# Isabelle build artifacts
+*.thy~
+output/
+browser_info/
+
+# Agda build artifacts
+*.agdai
+MAlonzo/
+
+# Python
+venv/
+.venv/
+env/
+*.egg-info/
+dist/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
