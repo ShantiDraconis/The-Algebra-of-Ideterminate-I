@@ -1,0 +1,68 @@
+{
+  "title": "The Algebra of the Indeterminate I",
+  "description": "Chapter to folder mapping for the book structure",
+  "version": "1.0",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "title": "ZF Set Theory with Axiom of Choice and the Indeterminate I",
+      "short_name": "zf_ac_indeterminate",
+      "docs_theory_path": "docs/theory/01_zf_ac_indeterminate",
+      "latex_sections_path": "latex/sections/01_zf_ac_indeterminate"
+    },
+    {
+      "chapter_number": 2,
+      "title": "Ultrapowers and Non-Standard Analysis",
+      "short_name": "ultrapowers",
+      "docs_theory_path": "docs/theory/02_ultrapowers",
+      "latex_sections_path": "latex/sections/02_ultrapowers"
+    },
+    {
+      "chapter_number": 3,
+      "title": "Wheel Theory and Division by Zero",
+      "short_name": "wheel_theory",
+      "docs_theory_path": "docs/theory/03_wheel_theory",
+      "latex_sections_path": "latex/sections/03_wheel_theory"
+    },
+    {
+      "chapter_number": 4,
+      "title": "Axiomatic Foundation of I",
+      "short_name": "axioms",
+      "docs_theory_path": "docs/theory/04_axioms",
+      "latex_sections_path": "latex/sections/04_axioms"
+    },
+    {
+      "chapter_number": 5,
+      "title": "Field Axioms: Failures and Corrections",
+      "short_name": "field_axioms",
+      "docs_theory_path": "docs/theory/05_field_axioms",
+      "latex_sections_path": "latex/sections/05_field_axioms"
+    },
+    {
+      "chapter_number": 6,
+      "title": "I-Calculus: Differential and Integral Operations",
+      "short_name": "i_calculus",
+      "docs_theory_path": "docs/theory/06_i_calculus",
+      "latex_sections_path": "latex/sections/06_i_calculus"
+    },
+    {
+      "chapter_number": 7,
+      "title": "Physical Applications of the Indeterminate",
+      "short_name": "physics",
+      "docs_theory_path": "docs/theory/07_physics",
+      "latex_sections_path": "latex/sections/07_physics"
+    },
+    {
+      "chapter_number": 8,
+      "title": "Computational Aspects and Implementations",
+      "short_name": "computation",
+      "docs_theory_path": "docs/theory/08_computation",
+      "latex_sections_path": "latex/sections/08_computation"
+    }
+  ],
+  "metadata": {
+    "created": "2026-01-05",
+    "purpose": "Maps book chapters to corresponding documentation and LaTeX section folders",
+    "reference_pdf": "book/source/the_algebra_of_the_indeterminate.pdf"
+  }
+}
