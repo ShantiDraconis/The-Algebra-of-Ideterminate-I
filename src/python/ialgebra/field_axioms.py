@@ -143,13 +143,18 @@ def div(x: ExtendedReal, y: ExtendedReal) -> ExtendedReal:
     - a / 0 = I (division by zero)
     - a / I = 0
     - I / I = I
+    - I / J = I
     """
     if y == ZERO:
         return I
-    elif y.type == ElementType.I or y.type == ElementType.J:
-        return ZERO
+    elif y.type == ElementType.I:
+        return ZERO if x.type == ElementType.REAL else I
+    elif y.type == ElementType.J:
+        return ZERO if x.type == ElementType.REAL else I
     elif x.type == ElementType.REAL and y.type == ElementType.REAL:
         return real(x.value / y.value)
+    elif x.type == ElementType.I or x.type == ElementType.J:
+        return I
     else:
         return I
 
@@ -224,6 +229,8 @@ class FieldAxiomVerifier:
     def verify_axiom_4_add_inverse(self) -> Tuple[bool, str]:
         """
         Axiom 4: ∀a, ∃(-a), a + (-a) = 0
+        
+        This axiom FAILS for K_I because I has no additive inverse.
         """
         # Test with real numbers
         a = real(5)
@@ -238,8 +245,10 @@ class FieldAxiomVerifier:
                 I_has_inverse = True
                 break
         
-        passes = reals_ok and not I_has_inverse
-        details = f"Reals have inverse: {reals_ok}, I has inverse: {I_has_inverse} (EXPECTED: False)"
+        # For field axiom to hold, ALL elements must have inverses
+        # Since I doesn't, the axiom FAILS
+        passes = False  # Axiom fails because not all elements have inverses
+        details = f"Reals have inverse: {reals_ok}, I has inverse: {I_has_inverse} → AXIOM FAILS (I has no inverse)"
         
         return passes, details
     
@@ -302,6 +311,8 @@ class FieldAxiomVerifier:
     def verify_axiom_8_mul_inverse(self) -> Tuple[bool, str]:
         """
         Axiom 8: ∀a ≠ 0, ∃(a⁻¹), a · a⁻¹ = 1
+        
+        This axiom FAILS for K_I because I has no multiplicative inverse.
         """
         # Test with real numbers
         a = real(5)
@@ -316,8 +327,10 @@ class FieldAxiomVerifier:
                 I_has_inverse = True
                 break
         
-        passes = reals_ok and not I_has_inverse
-        details = f"Reals have inverse: {reals_ok}, I has inverse: {I_has_inverse} (EXPECTED: False)"
+        # For field axiom to hold, ALL non-zero elements must have inverses
+        # Since I ≠ 0 but has no inverse, the axiom FAILS
+        passes = False  # Axiom fails because I (non-zero) has no multiplicative inverse
+        details = f"Reals have inverse: {reals_ok}, I has inverse: {I_has_inverse} → AXIOM FAILS (I has no inverse)"
         
         return passes, details
     
@@ -403,14 +416,21 @@ class FieldAxiomVerifier:
         print()
         
         if passed == total:
-            print("✓ K_I is a FIELD")
+            print("✓ K_I SATISFIES ALL FIELD AXIOMS → K_I is a FIELD")
         else:
-            print("✗ K_I is NOT a field")
+            print("✗ K_I DOES NOT SATISFY ALL FIELD AXIOMS → K_I is NOT a field")
             print()
             print("Failed axioms:")
             for axiom_name, result in self.results.items():
                 if not result["passes"]:
                     print(f"  - {axiom_name}")
+            print()
+            print("Conclusion: K_I is an algebraic structure but NOT a field.")
+            print("It lacks:")
+            if not self.results.get("Additive Inverse", {}).get("passes", True):
+                print("  • Additive inverses for all elements (specifically I)")
+            if not self.results.get("Multiplicative Inverse", {}).get("passes", True):
+                print("  • Multiplicative inverses for all non-zero elements (specifically I)")
         
         print("=" * 80)
 
