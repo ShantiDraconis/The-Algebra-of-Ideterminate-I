@@ -1,0 +1,107 @@
+name: Formal Proof Task
+description: Submit or request a formal proof related to The Algebra of Indeterminate I
+title: "[PROOF]: "
+labels: ["formal-proof", "mathematics"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Formal Proof Task
+        Use this template to propose, submit, or request work on a formal proof.
+
+  - type: dropdown
+    id: proof-type
+    attributes:
+      label: Type of Request
+      description: What type of formal proof work are you proposing?
+      options:
+        - New proof proposal
+        - Proof verification
+        - Proof improvement
+        - Proof documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: theorem
+    attributes:
+      label: Theorem or Proposition
+      description: State the theorem or proposition to be proved
+      placeholder: |
+        Example: For all indeterminate I, I² = -1 under the defined algebra...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context and Background
+      description: Provide relevant context, definitions, and background information
+      placeholder: |
+        - Related theorems
+        - Required definitions
+        - Assumptions
+        - References to existing work
+    validations:
+      required: true
+
+  - type: textarea
+    id: proof-sketch
+    attributes:
+      label: Proof Sketch or Outline
+      description: Provide a sketch or outline of the proof (if submitting a proof)
+      placeholder: |
+        1. Start with...
+        2. Apply theorem X...
+        3. Show that...
+        4. Conclude...
+    validations:
+      required: false
+
+  - type: textarea
+    id: formal-proof
+    attributes:
+      label: Formal Proof
+      description: Provide the complete formal proof (if available)
+      placeholder: |
+        **Proof:**
+        Let I be an indeterminate...
+        
+        **Q.E.D.**
+    validations:
+      required: false
+
+  - type: dropdown
+    id: formalization
+    attributes:
+      label: Proof Formalization
+      description: Has this proof been formalized in a proof assistant?
+      options:
+        - Not formalized
+        - Coq
+        - Lean
+        - Isabelle
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: List any relevant references, papers, or resources
+      placeholder: |
+        - [Author Name, Paper Title, Year]
+        - [Related GitHub discussion #123]
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Any other relevant information
+    validations:
+      required: false

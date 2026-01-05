@@ -1,0 +1,144 @@
+name: Buyer Support
+description: Support request for buyers and users of the algebra
+title: "[SUPPORT]: "
+labels: ["buyer-support", "question"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Buyer Support
+        Use this template for support requests, questions, and assistance with using The Algebra of Indeterminate I.
+
+  - type: dropdown
+    id: support-type
+    attributes:
+      label: Type of Support Needed
+      description: What kind of help do you need?
+      options:
+        - General question
+        - Implementation help
+        - Understanding concept
+        - Usage example needed
+        - Troubleshooting
+        - Feature request
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How urgent is this request?
+      options:
+        - Low - can wait
+        - Medium - needed soon
+        - High - blocking work
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question or Issue
+      description: Describe what you need help with
+      placeholder: |
+        Be as specific as possible. Include:
+        - What you're trying to do
+        - What you've tried so far
+        - What's not working or unclear
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide relevant background information
+      placeholder: |
+        - Your use case or application
+        - Your level of familiarity with the algebra
+        - Any relevant constraints or requirements
+    validations:
+      required: false
+
+  - type: textarea
+    id: attempted
+    attributes:
+      label: What Have You Tried?
+      description: List what you've already attempted
+      placeholder: |
+        - Read the README
+        - Reviewed discussions
+        - Tried approach X
+        - Consulted reference Y
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Outcome
+      description: What result or understanding are you looking for?
+      placeholder: |
+        I expect to be able to...
+    validations:
+      required: false
+
+  - type: textarea
+    id: code-data
+    attributes:
+      label: Relevant Code or Data
+      description: Share any relevant code, formulas, or data
+      placeholder: |
+        ```python
+        # Your code here
+        ```
+        
+        Or describe your mathematical formulation
+    validations:
+      required: false
+
+  - type: dropdown
+    id: background
+    attributes:
+      label: Your Background
+      description: This helps us tailor our response (optional)
+      options:
+        - Mathematics researcher
+        - Software developer
+        - Student
+        - Hobbyist
+        - Industry professional
+        - Other
+        - Prefer not to say
+    validations:
+      required: false
+
+  - type: textarea
+    id: resources
+    attributes:
+      label: Resources Consulted
+      description: List any resources you've already reviewed
+      placeholder: |
+        - README.md
+        - Discussion #123
+        - hub/DISCUSSIONS_GUIDE.md
+        - Related papers
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please verify before submitting
+      options:
+        - label: I've searched existing issues and discussions
+          required: true
+        - label: I've reviewed the available documentation
+          required: true
+        - label: I've provided sufficient context and details
+          required: true
