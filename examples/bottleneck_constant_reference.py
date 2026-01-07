@@ -4,7 +4,7 @@ Based on the Algebra of the Indeterminate (AEI)
 
 Author: Tiago Fagliari
 ORCID: 0009-0006-6874-3910
-Repository: https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I
+Repository: https://github.com/ShantiDraconis/The-Algebra-of-Indeterminate-I
 License: MIT (for academic and open source use)
          See COMMERCIAL_LICENSING.md for commercial use
 
