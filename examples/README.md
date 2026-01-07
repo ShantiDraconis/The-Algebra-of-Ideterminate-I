@@ -4,7 +4,64 @@ This directory contains practical examples and tutorials for working with the I-
 
 ## Available Examples
 
-### 1. Python Implementation (`python_implementation.py`)
+### 1. Bottleneck Constant Reference Implementation (`bottleneck_constant_reference.py`)
+
+**NEW**: The official reference implementation of the Bottleneck Constant (I).
+
+**Author**: Tiago Fagliari (ORCID: 0009-0006-6874-3910)  
+**License**: MIT (academic/open source), See COMMERCIAL_LICENSING.md for commercial use
+
+**Features**:
+- Canonical implementation of I = 0/0
+- All fundamental properties (idempotency, uniqueness, distinctness)
+- Singleton pattern ensuring I is unique
+- Complete arithmetic operations
+- Safe division function (0/0 → I)
+- Quantum computing example
+- Comprehensive property verification
+
+**Usage**:
+```bash
+python3 bottleneck_constant_reference.py
+```
+
+**Example Code**:
+```python
+from bottleneck_constant_reference import I, safe_divide, is_indeterminate
+
+# Basic operations
+print(I * I)  # I (multiplicative idempotency)
+print(I + I)  # I (additive idempotency)
+print(0 * I)  # 0 (zero absorption)
+print(5 * I)  # I (I with non-zero)
+
+# Safe division
+result = safe_divide(0, 0)  # Returns I instead of error
+print(result)  # I
+
+# Check for indeterminacy
+if is_indeterminate(result):
+    print("Result is indeterminate - apply I-algebra")
+
+# Division by I
+print(10 / I)  # 0 (any number divided by I is 0)
+```
+
+**Key Properties Verified**:
+- ✅ Uniqueness (singleton)
+- ✅ Multiplicative idempotency: I × I = I
+- ✅ Additive idempotency: I + I = I
+- ✅ Zero absorption: 0 × I = 0
+- ✅ Distinctness: I ≠ 0, I ≠ 1, I ≠ ∞, I ≠ NaN
+- ✅ Division: r / I = 0, I / r = I
+- ✅ Exponentiation: I^n = I
+
+**Documentation**:
+- Technical Spec: [BOTTLENECK_CONSTANT_SPECIFICATION.md](../BOTTLENECK_CONSTANT_SPECIFICATION.md)
+- IP Notice: [INTELLECTUAL_PROPERTY.md](../INTELLECTUAL_PROPERTY.md)
+- Licensing: [COMMERCIAL_LICENSING.md](../COMMERCIAL_LICENSING.md)
+
+### 2. Python Implementation (`python_implementation.py`)
 
 A complete computational implementation of the extended real number system in Python.
 
