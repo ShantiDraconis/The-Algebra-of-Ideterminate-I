@@ -1,0 +1,158 @@
+\section{Cosmology with Dynamical Dark Energy}
+
+\subsection{Motivation: Evolving $\Lambda$}
+
+Standard cosmology ($\Lambda$CDM) assumes a constant cosmological constant $\Lambda$. However, dynamical dark energy models (e.g., quintessence) propose that $\Lambda$ can vary with time:
+
+\begin{equation}
+\Lambda(t) = \Lambda_0 e^{-\gamma t},
+\label{eq:lambda_decay}
+\end{equation}
+
+where $\gamma$ is a parameter controlling how fast dark energy decays. If $\Lambda$ truly changes over cosmological timescales, the expansion rate $H(t)$ will also evolve differently from the standard case.
+
+\begin{definition}[Dynamical Dark Energy]
+Let $\Lambda: \mathbb{R}^+ \to \mathbb{R}^+$ be a time-dependent cosmological constant. We say $\Lambda$ exhibits exponential decay if there exist constants $\Lambda_0 > 0$ and $\gamma \geq 0$ such that
+\[
+\Lambda(t) = \Lambda_0 e^{-\gamma t} \quad \forall t \geq 0.
+\]
+\end{definition}
+
+\subsection{Numerical Example: Modified Friedmann Equation}
+
+We consider a simplified Friedmann equation for a flat Universe with matter and dark energy:
+
+\begin{equation}
+H^2 = \rho_m + \Lambda(t),
+\label{eq:friedmann_simplified}
+\end{equation}
+
+where $\rho_m \propto a^{-3}$ (matter density) and $a(t)$ is the scale factor.
+
+\begin{theorem}[Modified Friedmann Evolution]
+For a flat universe with matter density $\rho_m(a) = \rho_{m0} a^{-3}$ and dynamical dark energy $\Lambda(t) = \Lambda_0 e^{-\gamma t}$, the Hubble parameter satisfies
+\[
+H(a,t) = \sqrt{\frac{8\pi G}{3} \rho_{m0} a^{-3} + \Lambda_0 e^{-\gamma t}}.
+\]
+\end{theorem}
+
+\begin{proof}
+From the definition of the Friedmann equation in a flat universe:
+\[
+H^2 = \frac{8\pi G}{3} \rho_{\text{total}},
+\]
+where $\rho_{\text{total}} = \rho_m(a) + \rho_{\Lambda}(t)$. 
+
+Since matter density evolves as $\rho_m(a) = \rho_{m0} a^{-3}$ and the dark energy density is given by $\rho_{\Lambda}(t) = \frac{3\Lambda(t)}{8\pi G}$, we have:
+\[
+H^2 = \frac{8\pi G}{3}\rho_{m0} a^{-3} + \Lambda(t).
+\]
+Substituting equation \eqref{eq:lambda_decay}:
+\[
+H^2 = \frac{8\pi G}{3}\rho_{m0} a^{-3} + \Lambda_0 e^{-\gamma t}.
+\]
+Taking the square root gives the result.
+\end{proof}
+
+\subsection{Scale Factor Evolution}
+
+In modern cosmology, the standard $\Lambda$CDM model assumes a constant dark energy density, described by the cosmological constant $\Lambda$. However, dynamical dark energy models consider a time-dependent $\Lambda$, which can evolve due to various physical mechanisms.
+
+The evolution of the scale factor $a(t)$ is governed by:
+
+\begin{equation}
+\frac{da}{dt} = a H(a,t) = a \sqrt{0.3 a^{-3} + \Lambda_0 e^{-\gamma t}},
+\label{eq:scale_factor_ode}
+\end{equation}
+
+assuming normalized units where the present-day matter density is 0.3 and dark energy is initially 0.7.
+
+\begin{lemma}[Scale Factor Growth Rate]
+The scale factor satisfies the differential inequality
+\[
+\frac{1}{a}\frac{da}{dt} \geq \sqrt{\Lambda_0 e^{-\gamma t}}
+\]
+for sufficiently large $a$ (matter-dominated era).
+\end{lemma}
+
+\begin{proof}
+As $a \to \infty$, the matter term $0.3 a^{-3} \to 0$, so
+\[
+H(a,t) \approx \sqrt{\Lambda_0 e^{-\gamma t}}.
+\]
+Therefore,
+\[
+\frac{1}{a}\frac{da}{dt} = H(a,t) \geq \sqrt{\Lambda_0 e^{-\gamma t}}.
+\]
+\end{proof}
+
+\subsection{Key Mathematical Properties}
+
+\begin{proposition}[Long-term Behavior]
+\begin{enumerate}
+\item If $\gamma = 0$ (constant $\Lambda$), the universe expands exponentially at late times.
+\item If $\gamma > 0$ (decaying $\Lambda$), the expansion rate decreases with time.
+\item For sufficiently large $\gamma$, the universe may eventually recollapse.
+\end{enumerate}
+\end{proposition}
+
+\begin{theorem}[Energy Conservation in Modified Cosmology]
+The total energy density $\rho_{\text{total}} = \rho_m + \rho_{\Lambda}$ satisfies the continuity equation:
+\[
+\frac{d\rho_{\text{total}}}{dt} + 3H(\rho_m + p_m + \rho_{\Lambda} + p_{\Lambda}) = 0,
+\]
+where $p_m = 0$ (pressureless matter) and $p_{\Lambda} = -\rho_{\Lambda}$ (dark energy equation of state).
+\end{theorem}
+
+\begin{proof}
+From the first law of thermodynamics in an expanding universe:
+\[
+d(\rho V) = -p dV,
+\]
+where $V \propto a^3$. For matter with $p_m = 0$:
+\[
+\frac{d\rho_m}{dt} + 3H\rho_m = 0.
+\]
+For dark energy with $p_{\Lambda} = -\rho_{\Lambda}$:
+\[
+\frac{d\rho_{\Lambda}}{dt} + 3H(\rho_{\Lambda} - \rho_{\Lambda}) = \frac{d\rho_{\Lambda}}{dt} = 0
+\]
+in the standard case. However, for dynamical dark energy:
+\[
+\frac{d\rho_{\Lambda}}{dt} = -\gamma \Lambda_0 e^{-\gamma t} \neq 0,
+\]
+which represents energy transfer between the vacuum and matter sectors.
+\end{proof}
+
+\subsection{Discussion of Results}
+
+When $\gamma = 0$, $\Lambda$ is constant, reproducing the standard $\Lambda$CDM scenario. For $\gamma > 0$, dark energy decays with time, reducing the late-time acceleration. Depending on $\gamma$, the Universe could even recollapse if the decay is sufficiently rapid.
+
+\begin{remark}
+The exponential decay model is one of many possibilities for dynamical dark energy. Other models include:
+\begin{itemize}
+\item Power-law decay: $\Lambda(t) = \Lambda_0 t^{-\alpha}$
+\item Oscillating dark energy: $\Lambda(t) = \Lambda_0(1 + A\sin(\omega t))$
+\item Phantom energy: $w < -1$ equation of state
+\end{itemize}
+\end{remark}
+
+\subsection{Connection to Algebra of Indeterminate I}
+
+The indeterminate element $I$ can model singularities and indeterminate forms in cosmology:
+
+\begin{definition}[Cosmological Indeterminacy]
+Let $I$ denote the indeterminate element. We define:
+\[
+\lim_{t \to 0^+} \frac{\Lambda(t)}{\rho_m(t)} = I
+\]
+at the initial singularity, representing the ill-defined ratio of energy densities.
+\end{definition}
+
+\begin{proposition}[I-Regularization of Singularities]
+Using the algebra of $I$, we can regularize certain cosmological singularities:
+\[
+H(a=0, t=0) = \sqrt{\infty + \Lambda_0} = I,
+\]
+providing a framework for handling initial conditions.
+\end{proposition}
