@@ -4,7 +4,7 @@ This repository is the **expanded technical companion** to the book *The Algebra
 
 ## Quickstart
 
-Local (Codespace)
+### Local Development / GitHub Codespaces
 ```bash
 ./scripts/bootstrap.sh
 make doctor

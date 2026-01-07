@@ -1,9 +1,9 @@
 services:
   app:
     build:
-      context: .
+      context: ..
       dockerfile: docker/Dockerfile
     volumes:
-      - .:/workspace
+      - ..:/workspace
     working_dir: /workspace
     command: sleep infinity
