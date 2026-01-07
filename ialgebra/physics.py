@@ -223,7 +223,7 @@ class SmoothSingularity:
         Returns:
             Density (returns I at core)
         """
-        if radius < 1e-35:  # Planck length scale
+        if radius < PLANCK_LENGTH:  # Planck length scale
             # Core is in I-state
             return I
         elif radius < self.r_s:
@@ -294,11 +294,17 @@ class EntropyAcceleration:
             
         Returns:
             Thrust force in Newtons
+            
+        Note:
+            The calibration factor is THEORETICAL and requires experimental validation.
+            Current value (1e-10 N per I-unit/km per kg) is a placeholder based on
+            dimensional analysis. Actual value depends on vacuum I-field coupling
+            strength, which must be measured empirically.
         """
         # Thrust ∝ ∇I (gradient of indetermination)
         # Vacuum "pressure" from I-field asymmetry
-        # Calibration factor TBD (experimental)
-        calibration = 1e-10  # N per unit I-gradient (placeholder)
+        # THEORETICAL VALUE - EXPERIMENTAL VALIDATION REQUIRED
+        calibration = 1e-10  # N per unit I-gradient per kg (theoretical estimate)
         return calibration * i_gradient * self.mass
     
     def delta_v(self, burn_time: float, i_gradient: float) -> float:

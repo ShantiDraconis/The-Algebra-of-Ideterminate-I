@@ -7,11 +7,17 @@ Implements novel cryptographic techniques using the indeterminate algebra:
 - I-Field Modular Arithmetic
 
 Author: Tiago Fagliari (ORCID: 0009-0006-6874-3910)
+
+Security Note:
+    This implementation uses `random` module for demonstration purposes.
+    Production cryptographic systems MUST use `secrets` module or
+    cryptographically secure random number generators.
 """
 
 from typing import List, Tuple, Optional
 from dataclasses import dataclass
 import random
+import secrets  # For cryptographically secure random numbers
 from .types import Indeterminate, ExtendedElement, I
 
 
@@ -45,12 +51,25 @@ class PairedPrime:
         
         Returns:
             True if square root exhibits even-prime properties in AEI
+            
+        Mathematical Basis:
+            In AEI framework, when two numbers are paired (a, b) such that:
+            - Their product p = a × b is divisible by 4
+            - The square root √p exists in extended AEI arithmetic
+            Then √p exhibits "even-prime-like" behavior under I-field operations.
+            
+            This is simplified from the full AEI theory where paired operations
+            reveal roots that behave as even primes (beyond classical prime 2)
+            in modular arithmetic involving the indeterminate I.
+            
+            The criterion (product % 4 == 0) is a SIMPLIFIED HEURISTIC for
+            demonstration. Full cryptographic implementation requires deeper
+            number-theoretic analysis specific to AEI paired-prime relationships.
         """
         product = self.paired_product()
-        # In AEI framework, certain products have roots with even-prime properties
-        # This is the mathematical signature of the framework
-        # Implementation: check if sqrt(product) behaves as even prime mod I
-        return (product % 4 == 0)  # Simplified criterion
+        # Simplified criterion for demonstration
+        # Full theory requires AEI-specific number theory
+        return (product % 4 == 0)
     
     def cryptographic_key_component(self) -> int:
         """
@@ -264,16 +283,24 @@ class PairedPrimeCryptosystem:
         
         Returns:
             (public_key, private_key): Key pair based on paired primes
+            
+        Security Note:
+            This demonstration uses secrets.randbits() for cryptographically
+            secure random number generation. Production systems should additionally:
+            - Use proper prime generation algorithms
+            - Verify primes with Miller-Rabin or similar tests
+            - Apply AEI-specific paired-prime selection criteria
         """
         # Generate two paired-prime pairs
         # In practice, these would be carefully selected from AEI theory
-        # Here we use simplified generation
+        # Here we use simplified generation with cryptographically secure RNG
         
         # Private key: two paired-prime structures
-        p1 = random.randint(2**(self.security_bits//2 - 1), 2**(self.security_bits//2))
-        p2 = random.randint(2**(self.security_bits//2 - 1), 2**(self.security_bits//2))
-        q1 = random.randint(2**(self.security_bits//2 - 1), 2**(self.security_bits//2))
-        q2 = random.randint(2**(self.security_bits//2 - 1), 2**(self.security_bits//2))
+        # Using secrets.randbits for cryptographic security
+        p1 = secrets.randbits(self.security_bits//2)
+        p2 = secrets.randbits(self.security_bits//2)
+        q1 = secrets.randbits(self.security_bits//2)
+        q2 = secrets.randbits(self.security_bits//2)
         
         pair1 = PairedPrime(p1, p2)
         pair2 = PairedPrime(q1, q2)
