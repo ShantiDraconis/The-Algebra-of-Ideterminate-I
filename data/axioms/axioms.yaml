@@ -177,6 +177,93 @@ indeterminate_extensions:
     category: "indeterminate"
     description: "All positive powers of I equal I"
 
+# Flexible Resolution Framework Axioms (from book extension)
+flexible_resolution_axioms:
+  - id: FR1
+    name: "Extended Division (Axiom 23)"
+    statement: "∀x ∈ K \\ {0}: x/0 = I"
+    category: "flexible_resolution"
+    description: "Division by zero yields the indeterminate I, treated as a free parameter"
+    notes: "I may assume a value α if needed, but generally I ≠ 0"
+    
+  - id: FR2
+    name: "Absorption (Axiom 24)"
+    statement: "∀a ∈ K_I: a + I = I ∧ a · I = I"
+    category: "flexible_resolution"
+    description: "The indeterminate I absorbs all elements under addition and multiplication"
+    notes: "Ensures indeterminate nature dominates expressions"
+    
+  - id: FR3
+    name: "Modified Multiplication (Axiom 25)"
+    statement: "(a + bI)(c + dI) = ac + (ad + bc)I + bd·Ω(I)"
+    category: "flexible_resolution"
+    description: "Multiplication in K_I includes a corrective term Ω(I)"
+    notes: |
+      Corrective function options:
+      - Ω(I) = I (default)
+      - Ω(I) = kI where k ∈ K \\ {0, 1}
+      - Ω(I) = I + ε where ε² = 0
+    
+  - id: FR4
+    name: "Modified Distributivity (Axiom 26)"
+    statement: "∀a,b,c ∈ K_I with I involved: a(b + c) = ab + ac + λJ"
+    category: "flexible_resolution"
+    description: "Distributivity includes correction term when I is present"
+    notes: "J = iI is imaginary extension of I, λ ∈ K is correction coefficient"
+    
+  - id: FR5
+    name: "Non-Triviality Preservation (Axiom 27)"
+    statement: "I ≠ 0 globally, but I may be locally set to α if consistent"
+    category: "flexible_resolution"
+    description: "System remains nontrivial; prevents collapse to 1 = 0"
+    notes: "Local resolution allowed only when it doesn't cause contradiction"
+
+# Extended Number System K_I
+extended_system:
+  - id: EXT1
+    name: "K_I Structure"
+    statement: "K_I = {a + bI | a, b ∈ K}"
+    category: "extended_system"
+    description: "Extended algebra with additional dimension from I"
+    
+  - id: EXT2
+    name: "Separation Axiom"
+    statement: "I ≠ λ for every λ ∈ K"
+    category: "extended_system"
+    description: "I is not identified with any conventional element"
+    
+  - id: EXT3
+    name: "Invariance of Operations"
+    statement: "Operations involving I must not simplify to reduce I to element of K"
+    category: "extended_system"
+    description: "Prevents cancellation rules that would trivialize I"
+    
+  - id: EXT4
+    name: "Approximation Axiom"
+    statement: "∃ metric on K_I: lim(x→0) 1/x → I without I ∈ K"
+    category: "extended_system"
+    description: "Topology allows sequences to approach I without I being limit in K"
+
+# Resolution Criterion
+resolution_criteria:
+  - id: RC1
+    name: "Contradiction Avoidance"
+    statement: "If I = 0 leads to 1 = 0, then I must remain nonzero"
+    category: "resolution"
+    description: "Primary check for maintaining consistency"
+    
+  - id: RC2
+    name: "Context-Dependent Resolution"
+    statement: "If equation requires I ≡ α for consistency, define I ≡ α locally"
+    category: "resolution"
+    description: "Flexible resolution within problem scope"
+    
+  - id: RC3
+    name: "Global vs Local"
+    statement: "I remains indeterminate globally; resolution is local/contextual"
+    category: "resolution"
+    description: "Prevents system-wide trivialization"
+
 # Meta-axioms about the system
 meta_axioms:
   - id: M1

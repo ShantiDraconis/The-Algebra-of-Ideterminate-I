@@ -1,0 +1,228 @@
+# Indeterminate Forms in the Extended System K_I
+# 
+# This file catalogs various indeterminate expressions and their interpretations
+# as described in the Algebra of Indeterminate I framework.
+
+version: "1.0.0"
+description: "Catalog of indeterminate forms and their roles in K_I"
+
+# Classical indeterminate forms
+classical_forms:
+  - expression: "0/0"
+    symbol: "B"
+    role: "Creation from nothing; fundamental principle of origin"
+    interpretation: "Represents undefined ratio; fundamental indeterminate form"
+    behavior: "Primary indeterminate; I is defined as 0/0 in some contexts"
+    
+  - expression: "∞/∞"
+    symbol: "A"
+    role: "Infinite potential; origin of creation"
+    interpretation: "Undefined infinite ratio; relative growth of infinities"
+    behavior: "Expresses scenarios where limits don't determine outcome"
+    
+  - expression: "0 × ∞"
+    symbol: "G"
+    role: "Duality of creative flow between infinite potential and primordial zero"
+    interpretation: "Indeterminate product; tension between nullity and infinity"
+    behavior: "Balance between opposite extremes"
+    
+  - expression: "∞ - ∞"
+    symbol: "S, R"
+    role: "Subtraction of infinities; foundational equilibrium; transformation"
+    interpretation: "Ambiguous difference between infinities"
+    behavior: "Critical in study of balance between forces"
+    
+  - expression: "0^0"
+    symbol: "Z"
+    role: "Zero power; balance between creation and destruction"
+    interpretation: "Controversial indeterminate form; context-dependent"
+    behavior: "Often defined as 1 by convention, but fundamentally indeterminate"
+    
+  - expression: "1^∞"
+    symbol: null
+    role: "Delicate balance between constant and infinite exponent"
+    interpretation: "Arises in limit expressions; exponential growth analysis"
+    behavior: "Common in calculus and analysis"
+    
+  - expression: "∞^0"
+    symbol: "A"
+    role: "Tension between unbounded base and zero exponent"
+    interpretation: "Another exponential indeterminate form"
+    behavior: "Related to limits of power functions"
+
+# Extended indeterminate forms
+extended_forms:
+  - expression: "√[0](1)"
+    symbol: null
+    role: "Zero-root of 1"
+    interpretation: "Indeterminate radical form; defies conventional definition"
+    behavior: "Extends notion of roots to limit cases"
+    
+  - expression: "√[∞](0)"
+    symbol: null
+    role: "Infinite root of 0"
+    interpretation: "Captures how infinitesimal values approach zero"
+    behavior: "Illustrates infinitesimal analysis"
+    
+  - expression: "√[∞](∞)"
+    symbol: null
+    role: "Infinite root of infinity"
+    interpretation: "Examines interplay between infinite quantities"
+    behavior: "Tests limits of exponential and root operations"
+
+# Logarithmic indeterminate forms
+logarithmic_forms:
+  - expression: "log_0(0)"
+    symbol: null
+    role: "Logarithm with both base and argument indeterminate"
+    interpretation: "Highlights complexity when both inputs are boundary values"
+    behavior: "Undefined in classical mathematics"
+    
+  - expression: "log_∞(∞)"
+    symbol: null
+    role: "Ambiguous logarithmic relationship"
+    interpretation: "When both base and argument infinite, ratio is unclear"
+    behavior: "Depends on relative rates of growth"
+    
+  - expression: "log_1(1)"
+    symbol: null
+    role: "Seemingly trivial but challenges uniqueness"
+    interpretation: "In indeterminacy context, even this becomes problematic"
+    behavior: "Conventionally undefined (division by zero in change of base)"
+    
+  - expression: "log_∞(0)"
+    symbol: null
+    role: "Inverts usual order of infinity and nullity"
+    interpretation: "Defies conventional logarithm behavior"
+    behavior: "No consistent classical interpretation"
+    
+  - expression: "log_0(∞)"
+    symbol: null
+    role: "Exposes limits of standard analysis"
+    interpretation: "Similarly undefined; boundary case"
+    behavior: "Requires extended framework for interpretation"
+
+# Complex indeterminate forms
+complex_forms:
+  - expression: "i·i"
+    symbol: "Ch"
+    value: "-1"
+    role: "Imaginary unit; connects spiritual with material"
+    interpretation: "Foundation of complex analysis"
+    behavior: "Well-defined: i² = -1"
+    
+  - expression: "i·I"
+    symbol: "Y, K, Ay"
+    role: "Complex indeterminacy; seed of creation; action; spiritual vision"
+    interpretation: "Combines imaginary and indeterminate"
+    behavior: "Creates higher-order indeterminacy"
+    
+  - expression: "i·∞"
+    symbol: "L"
+    role: "Infinite wisdom; integration of complex ideas"
+    interpretation: "Complex infinity"
+    behavior: "Extends complex plane to infinity"
+    
+  - expression: "i - ∞"
+    symbol: "M"
+    role: "Decay; flow of life; purification and creation"
+    interpretation: "Complex decay process"
+    behavior: "Directional infinity in complex plane"
+    
+  - expression: "i·0"
+    symbol: "N"
+    role: "Imaginary zero product; creative force"
+    interpretation: "Zero with imaginary direction"
+    behavior: "Continuity of life; directional nullity"
+    
+  - expression: "i - i"
+    symbol: "Q"
+    role: "Imaginary collapse; profound mysticism"
+    interpretation: "Spiritual forces in collision"
+    behavior: "Results in zero but represents transformation"
+
+# Infinite operations
+infinite_operations:
+  - expression: "∞·∞"
+    symbol: "T"
+    role: "Infinite perfection; unity of infinite with eternal"
+    interpretation: "Final manifestation of creation"
+    behavior: "Higher-order infinity"
+    
+  - expression: "∞·0"
+    symbol: "D, G, T"
+    role: "Transition between finite and infinite; doorway; final realization"
+    interpretation: "Duality and boundary crossing"
+    behavior: "Fundamental indeterminate product"
+    
+  - expression: "∞^∞"
+    symbol: "P, Sh"
+    role: "Exponentiation of infinite; divine speech; transforming fire"
+    interpretation: "Creates reality through expression"
+    behavior: "Transcendent infinity"
+    
+  - expression: "1/∞"
+    symbol: "V"
+    role: "Infinite ratio; connection between finite and infinite"
+    interpretation: "Channel between heaven and earth; infinitesimal"
+    behavior: "Approaches zero but represents division by infinity"
+
+# Special symbols and their interpretations
+special_symbols:
+  - symbol: "I"
+    expression: "0/0 or 1/0"
+    name: "Indeterminate"
+    interpretation: "Fundamental indeterminate constant"
+    properties:
+      - "I + I = I"
+      - "I · I = I"
+      - "I ≠ 0"
+      - "I ≠ 1"
+      - "x/0 = I for x ≠ 0"
+    
+  - symbol: "J"
+    expression: "i·I"
+    name: "Imaginary Indeterminate"
+    interpretation: "Extension of I to complex domain"
+    properties:
+      - "Used in modified distributivity"
+      - "Correction term in complex operations"
+    
+  - symbol: "Ω(I)"
+    expression: "Corrective function"
+    name: "Omega function"
+    interpretation: "Corrects multiplication in K_I"
+    properties:
+      - "Ω(I) = I (default)"
+      - "Ω(I) = kI for k ∈ K \\ {0,1}"
+      - "Ω(I) = I + ε where ε² = 0"
+
+# Physical and philosophical interpretations
+interpretations:
+  singularities:
+    description: "Model singular behavior in mathematics and physics"
+    examples:
+      - "Black hole singularities"
+      - "Big Bang initial conditions"
+      - "Quantum field divergences"
+    
+  regularization:
+    description: "Provide rigorous basis for regularization techniques"
+    examples:
+      - "Quantum field theory renormalization"
+      - "Divergent series summation"
+      - "Cutoff regularization"
+    
+  computational:
+    description: "Systematic method to manage undefined operations"
+    examples:
+      - "Division by zero handling"
+      - "Numerical stability"
+      - "Error propagation"
+    
+  algebraic:
+    description: "New algebraic structures beyond traditional arithmetic"
+    examples:
+      - "Wheel of fractions"
+      - "Extended field theories"
+      - "Non-standard analysis"
