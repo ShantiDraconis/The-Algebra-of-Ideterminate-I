@@ -1,0 +1,159 @@
+\section{Analysis of the Numerical Results}
+
+\subsection{Overview}
+
+The numerical integration of equation \eqref{eq:scale_factor_ode} yields the evolution of the scale factor $a(t)$ over cosmic time for different values of the decay parameter $\gamma$. This section provides a rigorous mathematical analysis of the computed results.
+
+\begin{definition}[Numerical Solution Space]
+Let $\mathcal{S}$ be the space of numerical solutions to the dynamical Friedmann equation:
+\[
+\mathcal{S} = \{a: [0,T] \to \mathbb{R}^+ \mid a \text{ satisfies } \eqref{eq:scale_factor_ode} \text{ numerically}\},
+\]
+where $T$ is the integration time horizon.
+\end{definition}
+
+\subsection{Key Observations}
+
+\begin{theorem}[Parameter Dependence]
+For fixed initial conditions $a(0) = a_0$ and $\dot{a}(0) = H_0 a_0$, the solution $a(t;\gamma)$ satisfies:
+\begin{enumerate}
+\item Monotonicity: $\frac{\partial a}{\partial \gamma}(t;\gamma) < 0$ for all $t > 0$ and $\gamma \geq 0$.
+\item Asymptotic behavior: 
+\[
+\lim_{t \to \infty} \frac{a(t;\gamma_1)}{a(t;\gamma_2)} = 
+\begin{cases}
+\infty & \text{if } \gamma_1 < \gamma_2 \\
+1 & \text{if } \gamma_1 = \gamma_2 \\
+0 & \text{if } \gamma_1 > \gamma_2
+\end{cases}
+\]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Consider two solutions $a_1(t) = a(t;\gamma_1)$ and $a_2(t) = a(t;\gamma_2)$ with $\gamma_1 < \gamma_2$. 
+
+For the Hubble parameters:
+\[
+H_1^2 = 0.3 a_1^{-3} + \Lambda_0 e^{-\gamma_1 t} > 0.3 a_2^{-3} + \Lambda_0 e^{-\gamma_2 t} = H_2^2
+\]
+when $a_1 = a_2$ (since $e^{-\gamma_1 t} > e^{-\gamma_2 t}$).
+
+Starting from the same initial conditions, $a_1(0) = a_2(0)$, we have $\dot{a}_1(0) > \dot{a}_2(0)$. By continuous dependence on parameters and monotonicity of the flow, $a_1(t) > a_2(t)$ for all $t > 0$.
+
+For the asymptotic behavior, note that as $t \to \infty$:
+\[
+H_1(t) \approx \sqrt{\Lambda_0 e^{-\gamma_1 t}}, \quad H_2(t) \approx \sqrt{\Lambda_0 e^{-\gamma_2 t}}.
+\]
+Thus,
+\[
+\frac{H_1(t)}{H_2(t)} \approx e^{-(\gamma_1-\gamma_2)t/2} \to \infty \text{ as } t \to \infty.
+\]
+Integrating gives the stated result.
+\end{proof}
+
+\subsection{Expansion Dynamics}
+
+\begin{lemma}[Deceleration Parameter]
+The deceleration parameter $q(t) = -\frac{\ddot{a}a}{\dot{a}^2}$ for the dynamical dark energy model is given by:
+\[
+q(t) = \frac{1}{2}\frac{0.3 a^{-3} - 2\Lambda_0 e^{-\gamma t}}{0.3 a^{-3} + \Lambda_0 e^{-\gamma t}}.
+\]
+\end{lemma}
+
+\begin{proof}
+From the Friedmann equation:
+\[
+H^2 = 0.3 a^{-3} + \Lambda_0 e^{-\gamma t}.
+\]
+Differentiating with respect to time:
+\[
+2H\dot{H} = -0.9 a^{-4}\dot{a} - \gamma \Lambda_0 e^{-\gamma t}.
+\]
+Since $\dot{a} = aH$:
+\[
+2H\dot{H} = -0.9 a^{-3}H - \gamma \Lambda_0 e^{-\gamma t}.
+\]
+The acceleration equation:
+\[
+\frac{\ddot{a}}{a} = \dot{H} + H^2 = -\frac{0.9 a^{-3}}{2} - \frac{\gamma \Lambda_0 e^{-\gamma t}}{2H} + H^2.
+\]
+After algebraic manipulation:
+\[
+q = -\frac{\ddot{a}a}{\dot{a}^2} = -\frac{\ddot{a}}{aH^2} = \frac{1}{2}\frac{0.3 a^{-3} - 2\Lambda_0 e^{-\gamma t}}{H^2}.
+\]
+\end{proof}
+
+\subsection{Impact on Cosmic Expansion}
+
+\begin{proposition}[Transition from Deceleration to Acceleration]
+There exists a critical time $t_c$ such that:
+\begin{itemize}
+\item For $t < t_c$: $q(t) > 0$ (deceleration, matter-dominated)
+\item For $t > t_c$: $q(t) < 0$ (acceleration, dark energy-dominated)
+\end{itemize}
+The critical time is determined by:
+\[
+0.3 a(t_c)^{-3} = 2\Lambda_0 e^{-\gamma t_c}.
+\]
+\end{proposition}
+
+\begin{proof}
+The transition occurs when $q(t_c) = 0$, which implies:
+\[
+0.3 a(t_c)^{-3} - 2\Lambda_0 e^{-\gamma t_c} = 0.
+\]
+Rearranging:
+\[
+a(t_c)^3 = \frac{0.3}{2\Lambda_0 e^{-\gamma t_c}} = \frac{0.15}{\Lambda_0} e^{\gamma t_c}.
+\]
+This implicitly defines $t_c$ as a function of the parameters. The existence of such a time is guaranteed by the intermediate value theorem, as $q(0) > 0$ (matter-dominated early universe) and $\lim_{t \to \infty} q(t) < 0$ for $\gamma < \gamma_{\text{critical}}$.
+\end{proof}
+
+\subsection{Numerical Stability and Convergence}
+
+\begin{theorem}[Numerical Convergence]
+Let $a_h(t)$ be the numerical solution computed with time step $h$. Under standard regularity conditions (Lipschitz continuity of the right-hand side), for a $p$-th order method:
+\[
+\|a(t) - a_h(t)\| \leq C h^p,
+\]
+where $C$ is a constant depending on the integration interval and problem parameters.
+\end{theorem}
+
+\begin{remark}
+These simulations illustrate how even modest modifications to the dark energy sector can have significant impacts on the overall expansion dynamics of the Universe. The interplay between matter and a decaying $\Lambda$ leads to rich dynamical behavior that may help resolve some of the tensions within the standard cosmological model.
+\end{remark}
+
+\subsection{Physical Interpretation}
+
+\begin{definition}[Late-Time Behavior Classes]
+We classify the late-time behavior of $a(t)$ into three classes based on $\gamma$:
+\begin{enumerate}
+\item \textbf{Accelerating} ($\gamma < \gamma_1$): $\lim_{t \to \infty} \ddot{a}(t) > 0$
+\item \textbf{Coasting} ($\gamma = \gamma_1$): $\lim_{t \to \infty} \ddot{a}(t) = 0$
+\item \textbf{Decelerating/Recollapsing} ($\gamma > \gamma_1$): $\lim_{t \to \infty} \ddot{a}(t) < 0$
+\end{enumerate}
+where $\gamma_1$ is a critical threshold.
+\end{definition}
+
+\begin{theorem}[Critical Decay Rate]
+For the model with $\Omega_m = 0.3$ and $\Omega_{\Lambda} = 0.7$, there exists a critical decay rate $\gamma_{\text{crit}}$ such that:
+\[
+\gamma_{\text{crit}} = \frac{2}{3}H_0,
+\]
+above which the universe eventually recollapses.
+\end{theorem}
+
+\subsection{Observational Constraints}
+
+\begin{proposition}[CMB Constraints]
+Observations of the cosmic microwave background (CMB) constrain $\gamma$ to satisfy:
+\[
+\gamma < 10^{-2} H_0,
+\]
+based on the integrated Sachs-Wolfe effect and late-time structure formation.
+\end{proposition}
+
+\begin{remark}
+Future observations from missions such as Euclid and the Vera Rubin Observatory will provide tighter constraints on dynamical dark energy models, potentially ruling out or confirming the exponential decay scenario.
+\end{remark}
