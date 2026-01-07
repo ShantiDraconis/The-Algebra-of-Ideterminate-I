@@ -1,20 +1,76 @@
 # Python dependencies for The Algebra of Indeterminate I
 # Install with: pip install -r requirements.txt
 
-# Jupyter notebooks
+# Core dependencies
+python>=3.8
+
+# Jupyter notebooks and interactive computing
 jupyter>=1.0.0
 notebook>=6.4.0
+ipykernel>=6.0.0
+jupyterlab>=3.0.0
 
-# Data manipulation
+# Data manipulation and scientific computing
 pandas>=1.3.0
 numpy>=1.21.0
+scipy>=1.7.0
+sympy>=1.9.0  # Symbolic mathematics for I-Algebra
 
-# YAML parsing
+# YAML parsing and configuration
 pyyaml>=5.4.0
 
 # Visualization
 matplotlib>=3.4.0
 seaborn>=0.11.0
+ipywidgets>=7.6.0
+
+# Testing and quality assurance
+pytest>=7.0.0
+pytest-cov>=3.0.0
+hypothesis>=6.0.0  # Property-based testing
+
+# Type checking and linting
+mypy>=0.910
+black>=22.0.0
+flake8>=4.0.0
+pylint>=2.12.0
+
+# Documentation
+sphinx>=4.0.0
+sphinx-rtd-theme>=1.0.0
+myst-parser>=0.18.0  # Markdown support for Sphinx
+
+# Formal verification tooling support
+# These help with parsing and generating formal proofs
+lark-parser>=0.12.0  # Parser for formal languages
+typing-extensions>=4.0.0
+
+# LaTeX rendering support
+latex2sympy2>=1.9.0  # Convert LaTeX to symbolic expressions
+
+# AI/ML support for Copilot lemma generation
+openai>=1.0.0  # For potential AI-assisted proof generation
+anthropic>=0.3.0  # Additional AI model support
+
+# Version control and collaboration
+gitpython>=3.1.0
+
+# Additional utilities
+python-dateutil>=2.8.0
+tqdm>=4.62.0  # Progress bars for long computations
+networkx>=2.6.0  # Graph theory for proof dependency analysis
+
+# Development dependencies
+pre-commit>=2.15.0
+ipdb>=0.13.0  # Debugging
+
+# Specific for I-Algebra computational model
+# (These support the Python implementation in formalizations/python/)
+attrs>=21.0.0  # For data classes
+cattrs>=1.10.0  # Serialization
+
+# Optional: Performance optimization
+numba>=0.54.0  # JIT compilation for numerical computations
 
 # Optional: Enhanced notebook features
 ipywidgets>=7.6.0
