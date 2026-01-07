@@ -19,6 +19,11 @@ __pycache__/
 *$py.class
 *.so
 .Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
 *.egg-info/
 dist/
 build/
@@ -115,6 +120,27 @@ env/
 *.fls
 *.bbl
 *.blg
+
+# Lean
+lake-packages/
+.lake/
+build/
+
+# Coq
+*.vo
+*.vok
+*.vos
+*.glob
+*.aux
+
+# Isabelle
+*.log
+output/
+browser_info/
+
+# Agda
+*.agdai
+MAlonzo/
 *.bcf
 *.run.xml
 latex/build/

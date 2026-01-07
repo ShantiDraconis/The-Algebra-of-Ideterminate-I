@@ -71,3 +71,10 @@ cattrs>=1.10.0  # Serialization
 
 # Optional: Performance optimization
 numba>=0.54.0  # JIT compilation for numerical computations
+
+# Optional: Enhanced notebook features
+ipywidgets>=7.6.0
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=3.0.0

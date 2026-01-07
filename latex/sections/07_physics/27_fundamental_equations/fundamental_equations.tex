@@ -1,0 +1,373 @@
+\section{Fundamental Equations of I}
+\label{sec:fundamental_equations}
+
+This section presents the fundamental physical equations governing the behavior of the indeterminate I as a physical entity.
+
+\subsection{Mass-Energy Relation}
+\label{subsec:mass_energy}
+
+In analogy to standard particles, the mass-energy equivalence for I is:
+
+\begin{equation}
+\label{eq:i_mass_energy}
+E_I = m_I c^2
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $m_I$ is the rest mass of the I particle
+    \item $c$ is the speed of light in vacuum ($c = 299{,}792{,}458$ m/s)
+\end{itemize}
+
+This relation indicates that if I carries a finite mass, it can in principle be created or annihilated by processes that furnish sufficient energy.
+
+\subsubsection{Particle Production Threshold}
+
+The threshold energy for I-particle pair production:
+
+\begin{equation}
+\label{eq:i_production_threshold}
+E_{\text{threshold}} = 2m_I c^2
+\end{equation}
+
+In particle collisions with center-of-mass energy $E_{\text{CM}}$:
+
+\begin{equation}
+\label{eq:i_production_condition}
+E_{\text{CM}} \geq 2m_I c^2 + E_{\text{binding}}
+\end{equation}
+
+where $E_{\text{binding}}$ accounts for any binding energy in I-composite states.
+
+\subsubsection{I-Mass Bounds}
+
+From cosmological observations (dark matter constraints):
+
+\begin{equation}
+\label{eq:i_mass_lower_bound}
+m_I \gtrsim 1 \text{ keV}/c^2
+\end{equation}
+
+From collider searches:
+
+\begin{equation}
+\label{eq:i_mass_upper_bound}
+m_I \lesssim 10^3 \text{ GeV}/c^2 \quad \text{(model-dependent)}
+\end{equation}
+
+\subsubsection{Relativistic Generalization}
+
+For moving I-particles:
+
+\begin{equation}
+\label{eq:i_relativistic_energy}
+E_I = \gamma m_I c^2 = \frac{m_I c^2}{\sqrt{1 - v^2/c^2}}
+\end{equation}
+
+The momentum-energy relation:
+
+\begin{equation}
+\label{eq:i_momentum_energy}
+E_I^2 = (p_I c)^2 + (m_I c^2)^2
+\end{equation}
+
+\subsection{Gravitational Interaction}
+\label{subsec:gravitational_interaction}
+
+If I has a non-negligible mass, it experiences a classical gravitational force when near a massive body of mass $M$:
+
+\begin{equation}
+\label{eq:gravitational_force}
+F_G = G \frac{m_I M}{r^2}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $G$ is the gravitational constant ($G = 6.674 \times 10^{-11}$ m$^3$ kg$^{-1}$ s$^{-2}$)
+    \item $r$ is the separation between the center of mass $M$ and the I particle
+    \item The force is attractive (directed toward the mass $M$)
+\end{itemize}
+
+\subsubsection{Gravitational Potential Energy}
+
+The potential energy of an I-particle in a gravitational field:
+
+\begin{equation}
+\label{eq:gravitational_potential}
+U_G(r) = -G\frac{m_I M}{r}
+\end{equation}
+
+The total energy:
+
+\begin{equation}
+\label{eq:total_energy}
+E_{\text{total}} = \frac{1}{2}m_I v^2 - G\frac{m_I M}{r} = \text{constant}
+\end{equation}
+
+\subsubsection{Orbital Dynamics}
+
+For I-particles in orbit around a central mass:
+
+\begin{equation}
+\label{eq:orbital_velocity}
+v_{\text{orbit}} = \sqrt{\frac{GM}{r}}
+\end{equation}
+
+The orbital period:
+
+\begin{equation}
+\label{eq:orbital_period}
+T = 2\pi\sqrt{\frac{r^3}{GM}}
+\end{equation}
+
+\subsubsection{Cosmic Applications}
+
+In cosmic contexts, gravitational attraction could influence:
+
+\begin{enumerate}
+    \item Orbital motion of I-particles in galactic halos
+    \item Clustering properties in large-scale structure
+    \item Accretion onto compact objects (black holes, neutron stars)
+\end{enumerate}
+
+The virial theorem for I-particle systems:
+
+\begin{equation}
+\label{eq:virial_theorem}
+2\langle K_I \rangle = -\langle U_G \rangle
+\end{equation}
+
+where $\langle K_I \rangle$ is the average kinetic energy and $\langle U_G \rangle$ is the average gravitational potential energy.
+
+\subsection{Energy Density in a Dark Halo}
+\label{subsec:energy_density}
+
+For a region in which numerous I particles congregate, the effective mass density can be approximated by:
+
+\begin{equation}
+\label{eq:i_density}
+\rho_I = \frac{\sum m_I}{V}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item The summation $\sum m_I$ runs over all particles within the volume $V$
+    \item $\rho_I$ reflects a dark matter-like density distribution if I dominates the local mass content
+\end{itemize}
+
+\subsubsection{Spatial Distribution}
+
+For a spherically symmetric halo:
+
+\begin{equation}
+\label{eq:halo_profile}
+\rho_I(r) = \frac{\rho_0}{\left(r/r_s\right)^\gamma\left(1 + r/r_s\right)^{3-\gamma}}
+\end{equation}
+
+Common profiles:
+\begin{itemize}
+    \item NFW profile: $\gamma = 1$
+    \begin{equation}
+    \label{eq:nfw_profile}
+    \rho_{\text{NFW}}(r) = \frac{\rho_0}{(r/r_s)(1 + r/r_s)^2}
+    \end{equation}
+    
+    \item Isothermal sphere: $\rho(r) \propto r^{-2}$
+    \begin{equation}
+    \label{eq:isothermal_profile}
+    \rho_{\text{iso}}(r) = \frac{v_{\text{rot}}^2}{4\pi G r^2}
+    \end{equation}
+\end{itemize}
+
+\subsubsection{Total Mass}
+
+The total I-mass within radius $R$:
+
+\begin{equation}
+\label{eq:enclosed_mass}
+M_I(R) = 4\pi \int_0^R \rho_I(r) r^2 \, dr
+\end{equation}
+
+For an NFW profile:
+
+\begin{equation}
+\label{eq:nfw_mass}
+M_I(R) = 4\pi\rho_0 r_s^3 \left[\ln\left(1 + \frac{R}{r_s}\right) - \frac{R/r_s}{1 + R/r_s}\right]
+\end{equation}
+
+\subsubsection{Velocity Dispersion}
+
+The velocity dispersion of I-particles:
+
+\begin{equation}
+\label{eq:velocity_dispersion}
+\sigma_v^2 = \frac{1}{m_I\rho_I(r)} \int_r^\infty \rho_I(r') \frac{GM_I(r')}{r'^2} dr'
+\end{equation}
+
+For an isothermal distribution:
+
+\begin{equation}
+\label{eq:isothermal_dispersion}
+\sigma_v = \text{constant} = v_{\text{rot}}
+\end{equation}
+
+\subsection{Interaction Cross-Sections}
+
+\subsubsection{I-I Scattering}
+
+The differential cross-section for I-particle scattering:
+
+\begin{equation}
+\label{eq:i_i_scattering}
+\frac{d\sigma}{d\Omega} = \left|\frac{f(\theta)}{2ik}\right|^2
+\end{equation}
+
+where $f(\theta)$ is the scattering amplitude.
+
+For weak interactions:
+
+\begin{equation}
+\label{eq:weak_scattering}
+\sigma_{I-I} = \frac{G_F^2 m_I^2}{\pi}
+\end{equation}
+
+where $G_F$ is the Fermi constant.
+
+\subsubsection{I-Baryon Interactions}
+
+Direct detection constraints:
+
+\begin{equation}
+\label{eq:direct_detection}
+\sigma_{I-N} \lesssim 10^{-45} \text{ cm}^2 \quad \text{(for } m_I \sim 100 \text{ GeV)}
+\end{equation}
+
+Spin-independent interaction:
+
+\begin{equation}
+\label{eq:spin_independent}
+\mathcal{L}_{I-N} = \frac{g_{IN}}{m_N^2} \bar{I}I \bar{N}N
+\end{equation}
+
+\subsection{Thermodynamics of I-Systems}
+
+\subsubsection{Maxwell-Boltzmann Distribution}
+
+For non-relativistic I-particles in thermal equilibrium:
+
+\begin{equation}
+\label{eq:maxwell_boltzmann}
+f(v) = \left(\frac{m_I}{2\pi k_B T}\right)^{3/2} \exp\left(-\frac{m_I v^2}{2k_B T}\right)
+\end{equation}
+
+The most probable speed:
+
+\begin{equation}
+\label{eq:most_probable_speed}
+v_{\text{mp}} = \sqrt{\frac{2k_B T}{m_I}}
+\end{equation}
+
+\subsubsection{Equation of State}
+
+For an ideal gas of I-particles:
+
+\begin{equation}
+\label{eq:ideal_gas}
+P = \frac{\rho_I k_B T}{m_I} = \frac{n_I k_B T}{\text{NA}}
+\end{equation}
+
+The sound speed:
+
+\begin{equation}
+\label{eq:sound_speed}
+c_s = \sqrt{\frac{\gamma k_B T}{m_I}}
+\end{equation}
+
+where $\gamma = C_P/C_V$ is the adiabatic index.
+
+\subsubsection{Jeans Instability}
+
+The Jeans mass for I-particle collapse:
+
+\begin{equation}
+\label{eq:jeans_mass}
+M_J = \left(\frac{5k_B T}{Gm_I}\right)^{3/2} \left(\frac{3}{4\pi\rho_I}\right)^{1/2}
+\end{equation}
+
+The Jeans length:
+
+\begin{equation}
+\label{eq:jeans_length}
+\lambda_J = c_s \sqrt{\frac{\pi}{G\rho_I}}
+\end{equation}
+
+\subsection{Quantum Corrections}
+
+\subsubsection{Fermi-Dirac Statistics}
+
+If I-particles are fermions:
+
+\begin{equation}
+\label{eq:fermi_dirac}
+f(E) = \frac{1}{e^{(E-\mu)/k_B T} + 1}
+\end{equation}
+
+The Fermi energy:
+
+\begin{equation}
+\label{eq:fermi_energy}
+E_F = \frac{\hbar^2}{2m_I}(3\pi^2 n_I)^{2/3}
+\end{equation}
+
+\subsubsection{Bose-Einstein Statistics}
+
+If I-particles are bosons:
+
+\begin{equation}
+\label{eq:bose_einstein}
+f(E) = \frac{1}{e^{(E-\mu)/k_B T} - 1}
+\end{equation}
+
+Below the critical temperature:
+
+\begin{equation}
+\label{eq:bec_critical_temperature}
+T_c = \frac{2\pi\hbar^2}{m_I k_B}\left(\frac{n_I}{\zeta(3/2)}\right)^{2/3}
+\end{equation}
+
+I-particles condense into the ground state.
+
+\subsection{Field-Theoretic Description}
+
+\subsubsection{Klein-Gordon Equation}
+
+For scalar I-fields:
+
+\begin{equation}
+\label{eq:klein_gordon}
+\left(\Box + \frac{m_I^2 c^2}{\hbar^2}\right)\phi_I = 0
+\end{equation}
+
+where $\Box = \frac{1}{c^2}\frac{\partial^2}{\partial t^2} - \nabla^2$ is the d'Alembertian operator.
+
+\subsubsection{Dirac Equation}
+
+For fermionic I-fields:
+
+\begin{equation}
+\label{eq:dirac}
+\left(i\hbar\gamma^\mu\partial_\mu - m_I c\right)\psi_I = 0
+\end{equation}
+
+where $\gamma^\mu$ are the Dirac matrices.
+
+\subsubsection{Lagrangian Density}
+
+The complete I-field Lagrangian:
+
+\begin{equation}
+\label{eq:i_field_lagrangian}
+\mathcal{L}_I = \frac{1}{2}\partial_\mu\phi_I\partial^\mu\phi_I - \frac{1}{2}m_I^2\phi_I^2 - \frac{\lambda}{4!}\phi_I^4 - V_{\text{int}}(\phi_I, \phi_{\text{SM}})
+\end{equation}
+
+where $V_{\text{int}}$ describes interactions with Standard Model fields.
