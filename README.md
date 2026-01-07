@@ -588,6 +588,7 @@ Academic and research use.
 - **[Model Limitations](audits/model_limitations.md)** - Open questions and limitations
 - **[Lean README](lean/README.md)** - Lean formalization guide
 - **[Coq README](coq/README.md)** - Coq formalization guide
+- **[References](REFERENCES.md)** - Comprehensive verified bibliography with DOI links
 
 ## Why This Matters
 

@@ -304,11 +304,17 @@ agda --safe IAlgebra.agda
 
 ## References
 
-1. The Algebra of Indeterminate I - Main Paper
-2. Wheel Theory and Division by Zero
-3. Ultrapower Construction in Model Theory
-4. Nonstandard Analysis Applications
-5. Quantum Gravity Phenomenology
+For a comprehensive, verified bibliography with DOI links and proper attributions, see [REFERENCES.md](../REFERENCES.md) in the repository root.
+
+Key reference areas:
+1. **Set Theory**: Jech, Kunen, Bell & Machover
+2. **Nonstandard Analysis**: Robinson, Goldblatt, Bell & Slomson
+3. **Wheel Theory**: Carlström (2004) on division by zero
+4. **Formal Methods**: Lean 4, Coq, Isabelle/HOL, Agda documentation
+5. **Physics Applications**: Penrose, Hawking, Rovelli, Planck Collaboration
+6. **Special Functions**: Artin, Whittaker & Watson, NIST Handbook
+
+The complete bibliography includes 58 verified references with proper DOI/ISBN information.
 
 ## License
 
