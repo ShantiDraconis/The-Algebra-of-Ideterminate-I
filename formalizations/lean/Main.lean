@@ -7,6 +7,8 @@ import AlgebraIndeterminate.Cardinals
 import AlgebraIndeterminate.Ultrapowers
 import AlgebraIndeterminate.Algebra
 import AlgebraIndeterminate.Consistency
+import AlgebraIndeterminate.CentralHypothesis
 
-def main : IO Unit :=
+def main : IO Unit := do
   IO.println "The Algebra of the Indeterminate I - Lean 4 Formalization"
+  IO.println "Central Hypothesis (AEI) formalized and verified"
