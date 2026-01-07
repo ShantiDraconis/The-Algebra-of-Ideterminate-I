@@ -227,3 +227,5 @@ src/js/playground/dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# Allow book parts directory
