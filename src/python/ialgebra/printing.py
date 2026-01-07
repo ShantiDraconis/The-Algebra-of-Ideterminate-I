@@ -19,6 +19,7 @@ def pretty(x: Union[IExpr, IConst, int, float]) -> str:
     Examples:
         >>> pretty(IConst.I)
         'I'
+        >>> from ialgebra.operations import oplus
         >>> pretty(oplus(IConst.I, 0))
         '(I ⊕ 0)'
     """
