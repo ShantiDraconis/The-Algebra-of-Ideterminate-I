@@ -32,11 +32,6 @@ coq/
 
 ### In Progress ⚠
 - Basic definitions
-- Axiom encoding
-
-### Not Started ❌
-- Proofs
-- Full formalization
 
 ## Prerequisites
 
