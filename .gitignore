@@ -193,10 +193,14 @@ output/
 build/
 .lake/
 
-# Visualization outputs
+# Visualization outputs (generated images)
 *.png
 *.jpg
 *.svg
+
+# But keep documentation in book_visualizations
+!book_visualizations/README.md
+!book_visualizations/INDEX.md
 
 # IDE
 .vscode/
@@ -227,3 +231,5 @@ src/js/playground/dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# Allow book parts directory

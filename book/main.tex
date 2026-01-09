@@ -1,0 +1,248 @@
+\documentclass[12pt,a4paper,twoside,openright]{book}
+
+% Encoding and fonts
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Mathematics packages
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+
+% Graphics and figures
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% Layout and formatting
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    inner=3cm,
+    outer=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm,
+    headheight=15pt
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\rightmark}
+\fancyfoot[C]{\thepage}
+
+% Hyperref and references
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    bookmarksnumbered=true,
+    bookmarksopen=true
+}
+\usepackage[nameinlink]{cleveref}
+
+% Bibliography
+\usepackage[style=alphabetic,backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
+\newtheorem{observation}[theorem]{Observation}
+
+% Custom commands
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\KI}{\mathbb{K}_{\I}}
+\newcommand{\oplus}{\oplus}
+\newcommand{\ominus}{\ominus}
+\newcommand{\otimes}{\otimes}
+
+% Title information
+\title{%
+    \Huge\bfseries The Algebra of the Indeterminate\\[0.5cm]
+    \Large A Comprehensive Treatise on Extended Set Theory,\\
+    Geometry, Physics, and Computation}
+\author{Tiago Fagliari\\ORCID: 0009-0006-6874-3910}
+\date{\today\\[1cm]Version 2.0 -- Complete Expansion}
+
+\begin{document}
+
+% Front matter
+\frontmatter
+\maketitle
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+% Preface
+\chapter{Preface}
+
+This expanded edition represents a complete transformation of the original work from a foundational article into a comprehensive mathematical treatise. The indeterminate element $\I = \frac{0}{0}$ is no longer treated as a curiosity or edge case, but as the cornerstone of an extended algebraic system with profound implications across mathematics, physics, computation, and philosophy.
+
+The book is organized into eight major parts, each building systematically on the previous foundations:
+
+\textbf{Part I} establishes the logical and axiomatic foundations with unprecedented rigor, dedicating individual chapters to each of the 15 postulates that define the indeterminate element.
+
+\textbf{Part II} develops the model-theoretic machinery, including ultrapowers, Łoś's theorem, and consistency proofs that validate our extended framework.
+
+\textbf{Part III} explores the geometric and topological structures that emerge when coordinates can assume indeterminate values.
+
+\textbf{Part IV} presents the Wheel of Fractions as a natural compactification extending projective geometry.
+
+\textbf{Part V} applies the theory to theoretical physics, including field theory, dark matter, black hole singularities, and cosmology.
+
+\textbf{Part VI} demonstrates computational applications, from data types that natively handle indeterminacy to neural networks with enhanced robustness.
+
+\textbf{Part VII} provides extensive technical appendices including function atlases and experimental predictions.
+
+\textbf{Part VIII} concludes with philosophical implications for the foundations of mathematics itself.
+
+This work aims to be the definitive reference on the algebra of indeterminacy, suitable for researchers in logic, set theory, geometry, physics, and computer science.
+
+\vspace{1cm}
+\noindent Tiago Fagliari\\
+January 2026
+
+\chapter{Notation and Conventions}
+
+\section{Standard Notation}
+\begin{itemize}
+    \item $\R, \C, \Q, \Z, \N$ -- Standard number systems
+    \item $\I$ -- The indeterminate element ($\I = 0/0$)
+    \item $\J$ -- The dual element ($\J = i\I$)
+    \item $\KI = \R \cup \{\I, \J\}$ -- Extended real system
+    \item $\oplus, \ominus, \otimes$ -- Extended arithmetic operations
+\end{itemize}
+
+\section{Set-Theoretic Notation}
+\begin{itemize}
+    \item ZF -- Zermelo-Fraenkel axioms
+    \item AC -- Axiom of Choice
+    \item $\mathcal{U}$ -- Ultrafilter
+    \item $\kappa, \lambda, \mu$ -- Cardinal numbers
+    \item $M^*/\mathcal{U}$ -- Ultrapower construction
+\end{itemize}
+
+\section{Physical Notation}
+\begin{itemize}
+    \item $\mathcal{L}_\I$ -- I-field Lagrangian
+    \item $\rho_\I$ -- Indeterminate density
+    \item $C_{EA}$ -- Entropy-driven acceleration coefficient
+\end{itemize}
+
+% Main matter
+\mainmatter
+
+% PART I: Logical and Axiomatic Foundations
+\part{Logical and Axiomatic Foundations of $\I$}
+\label{part:foundations}
+
+\include{parts/part1/chapter01_preliminary_logic}
+\include{parts/part1/chapter02_axiom_I1}
+\include{parts/part1/chapter03_axiom_I2}
+\include{parts/part1/chapter04_axiom_I3}
+\include{parts/part1/chapter05_axiom_I4}
+\include{parts/part1/chapter06_axiom_I5}
+\include{parts/part1/chapter07_axiom_I6}
+\include{parts/part1/chapter08_axiom_I7}
+\include{parts/part1/chapter09_axiom_I8}
+\include{parts/part1/chapter10_axiom_I9}
+\include{parts/part1/chapter11_axiom_I10}
+\include{parts/part1/chapter12_axiom_I11}
+\include{parts/part1/chapter13_axiom_I12}
+\include{parts/part1/chapter14_axiom_I13}
+\include{parts/part1/chapter15_axiom_I14}
+\include{parts/part1/chapter16_axiom_I15}
+
+% PART II: Model Theory and Nonstandard Analysis
+\part{Model Theory and Nonstandard Analysis}
+\label{part:model-theory}
+
+\include{parts/part2/chapter17_ultrapowers_with_I}
+\include{parts/part2/chapter18_los_theorem}
+\include{parts/part2/chapter19_model_constructions}
+\include{parts/part2/chapter20_saturation_transfer}
+
+% PART III: Geometry and Topology of I-Manifolds
+\part{Geometry and Topology of Indeterminate Manifolds}
+\label{part:geometry}
+
+\include{parts/part3/chapter21_topology_KI}
+\include{parts/part3/chapter22_differential_geometry}
+\include{parts/part3/chapter23_metrics_connections}
+\include{parts/part3/chapter24_curvature_tensors}
+
+% PART IV: Projective Wheel Geometry
+\part{Projective Wheel Geometry}
+\label{part:wheel}
+
+\include{parts/part4/chapter25_wheel_compactification}
+\include{parts/part4/chapter26_cyclic_structures}
+\include{parts/part4/chapter27_projective_extensions}
+
+% PART V: Theoretical Physics with I
+\part{Theoretical Physics and the I-Field}
+\label{part:physics}
+
+\include{parts/part5/chapter28_field_theory}
+\include{parts/part5/chapter29_dark_matter}
+\include{parts/part5/chapter30_black_holes}
+\include{parts/part5/chapter31_cosmology}
+\include{parts/part5/chapter32_quantum_gravity}
+
+% PART VI: Computational Mathematics and AI
+\part{Computational Mathematics and Artificial Intelligence}
+\label{part:computation}
+
+\include{parts/part6/chapter33_extended_real_type}
+\include{parts/part6/chapter34_neural_networks}
+\include{parts/part6/chapter35_numerical_stability}
+\include{parts/part6/chapter36_fluid_simulations}
+
+% PART VII: Technical Appendices
+\part{Technical Appendices and Experimental Predictions}
+\label{part:appendices}
+
+\include{parts/part7/appendix_A_function_atlas}
+\include{parts/part7/appendix_B_simulations}
+\include{parts/part7/appendix_C_predictions}
+\include{parts/part7/appendix_D_code_implementations}
+
+% PART VIII: Philosophy of Mathematics
+\part{Philosophy of Mathematics and the Indeterminate}
+\label{part:philosophy}
+
+\include{parts/part8/chapter37_ontology}
+\include{parts/part8/chapter38_triviality}
+\include{parts/part8/chapter39_mathematical_realism}
+
+% Back matter
+\backmatter
+
+\printbibliography
+
+\end{document}
