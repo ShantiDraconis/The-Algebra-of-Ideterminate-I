@@ -1,37 +1,49 @@
 cff-version: 1.2.0
-title: "The Algebra of the Indeterminate — Formalization Hub"
-message: "If you use this repository, please cite it."
+title: "The Algebra of the Indeterminate (AEI) — Formalization Hub"
+message: "If you use this repository, please cite it and respect the intellectual property rights."
 type: software
 authors:
   - family-names: "Fagliari"
     given-names: "Tiago"
     orcid: "https://orcid.org/0009-0006-6874-3910"
+    email: "Shanti.Draconis@icloud.com"
+    affiliation: "Independent Researcher"
 repository-code: "https://github.com/ShantiDraconis/The-Algebra-of-Indeterminate-I"
-license: "MIT"
-keywords:
-  - indeterminate algebra
-  - 0/0
-  - formal methods
-  - Lean
-  - Coq
-  - numerical validation
-message: "If you use this software, please cite it as below."
-type: software
-title: "The Algebra of Indeterminate I"
-abstract: "A computational algebra system for exploring the properties and operations of the indeterminate unit I, extending traditional algebraic structures with novel calculus and rewriting systems."
-authors:
-  - family-names: "Draconis"
-    given-names: "Shanti"
-repository-code: "https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I"
 url: "https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I"
-license: "TBD"
-version: "0.1.0"
-date-released: "2026-01-05"
+license: "SEE LICENSE FILE"
+version: "0.2.0"
+date-released: "2026-01-07"
+abstract: |
+  The Algebra of the Extended Indeterminate (AEI) is a revolutionary computational 
+  and mathematical framework that treats 0/0 as a generative algebraic unit I, 
+  rather than an undefined error. This system extends traditional algebra with:
+  
+  - Cardinal arithmetic where κ ⊖ κ = I (Bottleneck Constant)
+  - Non-distributive multiplication with corrective term Ω(I)
+  - Supersymmetric framework via I² = I or I² = J
+  - Physical applications to dark matter/energy (J-field)
+  - Smooth singularity resolution in black holes
+  - Hardware architecture for Floating-I arithmetic
+  - Cryptographic systems based on paired-prime square roots
+  
+  INTELLECTUAL PROPERTY NOTICE:
+  The Constant of the Bottleneck (I) and its algebraic framework are proprietary
+  intellectual property linked to ORCID 0009-0006-6874-3910. Any implementation
+  of indeterminate resolution (0/0 as a functional constant) in hardware, software,
+  or AI systems requires explicit authorization.
 keywords:
-  - algebra
-  - indeterminate
-  - symbolic-computation
-  - rewrite-systems
+  - indeterminate-algebra
+  - bottleneck-constant
+  - cardinal-arithmetic
+  - 0/0-resolution
+  - dark-sector-physics
+  - quantum-gravity
+  - supersymmetry
+  - cryptography
+  - floating-point-extension
   - formal-methods
   - lean4
+  - coq
   - python
+  - space-colonization
+  - entropy-acceleration

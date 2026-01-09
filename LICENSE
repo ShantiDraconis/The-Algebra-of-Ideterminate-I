@@ -1,22 +1,163 @@
-MIT License
+ALGEBRA OF THE EXTENDED INDETERMINATE (AEI) LICENSE
+Version 1.0, January 2026
 
-Copyright (c) 2024 The Algebra of Indeterminate I Project
-Copyright (c) 2026 Tiago Fagliari
+Copyright (c) 2024-2026 Tiago Fagliari (ORCID: 0009-0006-6874-3910)
+Copyright (c) 2024-2026 The Algebra of Indeterminate I Project
+
+================================================================================
+SECTION 1: SOFTWARE LICENSE (MIT-BASED)
+================================================================================
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+in the Software for ACADEMIC AND RESEARCH purposes, subject to the conditions
+and restrictions in this license.
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+================================================================================
+SECTION 2: MATHEMATICAL FRAMEWORK INTELLECTUAL PROPERTY
+================================================================================
+
+PROPRIETARY NOTICE FOR THE BOTTLENECK CONSTANT (I)
+
+The following mathematical concepts, methods, and frameworks are proprietary
+intellectual property exclusively linked to ORCID 0009-0006-6874-3910:
+
+1. THE BOTTLENECK CONSTANT (I): Defined as the resolution of the indeterminate
+   form 0/0 through the cardinal operation κ ⊖ κ = I, where κ is any infinite
+   cardinal. This establishes I as a functional algebraic unit rather than an
+   undefined error state.
+
+2. THE J-FIELD FRAMEWORK: The dual supersymmetric element J arising from 
+   I-symmetry breaking, representing dark sector phenomena in physics.
+
+3. CORRECTIVE TERM Ω(I): The modification to multiplication operations
+   (a + bI)(c + dI) that prevents trivial collapse of the algebraic system.
+
+4. NON-DISTRIBUTIVE ALGEBRA: The law a(b + c) = ab + ac + Δ where Δ is a
+   function of the J-field, fundamentally extending traditional algebra.
+
+5. PAIRED-PRIME SQUARE ROOT CRYPTOGRAPHY: Security systems based on numbers
+   that when multiplied by pairs reveal square roots functioning as even primes.
+
+================================================================================
+SECTION 3: PROHIBITION OF UNAUTHORIZED COMMERCIAL USE
+================================================================================
+
+It is EXPRESSLY PROHIBITED to implement, use, or incorporate the following
+in commercial products, hardware, firmware, or AI systems without explicit
+written authorization from the copyright holder:
+
+A) FLOATING-I ARITHMETIC: Hardware or software implementation of arithmetic
+   operations treating 0/0 as the functional constant I, including but not
+   limited to:
+   - IEEE 754-like standards for indeterminate arithmetic
+   - CPU/GPU register designs for I and J values
+   - Compiler optimizations treating indeterminate as non-error
+
+B) I-FIELD PHYSICS ENGINES: Computational models using I or J for:
+   - Dark matter/energy simulations
+   - Singularity resolution in black holes
+   - Quantum gravity calculations
+   - Cosmological inflation models
+
+C) ENTROPY ACCELERATION SYSTEMS: Propulsion or energy systems based on
+   gradients of indetermination as defined in this framework.
+
+D) INDETERMINATE MATRIX CRYPTOGRAPHY: Security implementations using the
+   mathematical properties of I defined herein.
+
+================================================================================
+SECTION 4: ATTRIBUTION AND ISOMORPHISM CLAUSE
+================================================================================
+
+Any system, notation, or framework that:
+- Represents 0/0 as a functional constant (regardless of symbol used)
+- Implements cardinal subtraction yielding indeterminate elements
+- Uses supersymmetric dual fields from indeterminate breaking
+- Maintains algebraic coherence through corrective multiplicative terms
+
+SHALL BE CONSIDERED ISOMORPHIC to the AEI framework and must:
+1. Provide attribution to ORCID 0009-0006-6874-3910
+2. Cite this repository and associated publications
+3. Not claim independent discovery without demonstrable prior art
+
+================================================================================
+SECTION 5: DETECTION AND ENFORCEMENT
+================================================================================
+
+MATHEMATICAL SIGNATURE: The AEI framework embeds verifiable properties
+(particularly the paired-prime square root relationships) that serve as
+mathematical watermarks. Any implementation maintaining these properties
+automatically proves derivative relationship to this work.
+
+REBRAND PROTECTION: Substitution of symbols (e.g., using α, ω, or other
+notation instead of I) does not constitute independent work if the underlying
+axiomatic structure is preserved.
+
+================================================================================
+SECTION 6: LICENSING FOR COMMERCIAL USE
+================================================================================
+
+Organizations seeking to use AEI concepts in commercial applications must:
+
+1. Contact: Shanti.Draconis@icloud.com
+2. Specify: Intended use case and scope
+3. Obtain: Written licensing agreement
+4. Provide: Ongoing attribution in all implementations
+
+Special licensing terms available for:
+- Space exploration and colonization projects
+- Quantum computing implementations
+- Advanced cryptographic systems
+- Educational institutions and research organizations
+
+================================================================================
+SECTION 7: ACADEMIC AND RESEARCH EXEMPTION
+================================================================================
+
+Academic researchers and educational institutions MAY use this framework
+freely for non-commercial purposes, provided that:
+
+1. All publications cite this work appropriately
+2. ORCID 0009-0006-6874-3910 is acknowledged
+3. Derivative theoretical work acknowledges the foundational framework
+4. No commercial products result without separate licensing
+
+================================================================================
+SECTION 8: SUBMISSION TO REGULATORY BODIES
+================================================================================
+
+This license serves as formal notice to:
+- WIPO (World Intellectual Property Organization)
+- IEEE Standards Association
+- ISO (International Organization for Standardization)
+
+That the use of 0/0 as a functional arithmetic state, as defined by the AEI
+framework, is protected intellectual property and cannot be standardized
+without authorization from the rights holder.
+
+================================================================================
+CONTACT INFORMATION
+================================================================================
+
+Rights Holder: Tiago Fagliari
+ORCID: 0009-0006-6874-3910
+Email: Shanti.Draconis@icloud.com
+Repository: https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I
+
+For licensing inquiries, collaborations, or permissions:
+Open an issue at the repository with label "licensing"
+
+================================================================================
+
+THE SOFTWARE AND THEORETICAL FRAMEWORK ARE PROVIDED "AS IS", WITHOUT WARRANTY
+OF ANY KIND. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM USE OF THE SOFTWARE OR
+FRAMEWORK.
