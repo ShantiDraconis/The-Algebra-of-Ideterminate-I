@@ -4,6 +4,16 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+**Author**: Tiago Fagliari | **ORCID**: [0009-0006-6874-3910](https://orcid.org/0009-0006-6874-3910)
+
+## Important Documentation
+
+- 📜 **[Intellectual Property Notice](INTELLECTUAL_PROPERTY.md)** - Author rights and attribution requirements
+- 🔐 **[Patent and Priority Notice](PATENT_NOTICE.md)** - Theoretical innovations and priority claims
+- 💼 **[Commercial Licensing Guide](COMMERCIAL_LICENSING.md)** - Terms for commercial use
+- 🔬 **[Bottleneck Constant Specification](BOTTLENECK_CONSTANT_SPECIFICATION.md)** - Technical specification of I
+- 📖 **[Citation Guidelines](CITATION.cff)** - How to cite this work
+
 ## Overview
 
 This repository contains a comprehensive formal treatment of an extended axiomatic system for set theory that incorporates an **indeterminate element I** arising from cardinal subtraction. The key identity is:

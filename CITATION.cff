@@ -1,4 +1,6 @@
 cff-version: 1.2.0
+title: "The Algebra of the Indeterminate I: Formalization Hub"
+message: "If you use this software or theoretical framework, please cite it as below."
 title: "The Algebra of the Indeterminate (AEI) — Formalization Hub"
 message: "If you use this repository, please cite it and respect the intellectual property rights."
 type: software
@@ -6,6 +8,39 @@ authors:
   - family-names: "Fagliari"
     given-names: "Tiago"
     orcid: "https://orcid.org/0009-0006-6874-3910"
+repository-code: "https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I"
+url: "https://github.com/ShantiDraconis/The-Algebra-of-Ideterminate-I"
+abstract: "A computational algebra system for the Bottleneck Constant (I = 0/0) and extended number system K_I, providing formal verification in Lean, Coq, Isabelle, and Agda, with Python computational implementations. The framework introduces novel approaches to division by zero, quantum computing error states, and indeterminate form resolution."
+license: "MIT"
+version: "1.0.0"
+date-released: "2026-01-07"
+keywords:
+  - indeterminate algebra
+  - division by zero
+  - bottleneck constant
+  - quantum computing
+  - formal methods
+  - Lean
+  - Coq
+  - Isabelle
+  - Agda
+  - wheel theory
+  - cardinal arithmetic
+  - nonstandard analysis
+  - I-calculus
+  - extended number systems
+references:
+  - type: generic
+    title: "The Algebra of the Indeterminate: Ultra Advanced Theory Starting from I = 0/0"
+    authors:
+      - family-names: "Fagliari"
+        given-names: "Tiago"
+        orcid: "https://orcid.org/0009-0006-6874-3910"
+    year: 2026
+identifiers:
+  - type: other
+    value: "ORCID:0009-0006-6874-3910"
+    description: "Author's ORCID identifier"
     email: "Shanti.Draconis@icloud.com"
     affiliation: "Independent Researcher"
 repository-code: "https://github.com/ShantiDraconis/The-Algebra-of-Indeterminate-I"
