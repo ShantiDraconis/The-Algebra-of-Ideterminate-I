@@ -8,7 +8,7 @@
 
 There are no axioms in this library: `𝕀 ≠ val a` is a theorem.
 
-**Status.** Lean v4.19.0, Mathlib v4.19.0. The workflow `.github/workflows/indet.yml` builds the library and the tests. It also checks that `#print axioms` lists only `propext`, `Classical.choice` and `Quot.sound` and never `sorryAx`. Finally it runs both execution benchmarks at a reduced size and asserts their results. There is no `sorry` and no `axiom` in `Indet/`.
+**Status.** Lean v4.19.0, Mathlib v4.19.0. The workflow `.github/workflows/indet.yml` builds the library and the tests. It also builds the decision theorems and checks that `#print axioms` lists only `propext`, `Classical.choice` and `Quot.sound` and never `sorryAx`. Then it runs both execution benchmarks at a reduced size and asserts their results. Finally it runs the blind batch test with a fresh seed. There is no `sorry` and no `axiom` in `Indet/`.
 
 ## Better and worse, side by side
 
@@ -87,6 +87,39 @@ The other rows (0 and 8 errors) are in `resultados_origem_1000x1000.csv`. On err
 
 Two caveats. The origin is a runtime feature: inside the algebra, an `𝕀` that keeps "the first origin" would make addition non-commutative (`𝕀₁ + 𝕀₂ ≠ 𝕀₂ + 𝕀₁`), so the library's `𝕀` carries none. Also, `𝕀` with origin is exactly `Except Nat ℚ`. What gives the address is carrying the origin, not the symbol `𝕀`.
 
+### Deciding with no human in the loop: proved for every input, then tested blind
+
+The decision rule is written by a person: approve if `Σ aₖ/bₖ ≥ 0`, otherwise reject. The program applies it with no help. For each input it returns `aprova`, `reprova` or `erro k`. The program does not invent rules. A new rule means new code.
+
+**Proved for every input** (`IndetDecisao.lean`; `#print axioms` shows only the three standard axioms):
+
+| Theorem | Statement |
+|---|---|
+| `decidir_eq` | the one-pass program equals its specification |
+| `nunca_em_silencio` | if some denominator is 0, the output is `erro k`, where `k` is the first index with a zero denominator |
+| `sem_alarme_falso` | if no denominator is 0, the output is the exact decision in `ℚ` |
+| `decidir_erro_iff_indet` | the output is an error exactly when the sum in `Indet ℚ` is `𝕀` |
+| `total_aprova_em_silencio` | with total division (`x/0 = 0`), any one-term decision with a zero denominator is approved, whatever the numerator |
+
+**Tested blind** (`lote_cego.py` + `LoteCego.lean`). The protocol has four steps:
+
+1. A generator draws 10 000 decisions of 99 quotients from an operating-system seed. It sets zero denominators in 5 % of them (one or two each, sometimes at the first or last position). It also makes 1 % of them sum to exactly 0.
+2. The decider receives only the cases. It never sees the truth or the seed, and it runs the same `decidir` as the theorems.
+3. A checker compares the outputs with the truth. It computes the expected decision independently, in Python with `fractions.Fraction`.
+4. Two negative controls must fail the same test: total division and `Float`. A test that cannot fail proves nothing.
+
+CI runs all of this on every push with a fresh seed.
+
+Local run, seed 16480616440769979998 (`resultados_lote_cego.json`):
+
+| Decider | Silent on error (approved / rejected) | Flagged | Located | Wrong decisions without error | False alarms | Verdict |
+|---|---|---|---|---|---|---|
+| `decidir` (`𝕀` with origin) | 0 / 0 of 512 | 512 | 512 | 0 of 9 488 | 0 | passes |
+| total division | 230 / 282 of 512 | 0 | 0 | 0 of 9 488 | 0 | fails |
+| `Float` | 0 / 0 of 512 | 512 | 0 | 28 of 9 488, all 28 among the 81 sums that are exactly 0 | 0 | fails |
+
+The test covers 10 000 cases; the theorems cover all of them.
+
 ## The AEI correction (`formalizations/lean/AlgebraIndeterminate/AEI.lean`)
 
 - **The old rule was inconsistent.** The original text set `0 · 𝕀 = 1`. Together with associativity it gives `0 = 1`, and the theorem `KI.regra_antiga_colapsa` records this.
@@ -107,6 +140,8 @@ Two caveats. The origin is a runtime feature: inside the algebra, an `𝕀` that
 - `IndetBench.lean`: the verification benchmark. The numbers are in `resultados_heartbeats.json`.
 - `runtime/Main.lean`: the execution benchmark (exact, Float, hybrid); results in `resultados_1000x1000.csv`.
 - `runtime/Origem.lean`: the diagnostics benchmark (silent, flagged, located); results in `resultados_origem_1000x1000.csv`.
+- `IndetDecisao.lean`: the decision program and the theorems that it never decides silently.
+- `LoteCego.lean`, `lote_cego.py`: the blind batch test (generator, decider, independent checker, negative controls); a local run in `resultados_lote_cego.json`.
 
 ## Build
 
@@ -114,7 +149,11 @@ Two caveats. The origin is a runtime feature: inside the algebra, an `𝕀` that
 lake exe cache get              # Mathlib v4.19.0 cache
 lake build                      # Indet
 lake build IndetTest            # tests
+lake build IndetDecisao         # the decision and its theorems
 lake env lean -DElab.async=false IndetBench.lean
+python3 lote_cego.py gera casos.txt verdade.json
+lake env lean --run LoteCego.lean O casos.txt saidas_O.txt
+python3 lote_cego.py confere verdade.json saidas_O.txt
 cd runtime && lake build hibrido origem
 .lake/build/bin/hibrido 1000 1000 5
 .lake/build/bin/origem 1000 1000 5

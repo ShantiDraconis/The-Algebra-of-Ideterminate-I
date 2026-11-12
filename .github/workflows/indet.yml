@@ -13,6 +13,8 @@ jobs:
     timeout-minutes: 90
     defaults:
       run:
+        # bash com pipefail: um `| tee` não esconde a falha do comando da esquerda
+        shell: bash
         working-directory: Indet
     steps:
       - uses: actions/checkout@v4
@@ -25,12 +27,13 @@ jobs:
       - name: Cache do Mathlib
         run: lake exe cache get
 
-      - name: Compilar a biblioteca e os testes
-        run: lake build Indet IndetTest
+      - name: Compilar a biblioteca, os testes e a decisão
+        run: lake build Indet IndetTest IndetDecisao
 
       - name: Axiomas (só propext, Classical.choice, Quot.sound; nenhum sorryAx)
         run: |
           lake env lean IndetTest.lean | tee axiomas.txt
+          lake env lean IndetDecisao.lean | tee -a axiomas.txt
           grep -c "depends on axioms" axiomas.txt
           if grep "depends on axioms" axiomas.txt | grep -vE "\[(propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*\]$"; then
             echo "axioma fora dos três padrões"; exit 1
@@ -64,6 +67,14 @@ jobs:
           print('conferido:', len(h), 'linhas do híbrido,', len(o), 'linhas da origem')
           EOF
 
+      - name: Teste de lote cego (semente do sistema operacional, nenhum humano entre a geração e a conferência)
+        run: |
+          python3 lote_cego.py gera casos.txt verdade.json --decisoes 10000 --termos 99 --erro 0.05
+          for v in O A F; do lake env lean --run LoteCego.lean "$v" casos.txt "saidas_$v.txt"; done
+          python3 lote_cego.py confere verdade.json saidas_O.txt --espera passa | tee lote_cego.jsonl
+          python3 lote_cego.py confere verdade.json saidas_A.txt --espera falha | tee -a lote_cego.jsonl
+          python3 lote_cego.py confere verdade.json saidas_F.txt --espera falha | tee -a lote_cego.jsonl
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -73,3 +84,5 @@ jobs:
             Indet/heartbeats.txt
             Indet/runtime/hibrido.csv
             Indet/runtime/origem.csv
+            Indet/lote_cego.jsonl
+            Indet/verdade.json
