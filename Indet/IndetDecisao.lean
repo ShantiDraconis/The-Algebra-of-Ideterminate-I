@@ -197,10 +197,15 @@ theorem nulo_nunca_avisa (l : List (ℚ × ℚ)) (k : ℕ) : decidirNulo l ≠ .
   unfold decidirNulo
   split_ifs <;> simp
 
+theorem soma_meio_zero (l₁ l₂ : List ℚ) : (l₁ ++ 0 :: l₂).sum = (l₁ ++ l₂).sum := by
+  induction l₁ with
+  | nil => simp
+  | cons x r ih => simp [ih]
+
 /-- Com a divisão total, um termo com denominador nulo some: qualquer numerador, em qualquer posição. -/
 theorem total_ignora_nulo (l₁ l₂ : List (ℚ × ℚ)) (a : ℚ) :
     decidirTotal (l₁ ++ (a, 0) :: l₂) = decidirTotal (l₁ ++ l₂) := by
-  simp [decidirTotal, List.sum_append, List.sum_cons]
+  simp [decidirTotal, soma_meio_zero]
 
 /-- **Em SQL, o termo com denominador nulo some.** A decisão é a da lista sem ele. -/
 theorem nulo_ignora_nulo (l₁ l₂ : List (ℚ × ℚ)) (a : ℚ) :
