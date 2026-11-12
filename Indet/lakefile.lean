@@ -13,5 +13,8 @@ require mathlib from git
 /-- Testes (`lake build IndetTest`). -/
 lean_lib IndetTest
 
+/-- A decisão com o indeterminado e os teoremas de que ela nunca decide em silêncio. -/
+lean_lib IndetDecisao
+
 /-- Benchmark de verificação (`lake env lean -DElab.async=false IndetBench.lean`). -/
 lean_lib IndetBench
