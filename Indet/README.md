@@ -141,7 +141,7 @@ Every wrong decision without error is among the 81 sums that are exactly 0.
 
 What this shows:
 
-- **SQL fails exactly like total division.** SQLite turns `x / 0` into `NULL`, and `SUM` skips it, so the term disappears. Its 230 / 282 split is the same as Lean's total division on the same batch. `decidirNulo_eq_total` proves the two decisions are equal for every input, and CI checks it on every blind batch.
+- **SQL fails the way total division does.** SQLite turns `x / 0` into `NULL`, and `SUM` skips it, so the term disappears. In exact arithmetic that is total division: `decidirNulo_eq_total` proves the two decisions are equal for every input, and CI checks `decidirNulo` against `decidirTotal` on every blind batch (10 000 of 10 000 identical). SQLite itself sums in floating point. On this seed its split, 230 / 282, matches total division exactly. On CI seed 5624272774576199532 it differs by one decision (227 / 260 against 228 / 259), a floating-point sign error.
 - **NumPy and JavaScript fail by IEEE 754 rules.** `a / 0` is `±∞` and `0 / 0` is `NaN`; `NaN >= 0` is false, so those decisions are rejected silently.
 - **pandas differs from NumPy** because `sum` skips `NaN` by default, so `0 / 0` terms disappear as in SQL.
 - **The contract is easy to meet by hand once it is written down.** The last row passes. What Lean adds is the proof that `decidir` meets it for every input, not only the 10 000 tested.
