@@ -8,6 +8,20 @@
 
 There are no axioms in this library: `𝕀 ≠ val a` is a theorem.
 
+**Status.** Lean v4.19.0, Mathlib v4.19.0. The workflow `.github/workflows/indet.yml` builds the library and the tests. It also checks that `#print axioms` lists only `propext`, `Classical.choice` and `Quot.sound` and never `sorryAx`. Finally it runs both execution benchmarks at a reduced size and asserts their results. There is no `sorry` and no `axiom` in `Indet/`.
+
+## Better and worse, side by side
+
+| Where `Indet` is better | Measured | Where `Indet` is worse | Measured |
+|---|---|---|---|
+| Field identities with no hypotheses | sum of k fractions: Mathlib needs k hypotheses `≠ 0`, Indet needs 0 | Proof cost of the identities themselves | sum 1.5–1.8×, product 4.5–4.9×, ring 2.2–2.4×, quotient of quotients 21.7× **and** 1 hypothesis |
+| Chained use of a hypothesis-free lemma | 676 vs 1 248 heartbeats (3 fractions), 1 328 vs 2 751 (5): **0.54× and 0.48×** | Not a ring | `0 · 𝕀 = 𝕀 ≠ 0`; `ring`/`field_simp` only through `indet_ring`/`indet_field` |
+| The error stays visible | with total division (`x/0 = 0`), 96 of 96 decisions with a zero denominator were decided silently, 53 of them "approve"; with `𝕀`, 96 of 96 flagged | Plain execution speed | 10⁶ quotients in ~395 ms, a tie with `ℚ` and `Option ℚ` |
+| The error has an address (`𝕀` with origin) | 96 of 96 located at the first zero denominator, 0 false alarms, cost within noise of plain `𝕀` | Hardware speed | `Float` is ~70× faster (6 ms vs ~400 ms) and also flags the error (NaN/∞), but without the address and without exactness |
+| Exact sign at near-float speed (hybrid) | 41 ms vs 418 ms exact, 0 wrong signs; `Float` alone: 4 wrong out of the 4 chains that sum exactly to 0 | Not unique | plain `𝕀` = `Option`; `𝕀` with origin = `Except Nat ℚ`; the absorbing element is IEEE NaN / wheel `⊥` / SQL `NULL` |
+
+Prototypes that were measured and dropped: tactics by case split over `2ⁿ` cases cost 12 % to 31 % more than the plain rewriting version. A reflection prototype cut 6 variables from 3 998 to 1 241 heartbeats (−69 %), still 2.6× Mathlib's 485.
+
 ## Where it stands, honestly
 
 - **Data representation.** As a data type `Indet α` is `Option α` with the operations lifted (`Indet.equivOption`, `toOption_add`, `toOption_mul`).
@@ -49,24 +63,59 @@ With 6 fractions, Mathlib v4.19's `field_simp` stops clearing denominators, and 
 | Workload | Exact ℚ | Float only | Hybrid (Float + error bound, ℚ only when unsure) |
 |---|---|---|---|
 | no zero divisors | 418 ms | 21 ms | 41 ms |
-| 1 % of chains summing exactly to 0 | 416 ms | 21 ms, **4 wrong signs** | 43 ms, **0 wrong signs** (4 chains recomputed exactly) |
+| chains summing exactly to 0 (rate 1 %; seed 42 gives 4 of them) | 416 ms | 21 ms, **4 wrong signs out of 4** | 43 ms, **0 wrong signs** (the 4 chains recomputed exactly) |
 | plus 0.1 % zero divisors | 258 ms | 13 ms, 4 wrong | 27 ms, 0 wrong |
 | plus 10 % zero divisors | 5.0 ms | 0.3 ms, 4 wrong | 2.1 ms, 0 wrong |
 
-The hybrid computes in hardware floating point and keeps a rounding-error bound `γ·Σ|tₖ|`. Only when `|s|` falls under that bound does it recompute the sum in ℚ. Its results equal the exact ones, and it runs about 10× faster.
+The hybrid computes in hardware floating point and keeps a rounding-error bound `γ·Σ|tₖ|`. Only when `|s|` falls under that bound does it recompute the sum in ℚ. Its results equal the exact ones, and it runs about 10× faster. The table gives the median of three runs (`resultados_1000x1000.csv` also has the minimum and maximum). The hybrid is a technique demonstrated in `runtime/`, not part of the library's API.
+
+### Diagnostics: is the error silent, visible, or located? (`runtime/Origem.lean`)
+
+The workload is 1 000 decisions of the form "approve if `Σ aₖ/bₖ ≥ 0`", 1 000 quotients each. In a fraction of the decisions, one or two denominators are set to 0 (a specification error, such as an empty weight). Five repetitions per formulation:
+
+| Errors injected | Formulation | Median | Decided silently (of which "approve") | Flagged | Located at the first zero | False alarms |
+|---|---|---|---|---|---|---|
+| 96 of 1 000 | total division (`x/0 = 0`) | 397 ms | **96 (53)** | 0 | 0 | 0 |
+| 96 of 1 000 | `Option ℚ` | 391 ms | 0 | 96 | 0 | 0 |
+| 96 of 1 000 | `Float` (NaN/∞) | 5 ms | 0 | 96 | 0 | 0 |
+| 96 of 1 000 | plain `𝕀` | 388 ms | 0 | 96 | 0 | 0 |
+| 96 of 1 000 | `𝕀` with origin | 390 ms | 0 | 96 | **96** | 0 |
+| 1 000 of 1 000 | total division | 406 ms | **1 000 (483)** | 0 | 0 | 0 |
+| 1 000 of 1 000 | `𝕀` with origin | 170 ms | 0 | 1 000 | **1 000** | 0 |
+
+The other rows (0 and 8 errors) are in `resultados_origem_1000x1000.csv`. On error-free input, all five agree and plain `𝕀` and `𝕀` with origin cost the same within noise.
+
+Two caveats. The origin is a runtime feature: inside the algebra, an `𝕀` that keeps "the first origin" would make addition non-commutative (`𝕀₁ + 𝕀₂ ≠ 𝕀₂ + 𝕀₁`), so the library's `𝕀` carries none. Also, `𝕀` with origin is exactly `Except Nat ℚ`. What gives the address is carrying the origin, not the symbol `𝕀`.
+
+## The AEI correction (`formalizations/lean/AlgebraIndeterminate/AEI.lean`)
+
+- **The old rule was inconsistent.** The original text set `0 · 𝕀 = 1`. Together with associativity it gives `0 = 1`, and the theorem `KI.regra_antiga_colapsa` records this.
+- **The new rule is `0 · 𝕀 = 𝕀`.** With it, multiplication is associative and commutative and distributes over addition.
+- **No axioms are left.** `I_not_zero` and `I_not_field_element` are now theorems.
+- **Still pending: `0 / a = 𝕀`.** The text's rule `0 / a = 𝕀` for `a ≠ 0` is kept as written. It is the author's decision and is not changed here. The library `Indet` uses the usual `0 / a = 0`.
+
+## What this library does not claim
+
+- **That `𝕀` is faster.** See the tables above.
+- **That the idea of an absorbing error element is new.** The contribution is the proof technique (`Det`/`v`, `ext_iff'`, the two tactics, the hypothesis-free lemmas) and the measurements.
+- **Anything about open problems.** Nothing here touches any Millennium problem.
 
 ## Files
 
 - `Indet.lean`: the library (type, simp set, structure instances, `Det`/`v`, `ext_iff'`, tactics, hypothesis-free field lemmas).
 - `IndetTest.lean`: tests. Every theorem prints only the standard axioms under `#print axioms`.
 - `IndetBench.lean`: the verification benchmark. The numbers are in `resultados_heartbeats.json`.
-- `runtime/`: the execution benchmark (exact, Float, hybrid) and `resultados_1000x1000.csv`.
+- `runtime/Main.lean`: the execution benchmark (exact, Float, hybrid); results in `resultados_1000x1000.csv`.
+- `runtime/Origem.lean`: the diagnostics benchmark (silent, flagged, located); results in `resultados_origem_1000x1000.csv`.
 
 ## Build
 
 ```
+lake exe cache get              # Mathlib v4.19.0 cache
 lake build                      # Indet
 lake build IndetTest            # tests
 lake env lean -DElab.async=false IndetBench.lean
-cd runtime && lake build && .lake/build/bin/hibrido 1000 1000 5
+cd runtime && lake build hibrido origem
+.lake/build/bin/hibrido 1000 1000 5
+.lake/build/bin/origem 1000 1000 5
 ```
