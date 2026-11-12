@@ -17,8 +17,8 @@ There are no axioms in this library: `𝕀 ≠ val a` is a theorem.
 | Field identities with no hypotheses | sum of k fractions: Mathlib needs k hypotheses `≠ 0`, Indet needs 0 | Proof cost of the identities themselves | sum 1.5–1.8×, product 4.5–4.9×, ring 2.2–2.4×, quotient of quotients 21.7× **and** 1 hypothesis |
 | Chained use of a hypothesis-free lemma | 676 vs 1 248 heartbeats (3 fractions), 1 328 vs 2 751 (5): **0.54× and 0.48×** | Not a ring | `0 · 𝕀 = 𝕀 ≠ 0`; `ring`/`field_simp` only through `indet_ring`/`indet_field` |
 | The error stays visible | with total division (`x/0 = 0`), 96 of 96 decisions with a zero denominator were decided silently, 53 of them "approve"; with `𝕀`, 96 of 96 flagged | Plain execution speed | 10⁶ quotients in ~395 ms, a tie with `ℚ` and `Option ℚ` |
-| The error has an address (`𝕀` with origin) | 96 of 96 located at the first zero denominator, 0 false alarms, cost within noise of plain `𝕀` | Hardware speed | `Float` is ~70× faster (6 ms vs ~400 ms) and also flags the error (NaN/∞), but without the address and without exactness |
-| Exact sign at near-float speed (hybrid) | 41 ms vs 418 ms exact, 0 wrong signs; `Float` alone: 4 wrong out of the 4 chains that sum exactly to 0 | Not unique | plain `𝕀` = `Option`; `𝕀` with origin = `Except Nat ℚ`; the absorbing element is IEEE NaN / wheel `⊥` / SQL `NULL` |
+| The error has an address (`𝕀` with origin) | 96 of 96 located at the first zero denominator, 0 false alarms, cost within noise of plain `𝕀` | Hardware speed | `Float` is ~75× faster (5 ms vs 390 ms, 96 errors in 1 000) and also flags the error, but only because the code checks `isFinite` (a bare `s ≥ 0` approves `+∞` silently), and without the address and without exactness |
+| Exact sign at near-float speed (hybrid) | 43 ms vs 416 ms exact on the workload with chains that sum exactly to 0, 0 wrong signs; `Float` alone: 4 wrong out of those 4 chains | Not unique | plain `𝕀` = `Option`; `𝕀` with origin = `Except Nat ℚ`; the absorbing element is IEEE NaN / wheel `⊥` / SQL `NULL` |
 
 Prototypes that were measured and dropped: tactics by case split over `2ⁿ` cases cost 12 % to 31 % more than the plain rewriting version. A reflection prototype cut 6 variables from 3 998 to 1 241 heartbeats (−69 %), still 2.6× Mathlib's 485.
 
@@ -100,13 +100,16 @@ The decision rule is written by a person: approve if `Σ aₖ/bₖ ≥ 0`, other
 | `sem_alarme_falso` | if no denominator is 0, the output is the exact decision in `ℚ` |
 | `decidir_erro_iff_indet` | the output is an error exactly when the sum in `Indet ℚ` is `𝕀` |
 | `total_aprova_em_silencio` | with total division (`x/0 = 0`), any one-term decision with a zero denominator is approved, whatever the numerator |
+| `decidirNulo_eq_total` | the SQL decision (`x/0` is `NULL`, `SUM` skips `NULL`) equals the total-division decision, for every input |
+| `nulo_nunca_avisa` | the SQL decision never returns an error |
+| `nulo_ignora_nulo` | in the SQL decision, a term with a zero denominator, any numerator, at any position, does not change the result |
 
 **Tested blind** (`lote_cego.py` + `LoteCego.lean`). The protocol has four steps:
 
 1. A generator draws 10 000 decisions of 99 quotients from an operating-system seed. It sets zero denominators in 5 % of them (one or two each, sometimes at the first or last position). It also makes 1 % of them sum to exactly 0.
 2. The decider receives only the cases. It never sees the truth or the seed, and it runs the same `decidir` as the theorems.
 3. A checker compares the outputs with the truth. It computes the expected decision independently, in Python with `fractions.Fraction`.
-4. Two negative controls must fail the same test: total division and `Float`. A test that cannot fail proves nothing.
+4. Negative controls must fail the same test: total division and `Float` in Lean, and the idiomatic one-line rule in SQLite, NumPy, pandas, Python and JavaScript (`adaptadores/`). A hand-written Python version of the same contract must pass. A test that cannot fail proves nothing.
 
 CI runs all of this on every push with a fresh seed.
 
@@ -119,6 +122,29 @@ Local run, seed 16480616440769979998 (`resultados_lote_cego.json`):
 | `Float` | 0 / 0 of 512 | 512 | 0 | 28 of 9 488, all 28 among the 81 sums that are exactly 0 | 0 | fails |
 
 The test covers 10 000 cases; the theorems cover all of them.
+
+### Common stacks on the same batch (`adaptadores/`)
+
+Each decider below is the idiomatic way to write "approve if `Σ aₖ/bₖ ≥ 0`" in that stack. It reads the same cases file and never sees the truth. Same seed, 16480616440769979998 (`adaptadores/resultados_stacks.json`; Python 3.13, NumPy 2.5.3, pandas 3.0.5, SQLite 3.53.1, Node 22):
+
+| Decider | Silent on error (approved / rejected) | Flagged | Located | Wrong decisions without error | Verdict |
+|---|---|---|---|---|---|
+| SQLite: `SUM(a * 1.0 / b) >= 0` | 230 / 282 of 512 | 0 | 0 | 40 of 9 488 | fails |
+| NumPy: `np.sum(a / b) >= 0` | 169 / 343 of 512 | 0 | 0 | 25 of 9 488 | fails |
+| pandas: `(df.a / df.b).sum() >= 0` | 184 / 328 of 512 | 0 | 0 | 29 of 9 488 | fails |
+| JavaScript: `reduce((s, [a, b]) => s + a / b, 0) >= 0` | 169 / 343 of 512 | 0 | 0 | 28 of 9 488 | fails |
+| Python `float`, `try/except ZeroDivisionError` | 0 / 0 of 512 | 512 | 0 | 40 of 9 488 | fails |
+| Python `Fraction`, `try/except ZeroDivisionError` | 0 / 0 of 512 | 512 | 0 | 0 of 9 488 | fails |
+| Python `Fraction`, returns the first zero index | 0 / 0 of 512 | 512 | 512 | 0 of 9 488 | passes |
+
+Every wrong decision without error is among the 81 sums that are exactly 0.
+
+What this shows:
+
+- **SQL fails exactly like total division.** SQLite turns `x / 0` into `NULL`, and `SUM` skips it, so the term disappears. Its 230 / 282 split is the same as Lean's total division on the same batch. `decidirNulo_eq_total` proves the two decisions are equal for every input, and CI checks it on every blind batch.
+- **NumPy and JavaScript fail by IEEE 754 rules.** `a / 0` is `±∞` and `0 / 0` is `NaN`; `NaN >= 0` is false, so those decisions are rejected silently.
+- **pandas differs from NumPy** because `sum` skips `NaN` by default, so `0 / 0` terms disappear as in SQL.
+- **The contract is easy to meet by hand once it is written down.** The last row passes. What Lean adds is the proof that `decidir` meets it for every input, not only the 10 000 tested.
 
 ## The AEI correction (`formalizations/lean/AlgebraIndeterminate/AEI.lean`)
 
@@ -142,6 +168,7 @@ The test covers 10 000 cases; the theorems cover all of them.
 - `runtime/Origem.lean`: the diagnostics benchmark (silent, flagged, located); results in `resultados_origem_1000x1000.csv`.
 - `IndetDecisao.lean`: the decision program and the theorems that it never decides silently.
 - `LoteCego.lean`, `lote_cego.py`: the blind batch test (generator, decider, independent checker, negative controls); a local run in `resultados_lote_cego.json`.
+- `adaptadores/`: the same rule written idiomatically in SQLite, NumPy, pandas, Python and JavaScript, run on the same blind batch; a local run in `resultados_stacks.json`.
 
 ## Build
 

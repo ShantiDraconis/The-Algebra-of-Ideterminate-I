@@ -15,7 +15,11 @@ Uma decisão recebe uma lista de quocientes `aₖ / bₖ` e devolve uma de três
 * `sem_alarme_falso`: se nenhum denominador é nulo, a saída é a decisão exata em `ℚ`;
 * `decidir_erro_iff_indet`: a saída é um erro exatamente quando a soma em `Indet ℚ` dá `𝕀`;
 * `total_aprova_em_silencio`: com a divisão total do Mathlib (`x / 0 = 0`), toda decisão de um termo só com
-  denominador nulo é aprovada, qualquer que seja o numerador.
+  denominador nulo é aprovada, qualquer que seja o numerador;
+* `decidirNulo_eq_total`: a decisão em SQL (`x / 0` é `NULL`, `SUM` ignora `NULL`) é, para toda lista, a mesma
+  da divisão total;
+* `nulo_nunca_avisa`, `nulo_ignora_nulo`: a decisão em SQL nunca devolve erro, e um termo com denominador nulo,
+  com qualquer numerador e em qualquer posição, não muda a decisão.
 -/
 
 open Indet
@@ -164,6 +168,45 @@ theorem total_aprova_em_silencio (a : ℚ) : decidirTotal [(a, 0)] = .aprova := 
 /-- E a decisão com o indeterminado, na mesma entrada, devolve o erro no índice 0. -/
 example (a : ℚ) : decidir [(a, 0)] = .erro 0 := by simp [decidir, passada]
 
+/-! ## SQL: `x / 0` é `NULL` e `SUM` ignora `NULL`
+
+No SQLite (e no MySQL fora do modo estrito), `x / 0` é `NULL`, e `SUM` pula os `NULL`. A decisão
+"aprova se `SUM(a / b) ≥ 0`" vira a soma só dos termos com denominador não nulo. -/
+
+/-- A decisão em SQL: soma só os termos com denominador não nulo. -/
+def decidirNulo (l : List (ℚ × ℚ)) : Saida :=
+  if 0 ≤ ((l.filter fun p => p.2 ≠ 0).map fun p => p.1 / p.2).sum then .aprova else .reprova
+
+theorem soma_sem_nulos (l : List (ℚ × ℚ)) :
+    ((l.filter fun p => p.2 ≠ 0).map fun p => p.1 / p.2).sum = (l.map fun p => p.1 / p.2).sum := by
+  induction l with
+  | nil => rfl
+  | cons p r ih =>
+    obtain ⟨a, b⟩ := p
+    by_cases hb : b = 0
+    · simpa [List.filter_cons, hb] using ih
+    · simpa [List.filter_cons, hb] using ih
+
+/-- **SQL decide como a divisão total.** Pular os `NULL` dá a mesma decisão que `x / 0 = 0`, para toda lista. -/
+theorem decidirNulo_eq_total (l : List (ℚ × ℚ)) : decidirNulo l = decidirTotal l := by
+  unfold decidirNulo decidirTotal
+  rw [soma_sem_nulos]
+
+/-- A decisão em SQL nunca devolve erro. -/
+theorem nulo_nunca_avisa (l : List (ℚ × ℚ)) (k : ℕ) : decidirNulo l ≠ .erro k := by
+  unfold decidirNulo
+  split_ifs <;> simp
+
+/-- Com a divisão total, um termo com denominador nulo some: qualquer numerador, em qualquer posição. -/
+theorem total_ignora_nulo (l₁ l₂ : List (ℚ × ℚ)) (a : ℚ) :
+    decidirTotal (l₁ ++ (a, 0) :: l₂) = decidirTotal (l₁ ++ l₂) := by
+  simp [decidirTotal]
+
+/-- **Em SQL, o termo com denominador nulo some.** A decisão é a da lista sem ele. -/
+theorem nulo_ignora_nulo (l₁ l₂ : List (ℚ × ℚ)) (a : ℚ) :
+    decidirNulo (l₁ ++ (a, 0) :: l₂) = decidirNulo (l₁ ++ l₂) := by
+  rw [decidirNulo_eq_total, decidirNulo_eq_total, total_ignora_nulo]
+
 end IndetDecisao
 
 #print axioms IndetDecisao.decidir_eq
@@ -171,3 +214,6 @@ end IndetDecisao
 #print axioms IndetDecisao.sem_alarme_falso
 #print axioms IndetDecisao.decidir_erro_iff_indet
 #print axioms IndetDecisao.total_aprova_em_silencio
+#print axioms IndetDecisao.decidirNulo_eq_total
+#print axioms IndetDecisao.nulo_nunca_avisa
+#print axioms IndetDecisao.nulo_ignora_nulo

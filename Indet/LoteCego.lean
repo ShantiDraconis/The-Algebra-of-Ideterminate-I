@@ -12,7 +12,9 @@ lake env lean --run LoteCego.lean <O|A|F> casos.txt saidas.txt
 
 * `O` — `IndetDecisao.decidir`, o mesmo programa dos teoremas (`aprova`, `reprova` ou `erro k`);
 * `A` — `IndetDecisao.decidirTotal`, a divisão total do Mathlib (controle negativo: decide em silêncio);
-* `F` — ponto flutuante (controle negativo: detecta por NaN/∞, mas não diz onde, e erra o sinal perto de 0).
+* `F` — ponto flutuante (controle negativo: detecta por NaN/∞, mas não diz onde, e erra o sinal perto de 0);
+* `N` — `IndetDecisao.decidirNulo`, o modelo da decisão em SQL (`x / 0` é `NULL`, `SUM` ignora `NULL`). O CI
+  confere que a saída é idêntica à de `A`, como diz `decidirNulo_eq_total`.
 -/
 
 open IndetDecisao
@@ -41,5 +43,6 @@ def main (args : List String) : IO Unit := do
     let r := match variante with
       | "O" => mostra (decidir q)
       | "A" => mostra (decidirTotal q)
+      | "N" => mostra (decidirNulo q)
       | _ => decidirFloat l
     h.putStrLn r

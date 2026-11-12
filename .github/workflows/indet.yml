@@ -75,6 +75,28 @@ jobs:
           python3 lote_cego.py confere verdade.json saidas_A.txt --espera falha | tee -a lote_cego.jsonl
           python3 lote_cego.py confere verdade.json saidas_F.txt --espera falha | tee -a lote_cego.jsonl
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Lote cego nas stacks comuns (SQLite, NumPy, pandas, Python, JavaScript) e o modelo SQL em Lean
+        run: |
+          python -m pip install --quiet numpy==2.5.3 pandas==3.0.5
+          for d in sqlite numpy pandas py_float py_fraction py_origem; do
+            python adaptadores/adaptadores.py "$d" casos.txt "saidas_$d.txt"
+          done
+          node adaptadores/js_soma.js casos.txt saidas_js.txt
+          # controles negativos: decidem em silêncio, ou detectam sem dizer onde, ou erram o sinal perto de 0
+          for d in sqlite numpy pandas py_float py_fraction js; do
+            python lote_cego.py confere verdade.json "saidas_$d.txt" --espera falha | tee -a lote_cego.jsonl
+          done
+          # controle positivo: o mesmo contrato de `decidir`, escrito à mão em Python
+          python lote_cego.py confere verdade.json saidas_py_origem.txt --espera passa | tee -a lote_cego.jsonl
+          # o modelo SQL em Lean decide igual à divisão total em todas as decisões (`decidirNulo_eq_total`)
+          lake env lean --run LoteCego.lean N casos.txt saidas_N.txt
+          cmp saidas_A.txt saidas_N.txt
+          echo "N = A nas $(wc -l < saidas_N.txt) decisões"
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
