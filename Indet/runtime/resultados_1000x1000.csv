@@ -1,0 +1,13 @@
+zeros_por_mil,cadeias_nulas_por_mil,variante,mediana_ms,min_ms,max_ms,refeitas_em_Q,erros_de_sinal
+0,0,Q_exato,418.11,416.39,435.24,0,0
+0,0,F_flutuante,20.52,20.29,21.94,0,0
+0,0,H_hibrido,40.85,40.3,43.11,0,0
+0,10,Q_exato,416.06,412.54,418.38,0,0
+0,10,F_flutuante,20.8,20.42,20.81,0,4
+0,10,H_hibrido,42.55,41.82,42.84,4,0
+1,10,Q_exato,257.59,254.53,257.92,0,0
+1,10,F_flutuante,12.81,12.67,12.93,0,4
+1,10,H_hibrido,26.92,26.56,27.1,4,0
+100,10,Q_exato,5.04,5.01,5.12,0,0
+100,10,F_flutuante,0.32,0.31,0.32,0,4
+100,10,H_hibrido,2.1,2.08,2.12,4,0
