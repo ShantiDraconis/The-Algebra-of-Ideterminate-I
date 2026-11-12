@@ -1,0 +1,107 @@
+name: Indet (Lean 4 / Mathlib v4.19.0)
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  indet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        # bash com pipefail: um `| tee` não esconde a falha do comando da esquerda
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar o elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Cache do Mathlib
+        run: lake exe cache get
+
+      - name: Compilar a biblioteca, os testes e a decisão
+        run: lake build Indet IndetTest IndetDecisao
+
+      - name: Axiomas (só propext, Classical.choice, Quot.sound; nenhum sorryAx)
+        run: |
+          lake env lean IndetTest.lean | tee axiomas.txt
+          lake env lean IndetDecisao.lean | tee -a axiomas.txt
+          grep -c "depends on axioms" axiomas.txt
+          if grep "depends on axioms" axiomas.txt | grep -vE "\[(propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*\]$"; then
+            echo "axioma fora dos três padrões"; exit 1
+          fi
+          if grep -q "sorry" axiomas.txt; then echo "sorry"; exit 1; fi
+
+      - name: Benchmark de verificação (heartbeats)
+        run: lake env lean -DElab.async=false IndetBench.lean | tee heartbeats.txt
+
+      - name: Benchmarks de execução (tamanho reduzido) e conferência dos resultados
+        working-directory: runtime
+        run: |
+          lake build hibrido origem
+          .lake/build/bin/hibrido 200 300 1 | tee hibrido.csv
+          .lake/build/bin/origem 200 300 1 | tee origem.csv
+          python3 - <<'EOF'
+          import csv
+          h = list(csv.DictReader(open('hibrido.csv')))
+          assert all(r['erros_de_sinal'] == '0' for r in h if r['variante'] == 'H_hibrido'), 'híbrido errou sinal'
+          assert all(r['erros_de_sinal'] == '0' for r in h if r['variante'] == 'Q_exato'), 'exato errou sinal'
+          o = list(csv.DictReader(open('origem.csv')))
+          for r in o:
+              assert r['alarmes_falsos'] == '0', r
+              if r['variante'] != 'A_mathlib_total':
+                  assert r['decididas_em_silencio'] == '0', r
+                  assert r['detectadas'] == r['casos_com_erro'], r
+              if r['variante'] == 'O_I_com_origem':
+                  assert r['localizadas'] == r['casos_com_erro'], r
+              if r['variante'] == 'A_mathlib_total':
+                  assert r['decididas_em_silencio'] == r['casos_com_erro'], r
+          print('conferido:', len(h), 'linhas do híbrido,', len(o), 'linhas da origem')
+          EOF
+
+      - name: Teste de lote cego (semente do sistema operacional, nenhum humano entre a geração e a conferência)
+        run: |
+          python3 lote_cego.py gera casos.txt verdade.json --decisoes 10000 --termos 99 --erro 0.05
+          for v in O A F; do lake env lean --run LoteCego.lean "$v" casos.txt "saidas_$v.txt"; done
+          python3 lote_cego.py confere verdade.json saidas_O.txt --espera passa | tee lote_cego.jsonl
+          python3 lote_cego.py confere verdade.json saidas_A.txt --espera falha | tee -a lote_cego.jsonl
+          python3 lote_cego.py confere verdade.json saidas_F.txt --espera falha | tee -a lote_cego.jsonl
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Lote cego nas stacks comuns (SQLite, NumPy, pandas, Python, JavaScript) e o modelo SQL em Lean
+        run: |
+          python -m pip install --quiet numpy==2.5.3 pandas==3.0.5
+          for d in sqlite numpy pandas py_float py_fraction py_origem; do
+            python adaptadores/adaptadores.py "$d" casos.txt "saidas_$d.txt"
+          done
+          node adaptadores/js_soma.js casos.txt saidas_js.txt
+          # controles negativos: decidem em silêncio, ou detectam sem dizer onde, ou erram o sinal perto de 0
+          for d in sqlite numpy pandas py_float py_fraction js; do
+            python lote_cego.py confere verdade.json "saidas_$d.txt" --espera falha | tee -a lote_cego.jsonl
+          done
+          # controle positivo: o mesmo contrato de `decidir`, escrito à mão em Python
+          python lote_cego.py confere verdade.json saidas_py_origem.txt --espera passa | tee -a lote_cego.jsonl
+          # o modelo SQL em Lean decide igual à divisão total em todas as decisões (`decidirNulo_eq_total`)
+          lake env lean --run LoteCego.lean N casos.txt saidas_N.txt
+          cmp saidas_A.txt saidas_N.txt
+          echo "N = A nas $(wc -l < saidas_N.txt) decisões"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: indet-resultados
+          path: |
+            axiomas.txt
+            heartbeats.txt
+            runtime/hibrido.csv
+            runtime/origem.csv
+            lote_cego.jsonl
+            verdade.json
