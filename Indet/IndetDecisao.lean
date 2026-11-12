@@ -200,7 +200,7 @@ theorem nulo_nunca_avisa (l : List (ℚ × ℚ)) (k : ℕ) : decidirNulo l ≠ .
 /-- Com a divisão total, um termo com denominador nulo some: qualquer numerador, em qualquer posição. -/
 theorem total_ignora_nulo (l₁ l₂ : List (ℚ × ℚ)) (a : ℚ) :
     decidirTotal (l₁ ++ (a, 0) :: l₂) = decidirTotal (l₁ ++ l₂) := by
-  simp [decidirTotal]
+  simp [decidirTotal, List.sum_append, List.sum_cons]
 
 /-- **Em SQL, o termo com denominador nulo some.** A decisão é a da lista sem ele. -/
 theorem nulo_ignora_nulo (l₁ l₂ : List (ℚ × ℚ)) (a : ℚ) :
