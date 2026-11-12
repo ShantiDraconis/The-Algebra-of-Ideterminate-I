@@ -1,0 +1,75 @@
+name: Indet (Lean 4 / Mathlib v4.19.0)
+
+on:
+  push:
+    paths: ['Indet/**', '.github/workflows/indet.yml']
+  pull_request:
+    paths: ['Indet/**', '.github/workflows/indet.yml']
+  workflow_dispatch:
+
+jobs:
+  indet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: Indet
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar o elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Cache do Mathlib
+        run: lake exe cache get
+
+      - name: Compilar a biblioteca e os testes
+        run: lake build Indet IndetTest
+
+      - name: Axiomas (só propext, Classical.choice, Quot.sound; nenhum sorryAx)
+        run: |
+          lake env lean IndetTest.lean | tee axiomas.txt
+          grep -c "depends on axioms" axiomas.txt
+          if grep "depends on axioms" axiomas.txt | grep -vE "\[(propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*\]$"; then
+            echo "axioma fora dos três padrões"; exit 1
+          fi
+          if grep -q "sorry" axiomas.txt; then echo "sorry"; exit 1; fi
+
+      - name: Benchmark de verificação (heartbeats)
+        run: lake env lean -DElab.async=false IndetBench.lean | tee heartbeats.txt
+
+      - name: Benchmarks de execução (tamanho reduzido) e conferência dos resultados
+        working-directory: Indet/runtime
+        run: |
+          lake build hibrido origem
+          .lake/build/bin/hibrido 200 300 1 | tee hibrido.csv
+          .lake/build/bin/origem 200 300 1 | tee origem.csv
+          python3 - <<'EOF'
+          import csv
+          h = list(csv.DictReader(open('hibrido.csv')))
+          assert all(r['erros_de_sinal'] == '0' for r in h if r['variante'] == 'H_hibrido'), 'híbrido errou sinal'
+          assert all(r['erros_de_sinal'] == '0' for r in h if r['variante'] == 'Q_exato'), 'exato errou sinal'
+          o = list(csv.DictReader(open('origem.csv')))
+          for r in o:
+              assert r['alarmes_falsos'] == '0', r
+              if r['variante'] != 'A_mathlib_total':
+                  assert r['decididas_em_silencio'] == '0', r
+                  assert r['detectadas'] == r['casos_com_erro'], r
+              if r['variante'] == 'O_I_com_origem':
+                  assert r['localizadas'] == r['casos_com_erro'], r
+              if r['variante'] == 'A_mathlib_total':
+                  assert r['decididas_em_silencio'] == r['casos_com_erro'], r
+          print('conferido:', len(h), 'linhas do híbrido,', len(o), 'linhas da origem')
+          EOF
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: indet-resultados
+          path: |
+            Indet/axiomas.txt
+            Indet/heartbeats.txt
+            Indet/runtime/hibrido.csv
+            Indet/runtime/origem.csv

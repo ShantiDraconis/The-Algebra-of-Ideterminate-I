@@ -10,3 +10,7 @@ require batteries from git
 
 @[default_target] lean_exe hibrido where
   root := `Main
+
+-- Diagnóstico: o erro some (divisão total), aparece (Option, NaN, 𝕀) ou aparece com a posição (𝕀 com origem).
+lean_exe origem where
+  root := `Origem
