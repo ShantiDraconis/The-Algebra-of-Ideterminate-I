@@ -19,6 +19,8 @@ matplotlib.use('Agg')
 import importlib.util
 _caminho = os.path.join(os.path.dirname(__file__), '..', 'src', 'python', 'ialgebra', 'advanced_visualizations.py')
 _spec = importlib.util.spec_from_file_location("ialgebra_src_advanced_visualizations", _caminho)
+if _spec is None or _spec.loader is None:
+    raise ImportError(f"advanced_visualizations.py não encontrado em {os.path.abspath(_caminho)}")
 _mod = importlib.util.module_from_spec(_spec)
 sys.modules[_spec.name] = _mod
 _spec.loader.exec_module(_mod)

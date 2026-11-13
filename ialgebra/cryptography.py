@@ -360,7 +360,7 @@ class PairedPrimeCryptosystem:
 
     def decrypt(self, ciphertext: int) -> int:
         """m = c^d mod n, com d = e⁻¹ mod φ(n) e φ(n) = ∏(p−1) sobre os quatro primos."""
-        if not self.key_generated:
+        if not self.key_generated or self._d is None or self.public_key is None:
             raise ValueError("Must generate keys first")
         n, _ = self.public_key
         return pow(ciphertext, self._d, n)
