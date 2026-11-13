@@ -1,9 +1,10 @@
 """
 Cryptographic Systems Based on AEI Framework
 
-Implements novel cryptographic techniques using the indeterminate algebra:
-- Paired-Prime Square Root Cryptography
-- Indeterminate Matrix Encryption
+Demonstrações educacionais em torno da álgebra do indeterminado:
+- PairedPrimeCryptosystem: RSA com quatro primos (a segurança é a do RSA; a
+  álgebra do indeterminado não entra nela)
+- Indeterminate Matrix Encryption (demonstração, sem análise de segurança)
 - I-Field Modular Arithmetic
 
 Author: Tiago Fagliari (ORCID: 0009-0006-6874-3910)
@@ -255,113 +256,115 @@ class IndeterminateMatrix:
         return result
 
 
+def _eh_primo(n: int, rodadas: int = 40) -> bool:
+    """Miller–Rabin com bases aleatórias de `secrets` (erro ≤ 4^-rodadas para n composto)."""
+    if n < 2:
+        return False
+    pequenos = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37)
+    for p in pequenos:
+        if n % p == 0:
+            return n == p
+    d, r = n - 1, 0
+    while d % 2 == 0:
+        d //= 2
+        r += 1
+    for _ in range(rodadas):
+        a = 2 + secrets.randbelow(n - 3)
+        x = pow(a, d, n)
+        if x in (1, n - 1):
+            continue
+        for _ in range(r - 1):
+            x = pow(x, 2, n)
+            if x == n - 1:
+                break
+        else:
+            return False
+    return True
+
+
+def _primo_aleatorio(bits: int) -> int:
+    """Primo de exatamente `bits` bits (bit mais alto e bit mais baixo ligados)."""
+    if bits < 8:
+        raise ValueError("bits >= 8")
+    while True:
+        c = secrets.randbits(bits) | (1 << (bits - 1)) | 1
+        if _eh_primo(c):
+            return c
+
+
 class PairedPrimeCryptosystem:
     """
-    Complete cryptographic system based on paired-prime square roots.
-    
-    Security relies on:
-    1. Understanding of AEI paired-prime theory
-    2. Computational hardness without AEI framework
-    3. Mathematical watermarking via even-prime properties
+    RSA com quatro primos (multi-prime RSA), organizados em dois pares.
+
+    O que isto é, sem exagero: n = p1·p2·q1·q2 com quatro primos distintos e
+    φ(n) = (p1−1)(p2−1)(q1−1)(q2−1). A segurança é a do RSA com esse módulo; os
+    "pares" não acrescentam segurança nem dependem da álgebra do indeterminado.
+    É uma demonstração educacional, sem padding (OAEP/PSS) e sem auditoria: não use
+    para proteger dados reais.
+
+    Versões anteriores sorteavam inteiros quaisquer como "primos" e calculavam φ(n)
+    como (p1·p2 − 1)(q1·q2 − 1), o que não é φ(n); por isso nenhuma decifração
+    voltava à mensagem.
     """
-    
+
+    E_PADRAO = 65537
+
     def __init__(self, security_parameter: int = 256):
         """
-        Initialize cryptosystem.
-        
         Args:
-            security_parameter: Bit length of security parameter
+            security_parameter: tamanho aproximado de n em bits (cada primo tem 1/4 disso).
         """
         self.security_bits = security_parameter
         self.key_generated = False
         self.public_key: Optional[Tuple[int, int]] = None
         self.private_key: Optional[Tuple[PairedPrime, PairedPrime]] = None
-    
+        self._d: Optional[int] = None
+
     def generate_keypair(self) -> Tuple[Tuple[int, int], Tuple[PairedPrime, PairedPrime]]:
         """
-        Generate public/private key pair.
-        
-        Returns:
-            (public_key, private_key): Key pair based on paired primes
-            
-        Security Note:
-            This demonstration uses secrets.randbits() for cryptographically
-            secure random number generation. Production systems should additionally:
-            - Use proper prime generation algorithms
-            - Verify primes with Miller-Rabin or similar tests
-            - Apply AEI-specific paired-prime selection criteria
+        Gera (n, e) e os dois pares de primos.
+
+        Os quatro primos são distintos e cada um tem security_parameter/4 bits
+        (mínimo 16). e = 65537; repete o sorteio até mdc(e, φ(n)) = 1.
         """
-        # Generate two paired-prime pairs
-        # In practice, these would be carefully selected from AEI theory
-        # Here we use simplified generation with cryptographically secure RNG
-        
-        # Private key: two paired-prime structures
-        # Using secrets.randbits for cryptographic security
-        p1 = secrets.randbits(self.security_bits//2)
-        p2 = secrets.randbits(self.security_bits//2)
-        q1 = secrets.randbits(self.security_bits//2)
-        q2 = secrets.randbits(self.security_bits//2)
-        
+        bits = max(16, self.security_bits // 4)
+        e = self.E_PADRAO
+        while True:
+            primos = set()
+            while len(primos) < 4:
+                primos.add(_primo_aleatorio(bits))
+            p1, p2, q1, q2 = sorted(primos)
+            phi = (p1 - 1) * (p2 - 1) * (q1 - 1) * (q2 - 1)
+            try:
+                d = pow(e, -1, phi)
+            except ValueError:  # mdc(e, φ) ≠ 1
+                continue
+            break
         pair1 = PairedPrime(p1, p2)
         pair2 = PairedPrime(q1, q2)
-        
-        # Public key: function of paired products
         n = pair1.paired_product() * pair2.paired_product()
-        e = 65537  # Standard public exponent
-        
         self.public_key = (n, e)
         self.private_key = (pair1, pair2)
+        self._d = d
         self.key_generated = True
-        
         return self.public_key, self.private_key
-    
+
     def encrypt(self, message: int) -> int:
-        """
-        Encrypt message using public key.
-        
-        Args:
-            message: Integer message to encrypt
-            
-        Returns:
-            Ciphertext
-        """
+        """c = m^e mod n. Exige 0 ≤ m < n."""
         if not self.key_generated:
             raise ValueError("Must generate keys first")
-        
         n, e = self.public_key
-        # Standard RSA-like encryption: c = m^e mod n
-        # But with paired-prime structure, breaking requires AEI knowledge
+        if not 0 <= message < n:
+            raise ValueError("a mensagem precisa estar em [0, n)")
         return pow(message, e, n)
-    
+
     def decrypt(self, ciphertext: int) -> int:
-        """
-        Decrypt ciphertext using private key.
-        
-        Args:
-            ciphertext: Encrypted message
-            
-        Returns:
-            Decrypted message
-        """
-        if not self.key_generated:
+        """m = c^d mod n, com d = e⁻¹ mod φ(n) e φ(n) = ∏(p−1) sobre os quatro primos."""
+        if not self.key_generated or self._d is None or self.public_key is None:
             raise ValueError("Must generate keys first")
-        
-        pair1, pair2 = self.private_key
-        
-        # Decryption uses paired-prime properties
-        # Simplified: in full implementation, uses AEI-specific math
-        n, e = self.public_key
-        
-        # Need to compute φ(n) using paired-prime structure
-        # This is where AEI theory provides advantage
-        phi = (pair1.paired_product() - 1) * (pair2.paired_product() - 1)
-        
-        # Private exponent
-        d = pow(e, -1, phi)
-        
-        # Decrypt: m = c^d mod n
-        return pow(ciphertext, d, n)
-    
+        n, _ = self.public_key
+        return pow(ciphertext, self._d, n)
+
     def sign(self, message: int) -> int:
         """
         Sign message with private key.
