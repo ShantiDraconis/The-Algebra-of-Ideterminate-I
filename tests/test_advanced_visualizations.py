@@ -14,10 +14,16 @@ import sys
 import matplotlib
 matplotlib.use('Agg')
 
-# Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src', 'python'))
+# O módulo está em src/python/ialgebra, não no pacote ialgebra da raiz. Carregar pelo
+# caminho evita pegar o ialgebra da raiz quando outro teste já o importou.
+import importlib.util
+_caminho = os.path.join(os.path.dirname(__file__), '..', 'src', 'python', 'ialgebra', 'advanced_visualizations.py')
+_spec = importlib.util.spec_from_file_location("ialgebra_src_advanced_visualizations", _caminho)
+_mod = importlib.util.module_from_spec(_spec)
+sys.modules[_spec.name] = _mod
+_spec.loader.exec_module(_mod)
 
-from ialgebra.advanced_visualizations import (
+from ialgebra_src_advanced_visualizations import (
     HealedSingularityVisualizer,
     PhaseTransitionVisualizer,
     StabilityHeatMapVisualizer,
@@ -218,7 +224,7 @@ class TestColorScheme(unittest.TestCase):
     
     def test_neon_colors_defined(self):
         """Test that NEON_COLORS dictionary exists and is complete."""
-        from ialgebra.advanced_visualizations import NEON_COLORS
+        from ialgebra_src_advanced_visualizations import NEON_COLORS
         
         expected_colors = [
             'cyan', 'magenta', 'lime', 'yellow', 
@@ -233,7 +239,7 @@ class TestColorScheme(unittest.TestCase):
     
     def test_background_color_defined(self):
         """Test that BACKGROUND_COLOR is defined."""
-        from ialgebra.advanced_visualizations import BACKGROUND_COLOR
+        from ialgebra_src_advanced_visualizations import BACKGROUND_COLOR
         
         self.assertTrue(BACKGROUND_COLOR.startswith('#'))
         self.assertEqual(len(BACKGROUND_COLOR), 7)  # #RRGGBB format

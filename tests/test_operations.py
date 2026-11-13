@@ -141,10 +141,12 @@ class TestDivision:
         # 0/0 is indeterminate, returns I
         assert result.is_pure_indeterminate()
     
-    def test_division_by_I_raises(self):
-        """Test that division by I is undefined."""
-        with pytest.raises(ValueError, match="Division by I is undefined"):
-            divide(5, I)
+    def test_division_by_I_is_I(self):
+        """x / I = I e I / x = I, como na biblioteca Indet (Lean)."""
+        assert divide(5, I).is_pure_indeterminate()
+        assert divide(0, I).is_pure_indeterminate()
+        assert divide(I, 5).is_pure_indeterminate()
+        assert divide(I, I).is_pure_indeterminate()
     
     def test_extended_division_by_field(self):
         """Test dividing extended element by field element."""

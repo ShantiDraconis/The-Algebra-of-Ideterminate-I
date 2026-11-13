@@ -125,8 +125,7 @@ def divide(a: AlgebraElement, b: AlgebraElement) -> ExtendedElement:
     Returns:
         The quotient in K_I
         
-    Raises:
-        ValueError: If attempting 0/0 (undefined even with I)
+    Divisão por I, ou de I por qualquer coisa, dá I (absorção, como em Indet).
     """
     a_ext = to_extended(a)
     b_ext = to_extended(b)
@@ -141,9 +140,11 @@ def divide(a: AlgebraElement, b: AlgebraElement) -> ExtendedElement:
             # x/0 = I for x ≠ 0
             return ExtendedElement(0, 1)
     
-    # Division by I is undefined (Axiom I4)
-    if b_ext.is_pure_indeterminate():
-        raise ValueError("Division by I is undefined")
+    # Divisão por I dá I, como na biblioteca Indet (Lean): x / 𝕀 = 𝕀. Antes lançava
+    # ValueError, citando um "Axiom I4" que em python/indeterminate.py é a absorção
+    # (I ⊕ κ = I, I ⊗ κ = I); a absorção é o que vale aqui também.
+    if b_ext.is_pure_indeterminate() or a_ext.is_pure_indeterminate():
+        return ExtendedElement(0, 1)
     
     # Standard division for field elements
     if a_ext.is_field_element() and b_ext.is_field_element():
